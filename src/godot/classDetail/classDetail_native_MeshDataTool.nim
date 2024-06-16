@@ -20,23 +20,23 @@ proc createFromSurface*(self: MeshDataTool; mesh: GD_ref[ArrayMesh]; surface: in
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Error)
-proc commitToSurface*(self: MeshDataTool; mesh: GD_ref[ArrayMesh]): Error =
+proc commitToSurface*(self: MeshDataTool; mesh: GD_ref[ArrayMesh]; compressionFlags: uint64 = 0): Error =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "commit_to_surface"
-    methodbind = interface_ClassDB_getMethodBind(addr className MeshDataTool, addr name, 3521099812)
-  var `?param` = [getPtr mesh]
+    methodbind = interface_ClassDB_getMethodBind(addr className MeshDataTool, addr name, 2021686445)
+  var `?param` = [getPtr mesh, getPtr compressionFlags]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Error)
-proc getFormat*(self: MeshDataTool): int32 =
+proc getFormat*(self: MeshDataTool): uint64 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_format"
     methodbind = interface_ClassDB_getMethodBind(addr className MeshDataTool, addr name, 3905245786)
-  var ret: encoded int32
+  var ret: encoded uint64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
-  (addr ret).decode_result(int32)
+  (addr ret).decode_result(uint64)
 proc getVertexCount*(self: MeshDataTool): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

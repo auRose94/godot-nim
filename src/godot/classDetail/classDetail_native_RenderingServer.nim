@@ -144,6 +144,15 @@ proc textureGetPath*(self: RenderingServer; texture: RID): String =
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(String)
+proc textureGetFormat*(self: RenderingServer; texture: RID): Image_Format =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "texture_get_format"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1932918979)
+  var `?param` = [getPtr texture]
+  var ret: encoded Image_Format
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Image_Format)
 proc textureSetForceRedrawIfVisible*(self: RenderingServer; texture: RID; enable: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -151,6 +160,15 @@ proc textureSetForceRedrawIfVisible*(self: RenderingServer; texture: RID; enable
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1265174801)
   var `?param` = [getPtr texture, getPtr enable]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc textureRdCreate*(self: RenderingServer; rdTexture: RID; layerType: RenderingServer_TextureLayeredType = textureLayered2dArray): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "texture_rd_create"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1434128712)
+  var `?param` = [getPtr rdTexture, getPtr layerType]
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(RID)
 proc textureGetRdTexture*(self: RenderingServer; texture: RID; srgb: Bool = false): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -222,14 +240,14 @@ proc shaderSetDefaultTextureParameter*(self: RenderingServer; shader: RID; name:
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shader_set_default_texture_parameter"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3864903085)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 4094001817)
   var `?param` = [getPtr shader, getPtr name, getPtr texture, getPtr index]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc shaderGetDefaultTextureParameter*(self: RenderingServer; shader: RID; name: StringName; index: int32 = 0): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shader_get_default_texture_parameter"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2523186822)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1464608890)
   var `?param` = [getPtr shader, getPtr name, getPtr index]
   var ret: encoded RID
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -283,7 +301,7 @@ proc meshCreateFromSurfaces*(self: RenderingServer; surfaces: TypedArray[Diction
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "mesh_create_from_surfaces"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 4007581507)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 4291747531)
   var `?param` = [getPtr surfaces, getPtr blendShapeCount]
   var ret: encoded RID
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -309,6 +327,15 @@ proc meshSurfaceGetFormatVertexStride*(self: RenderingServer; format: set[Render
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "mesh_surface_get_format_vertex_stride"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3188363337)
+  var `?param` = [getPtr format, getPtr vertexCount]
+  var ret: encoded uint32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(uint32)
+proc meshSurfaceGetFormatNormalTangentStride*(self: RenderingServer; format: set[RenderingServer_ArrayFormat]; vertexCount: int32): uint32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "mesh_surface_get_format_normal_tangent_stride"
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3188363337)
   var `?param` = [getPtr format, getPtr vertexCount]
   var ret: encoded uint32
@@ -343,7 +370,7 @@ proc meshAddSurfaceFromArrays*(self: RenderingServer; mesh: RID; primitive: Rend
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "mesh_add_surface_from_arrays"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1247008646)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2342446560)
   var `?param` = [getPtr mesh, getPtr primitive, getPtr arrays, getPtr blendShapes, getPtr lods, getPtr compressFormat]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc meshGetBlendShapeCount*(self: RenderingServer; mesh: RID): int32 =
@@ -546,6 +573,22 @@ proc multimeshGetAabb*(self: RenderingServer; multimesh: RID): AABB =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "multimesh_get_aabb"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 974181306)
+  var `?param` = [getPtr multimesh]
+  var ret: encoded AABB
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(AABB)
+proc multimeshSetCustomAabb*(self: RenderingServer; multimesh: RID; aabb: AABB) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "multimesh_set_custom_aabb"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3696536120)
+  var `?param` = [getPtr multimesh, getPtr aabb]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc multimeshGetCustomAabb*(self: RenderingServer; multimesh: RID): AABB =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "multimesh_get_custom_aabb"
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 974181306)
   var `?param` = [getPtr multimesh]
   var ret: encoded AABB
@@ -924,6 +967,13 @@ proc reflectionProbeSetCullMask*(self: RenderingServer; probe: RID; layers: uint
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3411492887)
   var `?param` = [getPtr probe, getPtr layers]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc reflectionProbeSetReflectionMask*(self: RenderingServer; probe: RID; layers: uint32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "reflection_probe_set_reflection_mask"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3411492887)
+  var `?param` = [getPtr probe, getPtr layers]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc reflectionProbeSetResolution*(self: RenderingServer; probe: RID; resolution: int32) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -1279,6 +1329,13 @@ proc particlesSetAmount*(self: RenderingServer; particles: RID; amount: int32) =
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3411492887)
   var `?param` = [getPtr particles, getPtr amount]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc particlesSetAmountRatio*(self: RenderingServer; particles: RID; ratio: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "particles_set_amount_ratio"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1794382983)
+  var `?param` = [getPtr particles, getPtr ratio]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc particlesSetLifetime*(self: RenderingServer; particles: RID; lifetime: float64) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -1313,6 +1370,20 @@ proc particlesSetRandomnessRatio*(self: RenderingServer; particles: RID; ratio: 
     let name = api.newStringName "particles_set_randomness_ratio"
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1794382983)
   var `?param` = [getPtr particles, getPtr ratio]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc particlesSetInterpToEnd*(self: RenderingServer; particles: RID; factor: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "particles_set_interp_to_end"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1794382983)
+  var `?param` = [getPtr particles, getPtr factor]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc particlesSetEmitterVelocity*(self: RenderingServer; particles: RID; velocity: Vector3) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "particles_set_emitter_velocity"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3227306858)
+  var `?param` = [getPtr particles, getPtr velocity]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc particlesSetCustomAabb*(self: RenderingServer; particles: RID; aabb: AABB) =
   var methodbind {.global.}: MethodBindPtr
@@ -1666,6 +1737,13 @@ proc cameraSetCameraAttributes*(self: RenderingServer; camera: RID; effects: RID
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 395945892)
   var `?param` = [getPtr camera, getPtr effects]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc cameraSetCompositor*(self: RenderingServer; camera: RID; compositor: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "camera_set_compositor"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 395945892)
+  var `?param` = [getPtr camera, getPtr compositor]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc cameraSetUseVerticalAspect*(self: RenderingServer; camera: RID; enable: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -1713,7 +1791,7 @@ proc viewportAttachToScreen*(self: RenderingServer; viewport: RID; rect: Rect2 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "viewport_attach_to_screen"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1278520651)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1062245816)
   var `?param` = [getPtr viewport, getPtr rect, getPtr screen]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc viewportSetRenderDirectToScreen*(self: RenderingServer; viewport: RID; enabled: Bool) =
@@ -1765,6 +1843,15 @@ proc viewportSetUpdateMode*(self: RenderingServer; viewport: RID; updateMode: Re
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3161116010)
   var `?param` = [getPtr viewport, getPtr updateMode]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc viewportGetUpdateMode*(self: RenderingServer; viewport: RID): RenderingServer_ViewportUpdateMode =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "viewport_get_update_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3803901472)
+  var `?param` = [getPtr viewport]
+  var ret: encoded RenderingServer_ViewportUpdateMode
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(RenderingServer_ViewportUpdateMode)
 proc viewportSetClearMode*(self: RenderingServer; viewport: RID; clearMode: RenderingServer_ViewportClearMode) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -1930,6 +2017,13 @@ proc viewportSetMsaa2d*(self: RenderingServer; viewport: RID; msaa: RenderingSer
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3764433340)
   var `?param` = [getPtr viewport, getPtr msaa]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc viewportSetUseHdr2d*(self: RenderingServer; viewport: RID; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "viewport_set_use_hdr_2d"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1265174801)
+  var `?param` = [getPtr viewport, getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc viewportSetScreenSpaceAa*(self: RenderingServer; viewport: RID; mode: RenderingServer_ViewportScreenSpaceAA) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -2020,6 +2114,13 @@ proc viewportSetVrsMode*(self: RenderingServer; viewport: RID; mode: RenderingSe
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 398809874)
   var `?param` = [getPtr viewport, getPtr mode]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc viewportSetVrsUpdateMode*(self: RenderingServer; viewport: RID; mode: RenderingServer_ViewportVRSUpdateMode) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "viewport_set_vrs_update_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2696154815)
+  var `?param` = [getPtr viewport, getPtr mode]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc viewportSetVrsTexture*(self: RenderingServer; viewport: RID; texture: RID) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -2065,6 +2166,50 @@ proc skyBakePanorama*(self: RenderingServer; sky: RID; energy: Float; bakeIrradi
   var ret: encoded GD_ref[Image]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(GD_ref[Image])
+proc compositorEffectCreate*(self: RenderingServer): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "compositor_effect_create"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 529393457)
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(RID)
+proc compositorEffectSetEnabled*(self: RenderingServer; effect: RID; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "compositor_effect_set_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1265174801)
+  var `?param` = [getPtr effect, getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc compositorEffectSetCallback*(self: RenderingServer; effect: RID; callbackType: RenderingServer_CompositorEffectCallbackType; callback: Callable) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "compositor_effect_set_callback"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 487412485)
+  var `?param` = [getPtr effect, getPtr callbackType, getPtr callback]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc compositorEffectSetFlag*(self: RenderingServer; effect: RID; flag: RenderingServer_CompositorEffectFlags; set: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "compositor_effect_set_flag"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3659527075)
+  var `?param` = [getPtr effect, getPtr flag, getPtr set]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc compositorCreate*(self: RenderingServer): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "compositor_create"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 529393457)
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(RID)
+proc compositorSetCompositorEffects*(self: RenderingServer; compositor: RID; effects: TypedArray[RID]) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "compositor_set_compositor_effects"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 684822712)
+  var `?param` = [getPtr compositor, getPtr effects]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc environmentCreate*(self: RenderingServer): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -2126,7 +2271,7 @@ proc environmentSetAmbientLight*(self: RenderingServer; env: RID; color: Color; 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "environment_set_ambient_light"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 491659071)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1214961493)
   var `?param` = [getPtr env, getPtr color, getPtr ambient, getPtr energy, getPtr skyContibution, getPtr reflectionSource]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc environmentSetGlow*(self: RenderingServer; env: RID; enable: Bool; levels: PackedFloat32Array; intensity: Float; strength: Float; mix: Float; bloomThreshold: Float; blendMode: RenderingServer_EnvironmentGlowBlendMode; hdrBleedThreshold: Float; hdrBleedScale: Float; hdrLuminanceCap: Float; glowMapStrength: Float; glowMap: RID) =
@@ -2164,12 +2309,12 @@ proc environmentSetSsao*(self: RenderingServer; env: RID; enable: Bool; radius: 
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3994732740)
   var `?param` = [getPtr env, getPtr enable, getPtr radius, getPtr intensity, getPtr power, getPtr detail, getPtr horizon, getPtr sharpness, getPtr lightAffect, getPtr aoChannelAffect]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc environmentSetFog*(self: RenderingServer; env: RID; enable: Bool; lightColor: Color; lightEnergy: Float; sunScatter: Float; density: Float; height: Float; heightDensity: Float; aerialPerspective: Float; skyAffect: Float) =
+proc environmentSetFog*(self: RenderingServer; env: RID; enable: Bool; lightColor: Color; lightEnergy: Float; sunScatter: Float; density: Float; height: Float; heightDensity: Float; aerialPerspective: Float; skyAffect: Float; fogMode: RenderingServer_EnvironmentFogMode = envFogModeExponential) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "environment_set_fog"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2793577733)
-  var `?param` = [getPtr env, getPtr enable, getPtr lightColor, getPtr lightEnergy, getPtr sunScatter, getPtr density, getPtr height, getPtr heightDensity, getPtr aerialPerspective, getPtr skyAffect]
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 105051629)
+  var `?param` = [getPtr env, getPtr enable, getPtr lightColor, getPtr lightEnergy, getPtr sunScatter, getPtr density, getPtr height, getPtr heightDensity, getPtr aerialPerspective, getPtr skyAffect, getPtr fogMode]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc environmentSetSdfgi*(self: RenderingServer; env: RID; enable: Bool; cascades: int32; minCellSize: Float; yScale: RenderingServer_EnvironmentSDFGIYScale; useOcclusion: Bool; bounceFeedback: Float; readSky: Bool; energy: Float; normalBias: Float; probeBias: Float) =
   var methodbind {.global.}: MethodBindPtr
@@ -2350,7 +2495,23 @@ proc scenarioSetCameraAttributes*(self: RenderingServer; scenario: RID; effects:
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 395945892)
   var `?param` = [getPtr scenario, getPtr effects]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc scenarioSetCompositor*(self: RenderingServer; scenario: RID; compositor: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "scenario_set_compositor"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 395945892)
+  var `?param` = [getPtr scenario, getPtr compositor]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc instanceCreate2*(self: RenderingServer; base: RID; scenario: RID): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "instance_create2"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 746547085)
+  var `?param` = [getPtr base, getPtr scenario]
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(RID)
+proc instanceCreate3*(self: RenderingServer; base: RID; scenario: RID): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "instance_create2"
@@ -2559,7 +2720,7 @@ proc instancesCullAabb*(self: RenderingServer; aabb: AABB; scenario: RID = RID()
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "instances_cull_aabb"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2031554939)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2570105777)
   var `?param` = [getPtr aabb, getPtr scenario]
   var ret: encoded PackedInt64Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -2568,7 +2729,7 @@ proc instancesCullRay*(self: RenderingServer; `from`: Vector3; to: Vector3; scen
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "instances_cull_ray"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3388524336)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2208759584)
   var `?param` = [getPtr `from`, getPtr to, getPtr scenario]
   var ret: encoded PackedInt64Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -2577,7 +2738,7 @@ proc instancesCullConvex*(self: RenderingServer; convex: TypedArray[Plane]; scen
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "instances_cull_convex"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3690700105)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2488539944)
   var `?param` = [getPtr convex, getPtr scenario]
   var ret: encoded PackedInt64Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -2605,6 +2766,13 @@ proc canvasSetItemMirroring*(self: RenderingServer; canvas: RID; item: RID; mirr
     let name = api.newStringName "canvas_set_item_mirroring"
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2343975398)
   var `?param` = [getPtr canvas, getPtr item, getPtr mirroring]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc canvasSetItemRepeat*(self: RenderingServer; item: RID; repeatSize: Vector2; repeatTimes: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "canvas_set_item_repeat"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1739512717)
+  var `?param` = [getPtr item, getPtr repeatSize, getPtr repeatTimes]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasSetModulate*(self: RenderingServer; canvas: RID; color: Color) =
   var methodbind {.global.}: MethodBindPtr
@@ -2731,7 +2899,7 @@ proc canvasItemSetCustomRect*(self: RenderingServer; item: RID; useCustomRect: B
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_set_custom_rect"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2180266943)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1333997032)
   var `?param` = [getPtr item, getPtr useCustomRect, getPtr rect]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemSetModulate*(self: RenderingServer; item: RID; color: Color) =
@@ -2755,53 +2923,74 @@ proc canvasItemSetDrawBehindParent*(self: RenderingServer; item: RID; enabled: B
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1265174801)
   var `?param` = [getPtr item, getPtr enabled]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc canvasItemSetInterpolated*(self: RenderingServer; item: RID; interpolated: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "canvas_item_set_interpolated"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1265174801)
+  var `?param` = [getPtr item, getPtr interpolated]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc canvasItemResetPhysicsInterpolation*(self: RenderingServer; item: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "canvas_item_reset_physics_interpolation"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2722037293)
+  var `?param` = [getPtr item]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc canvasItemTransformPhysicsInterpolation*(self: RenderingServer; item: RID; transform: Transform2D) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "canvas_item_transform_physics_interpolation"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1246044741)
+  var `?param` = [getPtr item, getPtr transform]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemAddLine*(self: RenderingServer; item: RID; `from`: Vector2; to: Vector2; color: Color; width: Float = -1.0; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_line"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2843922985)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1819681853)
   var `?param` = [getPtr item, getPtr `from`, getPtr to, getPtr color, getPtr width, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemAddPolyline*(self: RenderingServer; item: RID; points: PackedVector2Array; colors: PackedColorArray; width: Float = -1.0; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_polyline"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3438017257)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3098767073)
   var `?param` = [getPtr item, getPtr points, getPtr colors, getPtr width, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc canvasItemAddMultiline*(self: RenderingServer; item: RID; points: PackedVector2Array; colors: PackedColorArray; width: Float = -1.0) =
+proc canvasItemAddMultiline*(self: RenderingServer; item: RID; points: PackedVector2Array; colors: PackedColorArray; width: Float = -1.0; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_multiline"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3176074788)
-  var `?param` = [getPtr item, getPtr points, getPtr colors, getPtr width]
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3098767073)
+  var `?param` = [getPtr item, getPtr points, getPtr colors, getPtr width, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc canvasItemAddRect*(self: RenderingServer; item: RID; rect: Rect2; color: Color) =
+proc canvasItemAddRect*(self: RenderingServer; item: RID; rect: Rect2; color: Color; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_rect"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 934531857)
-  var `?param` = [getPtr item, getPtr rect, getPtr color]
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3523446176)
+  var `?param` = [getPtr item, getPtr rect, getPtr color, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc canvasItemAddCircle*(self: RenderingServer; item: RID; pos: Vector2; radius: Float; color: Color) =
+proc canvasItemAddCircle*(self: RenderingServer; item: RID; pos: Vector2; radius: Float; color: Color; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_circle"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2439351960)
-  var `?param` = [getPtr item, getPtr pos, getPtr radius, getPtr color]
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 333077949)
+  var `?param` = [getPtr item, getPtr pos, getPtr radius, getPtr color, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemAddTextureRect*(self: RenderingServer; item: RID; rect: Rect2; texture: RID; tile: Bool = false; modulate: Color = init_Color(1, 1, 1, 1); transpose: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_texture_rect"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3205360868)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 324864032)
   var `?param` = [getPtr item, getPtr rect, getPtr texture, getPtr tile, getPtr modulate, getPtr transpose]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemAddMsdfTextureRectRegion*(self: RenderingServer; item: RID; rect: Rect2; texture: RID; srcRect: Rect2; modulate: Color = init_Color(1, 1, 1, 1); outlineSize: int32 = 0; pxRange: Float = 1.0; scale: Float = 1.0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_msdf_texture_rect_region"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 349157222)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 97408773)
   var `?param` = [getPtr item, getPtr rect, getPtr texture, getPtr srcRect, getPtr modulate, getPtr outlineSize, getPtr pxRange, getPtr scale]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemAddLcdTextureRectRegion*(self: RenderingServer; item: RID; rect: Rect2; texture: RID; srcRect: Rect2; modulate: Color) =
@@ -2815,14 +3004,14 @@ proc canvasItemAddTextureRectRegion*(self: RenderingServer; item: RID; rect: Rec
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_texture_rect_region"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2782979504)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 485157892)
   var `?param` = [getPtr item, getPtr rect, getPtr texture, getPtr srcRect, getPtr modulate, getPtr transpose, getPtr clipUv]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemAddNinePatch*(self: RenderingServer; item: RID; rect: Rect2; source: Rect2; texture: RID; topleft: Vector2; bottomright: Vector2; xAxisMode: RenderingServer_NinePatchAxisMode = ninePatchStretch; yAxisMode: RenderingServer_NinePatchAxisMode = ninePatchStretch; drawCenter: Bool = true; modulate: Color = init_Color(1, 1, 1, 1)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_nine_patch"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 904428547)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 389957886)
   var `?param` = [getPtr item, getPtr rect, getPtr source, getPtr texture, getPtr topleft, getPtr bottomright, getPtr xAxisMode, getPtr yAxisMode, getPtr drawCenter, getPtr modulate]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemAddPrimitive*(self: RenderingServer; item: RID; points: PackedVector2Array; colors: PackedColorArray; uvs: PackedVector2Array; texture: RID) =
@@ -2836,28 +3025,28 @@ proc canvasItemAddPolygon*(self: RenderingServer; item: RID; points: PackedVecto
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_polygon"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2907936855)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3580000528)
   var `?param` = [getPtr item, getPtr points, getPtr colors, getPtr uvs, getPtr texture]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemAddTriangleArray*(self: RenderingServer; item: RID; indices: PackedInt32Array; points: PackedVector2Array; colors: PackedColorArray; uvs: PackedVector2Array = PackedVector2Array(); bones: PackedInt32Array = PackedInt32Array(); weights: PackedFloat32Array = PackedFloat32Array(); texture: RID = RID(); count: int32 = -1) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_triangle_array"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 749685193)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 660261329)
   var `?param` = [getPtr item, getPtr indices, getPtr points, getPtr colors, getPtr uvs, getPtr bones, getPtr weights, getPtr texture, getPtr count]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemAddMesh*(self: RenderingServer; item: RID; mesh: RID; transform: Transform2D = init_Transform2D(); modulate: Color = init_Color(1, 1, 1, 1); texture: RID = RID()) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_mesh"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3548053052)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 316450961)
   var `?param` = [getPtr item, getPtr mesh, getPtr transform, getPtr modulate, getPtr texture]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemAddMultimesh*(self: RenderingServer; item: RID; mesh: RID; texture: RID = RID()) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_multimesh"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1541595251)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2131855138)
   var `?param` = [getPtr item, getPtr mesh, getPtr texture]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemAddParticles*(self: RenderingServer; item: RID; particles: RID; texture: RID) =
@@ -2885,7 +3074,7 @@ proc canvasItemAddAnimationSlice*(self: RenderingServer; item: RID; animationLen
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_add_animation_slice"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 4107531031)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2646834499)
   var `?param` = [getPtr item, getPtr animationLength, getPtr sliceBegin, getPtr sliceEnd, getPtr offset]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasItemSetSortChildrenByY*(self: RenderingServer; item: RID; enabled: Bool) =
@@ -2955,9 +3144,18 @@ proc canvasItemSetCanvasGroupMode*(self: RenderingServer; item: RID; mode: Rende
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "canvas_item_set_canvas_group_mode"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 41973386)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3973586316)
   var `?param` = [getPtr item, getPtr mode, getPtr clearMargin, getPtr fitEmpty, getPtr fitMargin, getPtr blurMipmaps]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc debugCanvasItemGetRect*(self: RenderingServer; item: RID): Rect2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "debug_canvas_item_get_rect"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 624227424)
+  var `?param` = [getPtr item]
+  var ret: encoded Rect2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Rect2)
 proc canvasLightCreate*(self: RenderingServer): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -3099,6 +3297,27 @@ proc canvasLightSetBlendMode*(self: RenderingServer; light: RID; mode: Rendering
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 804895945)
   var `?param` = [getPtr light, getPtr mode]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc canvasLightSetInterpolated*(self: RenderingServer; light: RID; interpolated: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "canvas_light_set_interpolated"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1265174801)
+  var `?param` = [getPtr light, getPtr interpolated]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc canvasLightResetPhysicsInterpolation*(self: RenderingServer; light: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "canvas_light_reset_physics_interpolation"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2722037293)
+  var `?param` = [getPtr light]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc canvasLightTransformPhysicsInterpolation*(self: RenderingServer; light: RID; transform: Transform2D) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "canvas_light_transform_physics_interpolation"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1246044741)
+  var `?param` = [getPtr light, getPtr transform]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasLightOccluderCreate*(self: RenderingServer): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -3148,6 +3367,27 @@ proc canvasLightOccluderSetLightMask*(self: RenderingServer; occluder: RID; mask
     let name = api.newStringName "canvas_light_occluder_set_light_mask"
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3411492887)
   var `?param` = [getPtr occluder, getPtr mask]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc canvasLightOccluderSetInterpolated*(self: RenderingServer; occluder: RID; interpolated: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "canvas_light_occluder_set_interpolated"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1265174801)
+  var `?param` = [getPtr occluder, getPtr interpolated]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc canvasLightOccluderResetPhysicsInterpolation*(self: RenderingServer; occluder: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "canvas_light_occluder_reset_physics_interpolation"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2722037293)
+  var `?param` = [getPtr occluder]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc canvasLightOccluderTransformPhysicsInterpolation*(self: RenderingServer; occluder: RID; transform: Transform2D) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "canvas_light_occluder_transform_physics_interpolation"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1246044741)
+  var `?param` = [getPtr occluder, getPtr transform]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc canvasOccluderPolygonCreate*(self: RenderingServer): RID =
   var methodbind {.global.}: MethodBindPtr
@@ -3332,7 +3572,7 @@ proc setBootImage*(self: RenderingServer; image: GD_ref[Image]; color: Color; sc
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_boot_image"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2244367877)
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 3759744527)
   var `?param` = [getPtr image, getPtr color, getPtr scale, getPtr useFilter]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getDefaultClearColor*(self: RenderingServer): Color =
@@ -3350,15 +3590,6 @@ proc setDefaultClearColor*(self: RenderingServer; color: Color) =
     methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2920490490)
   var `?param` = [getPtr color]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc hasFeature*(self: RenderingServer; feature: RenderingServer_Features): Bool =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "has_feature"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 598462696)
-  var `?param` = [getPtr feature]
-  var ret: encoded Bool
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(Bool)
 proc hasOsFeature*(self: RenderingServer; feature: String): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -3427,3 +3658,18 @@ proc createLocalRenderingDevice*(self: RenderingServer): RenderingDevice =
   var ret: encoded RenderingDevice
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(RenderingDevice)
+proc isOnRenderThread*(self: RenderingServer): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_on_render_thread"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 2240911060)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc callOnRenderThread*(self: RenderingServer; callable: Callable) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "call_on_render_thread"
+    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 1611583062)
+  var `?param` = [getPtr callable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

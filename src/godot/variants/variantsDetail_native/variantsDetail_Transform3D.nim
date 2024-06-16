@@ -84,7 +84,9 @@ var Equal_Transform3D_Variant: PtrOperatorEvaluator
 var NotEqual_Transform3D_Variant: PtrOperatorEvaluator
 var Not_Transform3D: PtrOperatorEvaluator
 var Multiply_Transform3D_Int: PtrOperatorEvaluator
+var Divide_Transform3D_Int: PtrOperatorEvaluator
 var Multiply_Transform3D_Float: PtrOperatorEvaluator
+var Divide_Transform3D_Float: PtrOperatorEvaluator
 var Multiply_Transform3D_Vector3: PtrOperatorEvaluator
 var Multiply_Transform3D_Plane: PtrOperatorEvaluator
 var Multiply_Transform3D_AABB: PtrOperatorEvaluator
@@ -98,7 +100,9 @@ proc `==`*(left: Transform3D; right: Variant): Bool = Equal_Transform3D_Variant(
 proc `!=`*(left: Transform3D; right: Variant): Bool = NotEqual_Transform3D_Variant(getPtr left, getPtr right, addr result)
 proc `not`*(left: Transform3D): Bool = Not_Transform3D(getPtr left, nil, addr result)
 proc `*`*(left: Transform3D; right: Int): Transform3D = Multiply_Transform3D_Int(getPtr left, getPtr right, addr result)
+proc `/`*(left: Transform3D; right: Int): Transform3D = Divide_Transform3D_Int(getPtr left, getPtr right, addr result)
 proc `*`*(left: Transform3D; right: Float): Transform3D = Multiply_Transform3D_Float(getPtr left, getPtr right, addr result)
+proc `/`*(left: Transform3D; right: Float): Transform3D = Divide_Transform3D_Float(getPtr left, getPtr right, addr result)
 proc `*`*(left: Transform3D; right: Vector3): Vector3 = Multiply_Transform3D_Vector3(getPtr left, getPtr right, addr result)
 proc `*`*(left: Transform3D; right: Plane): Plane = Multiply_Transform3D_Plane(getPtr left, getPtr right, addr result)
 proc `*`*(left: Transform3D; right: AABB): AABB = Multiply_Transform3D_AABB(getPtr left, getPtr right, addr result)
@@ -113,7 +117,9 @@ proc load_Transform3D_op =
   NotEqual_Transform3D_Variant = interface_variantGetPtrOperatorEvaluator(VariantOP_NotEqual, VariantType_Transform3D, VariantType_Nil)
   Not_Transform3D = interface_variantGetPtrOperatorEvaluator(VariantOP_Not, VariantType_Transform3D, VariantType_Nil)
   Multiply_Transform3D_Int = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Transform3D, VariantType_Int)
+  Divide_Transform3D_Int = interface_variantGetPtrOperatorEvaluator(VariantOP_Divide, VariantType_Transform3D, VariantType_Int)
   Multiply_Transform3D_Float = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Transform3D, VariantType_Float)
+  Divide_Transform3D_Float = interface_variantGetPtrOperatorEvaluator(VariantOP_Divide, VariantType_Transform3D, VariantType_Float)
   Multiply_Transform3D_Vector3 = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Transform3D, VariantType_Vector3)
   Multiply_Transform3D_Plane = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Transform3D, VariantType_Plane)
   Multiply_Transform3D_AABB = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Transform3D, VariantType_AABB)

@@ -9,7 +9,7 @@ proc mixAudio*(self: VideoStreamPlayback; numFrames: int32; buffer: PackedFloat3
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "mix_audio"
-    methodbind = interface_ClassDB_getMethodBind(addr className VideoStreamPlayback, addr name, 1369271885)
+    methodbind = interface_ClassDB_getMethodBind(addr className VideoStreamPlayback, addr name, 93876830)
   var `?param` = [getPtr numFrames, getPtr buffer, getPtr offset]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

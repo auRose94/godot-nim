@@ -28,6 +28,21 @@ proc alignment*(self: FlowContainer): FlowContainer_AlignmentMode =
   var ret: encoded FlowContainer_AlignmentMode
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(FlowContainer_AlignmentMode)
+proc `lastWrapAlignment=`*(self: FlowContainer; lastWrapAlignment: FlowContainer_LastWrapAlignmentMode) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_last_wrap_alignment"
+    methodbind = interface_ClassDB_getMethodBind(addr className FlowContainer, addr name, 2899697495)
+  var `?param` = [getPtr lastWrapAlignment]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc lastWrapAlignment*(self: FlowContainer): FlowContainer_LastWrapAlignmentMode =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_last_wrap_alignment"
+    methodbind = interface_ClassDB_getMethodBind(addr className FlowContainer, addr name, 3743456014)
+  var ret: encoded FlowContainer_LastWrapAlignmentMode
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(FlowContainer_LastWrapAlignmentMode)
 proc `vertical=`*(self: FlowContainer; vertical: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -39,6 +54,21 @@ proc isVertical*(self: FlowContainer): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_vertical"
+    methodbind = interface_ClassDB_getMethodBind(addr className FlowContainer, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `reverseFill=`*(self: FlowContainer; reverseFill: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_reverse_fill"
+    methodbind = interface_ClassDB_getMethodBind(addr className FlowContainer, addr name, 2586408642)
+  var `?param` = [getPtr reverseFill]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isReverseFill*(self: FlowContainer): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_reverse_fill"
     methodbind = interface_ClassDB_getMethodBind(addr className FlowContainer, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

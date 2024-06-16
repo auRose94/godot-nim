@@ -54,6 +54,13 @@ proc `randomnessRatio=`*(self: CPUParticles3D; ratio: Float) =
     methodbind = interface_ClassDB_getMethodBind(addr className CPUParticles3D, addr name, 373806689)
   var `?param` = [getPtr ratio]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc `visibilityAabb=`*(self: CPUParticles3D; aabb: AABB) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_visibility_aabb"
+    methodbind = interface_ClassDB_getMethodBind(addr className CPUParticles3D, addr name, 259215842)
+  var `?param` = [getPtr aabb]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc `lifetimeRandomness=`*(self: CPUParticles3D; random: float64) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -145,6 +152,14 @@ proc randomnessRatio*(self: CPUParticles3D): Float =
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Float)
+proc visibilityAabb*(self: CPUParticles3D): AABB =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_visibility_aabb"
+    methodbind = interface_ClassDB_getMethodBind(addr className CPUParticles3D, addr name, 1068685055)
+  var ret: encoded AABB
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(AABB)
 proc lifetimeRandomness*(self: CPUParticles3D): float64 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

@@ -9,7 +9,7 @@ proc createClient*(self: WebSocketMultiplayerPeer; url: String; tlsClientOptions
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_client"
-    methodbind = interface_ClassDB_getMethodBind(addr className WebSocketMultiplayerPeer, addr name, 3097527179)
+    methodbind = interface_ClassDB_getMethodBind(addr className WebSocketMultiplayerPeer, addr name, 1966198364)
   var `?param` = [getPtr url, getPtr tlsClientOptions]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -18,7 +18,7 @@ proc createServer*(self: WebSocketMultiplayerPeer; port: int32; bindAddress: Str
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_server"
-    methodbind = interface_ClassDB_getMethodBind(addr className WebSocketMultiplayerPeer, addr name, 337374795)
+    methodbind = interface_ClassDB_getMethodBind(addr className WebSocketMultiplayerPeer, addr name, 2400822951)
   var `?param` = [getPtr port, getPtr bindAddress, getPtr tlsServerOptions]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

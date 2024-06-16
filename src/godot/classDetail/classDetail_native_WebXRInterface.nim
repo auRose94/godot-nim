@@ -65,6 +65,14 @@ proc referenceSpaceType*(self: WebXRInterface): String =
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(String)
+proc enabledFeatures*(self: WebXRInterface): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_enabled_features"
+    methodbind = interface_ClassDB_getMethodBind(addr className WebXRInterface, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
 proc `requestedReferenceSpaceTypes=`*(self: WebXRInterface; requestedReferenceSpaceTypes: String) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -89,15 +97,15 @@ proc isInputSourceActive*(self: WebXRInterface; inputSourceId: int32): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
-proc getInputSourceTracker*(self: WebXRInterface; inputSourceId: int32): GD_ref[XRPositionalTracker] =
+proc getInputSourceTracker*(self: WebXRInterface; inputSourceId: int32): GD_ref[XRControllerTracker] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_input_source_tracker"
-    methodbind = interface_ClassDB_getMethodBind(addr className WebXRInterface, addr name, 636011756)
+    methodbind = interface_ClassDB_getMethodBind(addr className WebXRInterface, addr name, 399776966)
   var `?param` = [getPtr inputSourceId]
-  var ret: encoded GD_ref[XRPositionalTracker]
+  var ret: encoded GD_ref[XRControllerTracker]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(GD_ref[XRPositionalTracker])
+  (addr ret).decode_result(GD_ref[XRControllerTracker])
 proc getInputSourceTargetRayMode*(self: WebXRInterface; inputSourceId: int32): WebXRInterface_TargetRayMode =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

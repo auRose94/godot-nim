@@ -17,7 +17,7 @@ proc addProperty*(self: SceneReplicationConfig; path: NodePath; index: int32 = -
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_property"
-    methodbind = interface_ClassDB_getMethodBind(addr className SceneReplicationConfig, addr name, 3818401521)
+    methodbind = interface_ClassDB_getMethodBind(addr className SceneReplicationConfig, addr name, 4094619021)
   var `?param` = [getPtr path, getPtr index]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc hasProperty*(self: SceneReplicationConfig; path: NodePath): Bool =
@@ -60,6 +60,22 @@ proc propertySetSpawn*(self: SceneReplicationConfig; path: NodePath; enabled: Bo
     let name = api.newStringName "property_set_spawn"
     methodbind = interface_ClassDB_getMethodBind(addr className SceneReplicationConfig, addr name, 3868023870)
   var `?param` = [getPtr path, getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc propertyGetReplicationMode*(self: SceneReplicationConfig; path: NodePath): SceneReplicationConfig_ReplicationMode =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "property_get_replication_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className SceneReplicationConfig, addr name, 2870606336)
+  var `?param` = [getPtr path]
+  var ret: encoded SceneReplicationConfig_ReplicationMode
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(SceneReplicationConfig_ReplicationMode)
+proc propertySetReplicationMode*(self: SceneReplicationConfig; path: NodePath; mode: SceneReplicationConfig_ReplicationMode) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "property_set_replication_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className SceneReplicationConfig, addr name, 3200083865)
+  var `?param` = [getPtr path, getPtr mode]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc propertyGetSync*(self: SceneReplicationConfig; path: NodePath): Bool =
   var methodbind {.global.}: MethodBindPtr

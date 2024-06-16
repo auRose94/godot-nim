@@ -9,7 +9,7 @@ proc createHostBound*(self: ENetConnection; bindAddress: String; bindPort: int32
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_host_bound"
-    methodbind = interface_ClassDB_getMethodBind(addr className ENetConnection, addr name, 866250949)
+    methodbind = interface_ClassDB_getMethodBind(addr className ENetConnection, addr name, 1515002313)
   var `?param` = [getPtr bindAddress, getPtr bindPort, getPtr maxPeers, getPtr maxChannels, getPtr inBandwidth, getPtr outBandwidth]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -33,7 +33,7 @@ proc connectToHost*(self: ENetConnection; address: String; port: int32; channels
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "connect_to_host"
-    methodbind = interface_ClassDB_getMethodBind(addr className ENetConnection, addr name, 385984708)
+    methodbind = interface_ClassDB_getMethodBind(addr className ENetConnection, addr name, 2171300490)
   var `?param` = [getPtr address, getPtr port, getPtr channels, getPtr data]
   var ret: encoded GD_ref[ENetPacketPeer]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -94,7 +94,7 @@ proc dtlsClientSetup*(self: ENetConnection; hostname: String; clientOptions: GD_
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "dtls_client_setup"
-    methodbind = interface_ClassDB_getMethodBind(addr className ENetConnection, addr name, 3097527179)
+    methodbind = interface_ClassDB_getMethodBind(addr className ENetConnection, addr name, 1966198364)
   var `?param` = [getPtr hostname, getPtr clientOptions]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

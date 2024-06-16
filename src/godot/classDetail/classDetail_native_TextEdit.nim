@@ -13,6 +13,18 @@ proc hasImeText*(self: TextEdit): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc cancelIme*(self: TextEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "cancel_ime"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc applyIme*(self: TextEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "apply_ime"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
 proc `editable=`*(self: TextEdit; enabled: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -103,6 +115,21 @@ proc getTabSize*(self: TextEdit): int32 =
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
+proc `indentWrappedLines=`*(self: TextEdit; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_indent_wrapped_lines"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 2586408642)
+  var `?param` = [getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isIndentWrappedLines*(self: TextEdit): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_indent_wrapped_lines"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc setOvertypeModeEnabled*(self: TextEdit; enabled: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -242,7 +269,7 @@ proc getLineWidth*(self: TextEdit; line: int32; wrapIndex: int32 = -1): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_line_width"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3294126239)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 688195400)
   var `?param` = [getPtr line, getPtr wrapIndex]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -287,12 +314,26 @@ proc insertLineAt*(self: TextEdit; line: int32; text: String) =
     methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 501894301)
   var `?param` = [getPtr line, getPtr text]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc removeLineAt*(self: TextEdit; line: int32; moveCaretsDown: Bool = true) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "remove_line_at"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 972357352)
+  var `?param` = [getPtr line, getPtr moveCaretsDown]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc insertTextAtCaret*(self: TextEdit; text: String; caretIndex: int32 = -1) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "insert_text_at_caret"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3043792800)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 2697778442)
   var `?param` = [getPtr text, getPtr caretIndex]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc insertText*(self: TextEdit; text: String; line: int32; column: int32; beforeSelectionBegin: Bool = true; beforeSelectionEnd: Bool = false) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "insert_text"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1881564334)
+  var `?param` = [getPtr text, getPtr line, getPtr column, getPtr beforeSelectionBegin, getPtr beforeSelectionEnd]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc removeText*(self: TextEdit; fromLine: int32; fromColumn: int32; toLine: int32; toColumn: int32) =
   var methodbind {.global.}: MethodBindPtr
@@ -457,12 +498,12 @@ proc setSearchFlags*(self: TextEdit; flags: uint32) =
     methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1286410249)
   var `?param` = [getPtr flags]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc search*(self: TextEdit; text: String; flags: uint32; fromLine: int32; fromColum: int32): Vector2i =
+proc search*(self: TextEdit; text: String; flags: uint32; fromLine: int32; fromColumn: int32): Vector2i =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "search"
     methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1203739136)
-  var `?param` = [getPtr text, getPtr flags, getPtr fromLine, getPtr fromColum]
+  var `?param` = [getPtr text, getPtr flags, getPtr fromLine, getPtr fromColumn]
   var ret: encoded Vector2i
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Vector2i)
@@ -494,7 +535,7 @@ proc getLineColumnAtPos*(self: TextEdit; position: Vector2i; allowOutOfBounds: B
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_line_column_at_pos"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 850652858)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 239517838)
   var `?param` = [getPtr position, getPtr allowOutOfBounds]
   var ret: encoded Vector2i
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -538,7 +579,7 @@ proc isMouseOverSelection*(self: TextEdit; edges: Bool; caretIndex: int32 = -1):
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_mouse_over_selection"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1099474134)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1840282309)
   var `?param` = [getPtr edges, getPtr caretIndex]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -648,12 +689,12 @@ proc isMultipleCaretsEnabled*(self: TextEdit): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
-proc addCaret*(self: TextEdit; line: int32; col: int32): int32 =
+proc addCaret*(self: TextEdit; line: int32; column: int32): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_caret"
     methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 50157827)
-  var `?param` = [getPtr line, getPtr col]
+  var `?param` = [getPtr line, getPtr column]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(int32)
@@ -668,12 +709,6 @@ proc removeSecondaryCarets*(self: TextEdit) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "remove_secondary_carets"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3218959716)
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
-proc mergeOverlappingCarets*(self: TextEdit) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "merge_overlapping_carets"
     methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3218959716)
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
 proc getCaretCount*(self: TextEdit): int32 =
@@ -691,21 +726,57 @@ proc addCaretAtCarets*(self: TextEdit; below: Bool) =
     methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 2586408642)
   var `?param` = [getPtr below]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc getCaretIndexEditOrder*(self: TextEdit): PackedInt32Array =
+proc getSortedCarets*(self: TextEdit; includeIgnoredCarets: Bool = false): PackedInt32Array =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_caret_index_edit_order"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 969006518)
+    let name = api.newStringName "get_sorted_carets"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 2131714034)
+  var `?param` = [getPtr includeIgnoredCarets]
   var ret: encoded PackedInt32Array
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(PackedInt32Array)
-proc adjustCaretsAfterEdit*(self: TextEdit; caret: int32; fromLine: int32; fromCol: int32; toLine: int32; toCol: int32) =
+proc collapseCarets*(self: TextEdit; fromLine: int32; fromColumn: int32; toLine: int32; toColumn: int32; inclusive: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "adjust_carets_after_edit"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1770277138)
-  var `?param` = [getPtr caret, getPtr fromLine, getPtr fromCol, getPtr toLine, getPtr toCol]
+    let name = api.newStringName "collapse_carets"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 228654177)
+  var `?param` = [getPtr fromLine, getPtr fromColumn, getPtr toLine, getPtr toColumn, getPtr inclusive]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc mergeOverlappingCarets*(self: TextEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "merge_overlapping_carets"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc beginMulticaretEdit*(self: TextEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "begin_multicaret_edit"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc endMulticaretEdit*(self: TextEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "end_multicaret_edit"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc isInMulitcaretEdit*(self: TextEdit): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_in_mulitcaret_edit"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc multicaretEditIgnoreCaret*(self: TextEdit; caretIndex: int32): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "multicaret_edit_ignore_caret"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1116898809)
+  var `?param` = [getPtr caretIndex]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc isCaretVisible*(self: TextEdit; caretIndex: int32 = 0): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -728,7 +799,7 @@ proc setCaretLine*(self: TextEdit; line: int32; adjustViewport: Bool = true; can
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_caret_line"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1413195636)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1302582944)
   var `?param` = [getPtr line, getPtr adjustViewport, getPtr canBeHidden, getPtr wrapIndex, getPtr caretIndex]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getCaretLine*(self: TextEdit; caretIndex: int32 = 0): int32 =
@@ -744,7 +815,7 @@ proc setCaretColumn*(self: TextEdit; column: int32; adjustViewport: Bool = true;
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_caret_column"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1071284433)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3796796178)
   var `?param` = [getPtr column, getPtr adjustViewport, getPtr caretIndex]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getCaretColumn*(self: TextEdit; caretIndex: int32 = 0): int32 =
@@ -819,12 +890,12 @@ proc isDragAndDropSelectionEnabled*(self: TextEdit): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
-proc setSelectionMode*(self: TextEdit; mode: TextEdit_SelectionMode; line: int32 = -1; column: int32 = -1; caretIndex: int32 = 0) =
+proc setSelectionMode*(self: TextEdit; mode: TextEdit_SelectionMode) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_selection_mode"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 2920622473)
-  var `?param` = [getPtr mode, getPtr line, getPtr column, getPtr caretIndex]
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1658801786)
+  var `?param` = [getPtr mode]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getSelectionMode*(self: TextEdit): TextEdit_SelectionMode =
   var methodbind {.global.}: MethodBindPtr
@@ -853,12 +924,18 @@ proc addSelectionForNextOccurrence*(self: TextEdit) =
     let name = api.newStringName "add_selection_for_next_occurrence"
     methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3218959716)
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
-proc select*(self: TextEdit; fromLine: int32; fromColumn: int32; toLine: int32; toColumn: int32; caretIndex: int32 = 0) =
+proc skipSelectionForNextOccurrence*(self: TextEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "skip_selection_for_next_occurrence"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc select*(self: TextEdit; originLine: int32; originColumn: int32; caretLine: int32; caretColumn: int32; caretIndex: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "select"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 4269665324)
-  var `?param` = [getPtr fromLine, getPtr fromColumn, getPtr toLine, getPtr toColumn, getPtr caretIndex]
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 2560984452)
+  var `?param` = [getPtr originLine, getPtr originColumn, getPtr caretLine, getPtr caretColumn, getPtr caretIndex]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc hasSelection*(self: TextEdit; caretIndex: int32 = -1): Bool =
   var methodbind {.global.}: MethodBindPtr
@@ -878,24 +955,56 @@ proc getSelectedText*(self: TextEdit; caretIndex: int32 = -1): String =
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(String)
-proc getSelectionLine*(self: TextEdit; caretIndex: int32 = 0): int32 =
+proc getSelectionAtLineColumn*(self: TextEdit; line: int32; column: int32; includeEdges: Bool = true; onlySelections: Bool = true): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_selection_line"
+    let name = api.newStringName "get_selection_at_line_column"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1810224333)
+  var `?param` = [getPtr line, getPtr column, getPtr includeEdges, getPtr onlySelections]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
+proc getLineRangesFromCarets*(self: TextEdit; onlySelections: Bool = false; mergeAdjacent: Bool = true): TypedArray[Vector2i] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_line_ranges_from_carets"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 2393089247)
+  var `?param` = [getPtr onlySelections, getPtr mergeAdjacent]
+  var ret: encoded TypedArray[Vector2i]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(TypedArray[Vector2i])
+proc getSelectionOriginLine*(self: TextEdit; caretIndex: int32 = 0): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_selection_origin_line"
     methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1591665591)
   var `?param` = [getPtr caretIndex]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(int32)
-proc getSelectionColumn*(self: TextEdit; caretIndex: int32 = 0): int32 =
+proc getSelectionOriginColumn*(self: TextEdit; caretIndex: int32 = 0): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_selection_column"
+    let name = api.newStringName "get_selection_origin_column"
     methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1591665591)
   var `?param` = [getPtr caretIndex]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(int32)
+proc setSelectionOriginLine*(self: TextEdit; line: int32; canBeHidden: Bool = true; wrapIndex: int32 = -1; caretIndex: int32 = 0) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_selection_origin_line"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 195434140)
+  var `?param` = [getPtr line, getPtr canBeHidden, getPtr wrapIndex, getPtr caretIndex]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc setSelectionOriginColumn*(self: TextEdit; column: int32; caretIndex: int32 = 0) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_selection_origin_column"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 2230941749)
+  var `?param` = [getPtr column, getPtr caretIndex]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getSelectionFromLine*(self: TextEdit; caretIndex: int32 = 0): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -932,6 +1041,15 @@ proc getSelectionToColumn*(self: TextEdit; caretIndex: int32 = 0): int32 =
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(int32)
+proc isCaretAfterSelectionOrigin*(self: TextEdit; caretIndex: int32 = 0): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_caret_after_selection_origin"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 1051549951)
+  var `?param` = [getPtr caretIndex]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc deselect*(self: TextEdit; caretIndex: int32 = -1) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -1122,7 +1240,7 @@ proc getScrollPosForLine*(self: TextEdit; line: int32; wrapIndex: int32 = 0): fl
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_scroll_pos_for_line"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3274652423)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3929084198)
   var `?param` = [getPtr line, getPtr wrapIndex]
   var ret: encoded float64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -1131,7 +1249,7 @@ proc setLineAsFirstVisible*(self: TextEdit; line: int32; wrapIndex: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_line_as_first_visible"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3023605688)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 2230941749)
   var `?param` = [getPtr line, getPtr wrapIndex]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getFirstVisibleLine*(self: TextEdit): int32 =
@@ -1146,14 +1264,14 @@ proc setLineAsCenterVisible*(self: TextEdit; line: int32; wrapIndex: int32 = 0) 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_line_as_center_visible"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3023605688)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 2230941749)
   var `?param` = [getPtr line, getPtr wrapIndex]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setLineAsLastVisible*(self: TextEdit; line: int32; wrapIndex: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_line_as_last_visible"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 3023605688)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextEdit, addr name, 2230941749)
   var `?param` = [getPtr line, getPtr wrapIndex]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getLastFullVisibleLine*(self: TextEdit): int32 =

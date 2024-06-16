@@ -9,7 +9,7 @@ proc createServer*(self: ENetMultiplayerPeer; port: int32; maxClients: int32 = 3
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_server"
-    methodbind = interface_ClassDB_getMethodBind(addr className ENetMultiplayerPeer, addr name, 1616151701)
+    methodbind = interface_ClassDB_getMethodBind(addr className ENetMultiplayerPeer, addr name, 2917761309)
   var `?param` = [getPtr port, getPtr maxClients, getPtr maxChannels, getPtr inBandwidth, getPtr outBandwidth]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -18,7 +18,7 @@ proc createClient*(self: ENetMultiplayerPeer; address: String; port: int32; chan
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_client"
-    methodbind = interface_ClassDB_getMethodBind(addr className ENetMultiplayerPeer, addr name, 920217784)
+    methodbind = interface_ClassDB_getMethodBind(addr className ENetMultiplayerPeer, addr name, 2327163476)
   var `?param` = [getPtr address, getPtr port, getPtr channelCount, getPtr inBandwidth, getPtr outBandwidth, getPtr localPort]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

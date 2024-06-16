@@ -15,7 +15,7 @@ proc addFilter*(self: FileDialog; filter: String; description: String = "") =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_filter"
-    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 233059325)
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 3388804757)
   var `?param` = [getPtr filter, getPtr description]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc `filters=`*(self: FileDialog; filters: PackedStringArray) =
@@ -33,6 +33,84 @@ proc filters*(self: FileDialog): PackedStringArray =
   var ret: encoded PackedStringArray
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(PackedStringArray)
+proc getOptionName*(self: FileDialog; option: int32): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_option_name"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 844755477)
+  var `?param` = [getPtr option]
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(String)
+proc getOptionValues*(self: FileDialog; option: int32): PackedStringArray =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_option_values"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 647634434)
+  var `?param` = [getPtr option]
+  var ret: encoded PackedStringArray
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(PackedStringArray)
+proc getOptionDefault*(self: FileDialog; option: int32): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_option_default"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 923996154)
+  var `?param` = [getPtr option]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
+proc setOptionName*(self: FileDialog; option: int32; name: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_option_name"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 501894301)
+  var `?param` = [getPtr option, getPtr name]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc setOptionValues*(self: FileDialog; option: int32; values: PackedStringArray) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_option_values"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 3353661094)
+  var `?param` = [getPtr option, getPtr values]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc setOptionDefault*(self: FileDialog; option: int32; defaultValueIndex: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_option_default"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 3937882851)
+  var `?param` = [getPtr option, getPtr defaultValueIndex]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc `optionCount=`*(self: FileDialog; count: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_option_count"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 1286410249)
+  var `?param` = [getPtr count]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc optionCount*(self: FileDialog): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_option_count"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 3905245786)
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(int32)
+proc addOption*(self: FileDialog; name: String; values: PackedStringArray; defaultValueIndex: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "add_option"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 149592325)
+  var `?param` = [getPtr name, getPtr values, getPtr defaultValueIndex]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getSelectedOptions*(self: FileDialog): Dictionary =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_selected_options"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 3102165223)
+  var ret: encoded Dictionary
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Dictionary)
 proc currentDir*(self: FileDialog): String =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -165,6 +243,21 @@ proc isShowingHiddenFiles*(self: FileDialog): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_showing_hidden_files"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `useNativeDialog=`*(self: FileDialog; native: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_use_native_dialog"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 2586408642)
+  var `?param` = [getPtr native]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc useNativeDialog*(self: FileDialog): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_use_native_dialog"
     methodbind = interface_ClassDB_getMethodBind(addr className FileDialog, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

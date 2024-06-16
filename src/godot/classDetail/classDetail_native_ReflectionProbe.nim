@@ -185,6 +185,21 @@ proc cullMask*(self: ReflectionProbe): uint32 =
   var ret: encoded uint32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(uint32)
+proc `reflectionMask=`*(self: ReflectionProbe; layers: uint32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_reflection_mask"
+    methodbind = interface_ClassDB_getMethodBind(addr className ReflectionProbe, addr name, 1286410249)
+  var `?param` = [getPtr layers]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc reflectionMask*(self: ReflectionProbe): uint32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_reflection_mask"
+    methodbind = interface_ClassDB_getMethodBind(addr className ReflectionProbe, addr name, 3905245786)
+  var ret: encoded uint32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(uint32)
 proc `updateMode=`*(self: ReflectionProbe; mode: ReflectionProbe_UpdateMode) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

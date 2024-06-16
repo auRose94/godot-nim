@@ -35,13 +35,12 @@ proc boneIdx*(self: BoneAttachment3D): int32 =
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
-proc onBonePoseUpdate*(self: BoneAttachment3D; boneIndex: int32) =
+proc onSkeletonUpdate*(self: BoneAttachment3D) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "on_bone_pose_update"
-    methodbind = interface_ClassDB_getMethodBind(addr className BoneAttachment3D, addr name, 1286410249)
-  var `?param` = [getPtr boneIndex]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+    let name = api.newStringName "on_skeleton_update"
+    methodbind = interface_ClassDB_getMethodBind(addr className BoneAttachment3D, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
 proc `overridePose=`*(self: BoneAttachment3D; overridePose: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

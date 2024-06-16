@@ -936,6 +936,21 @@ proc isFogEnabled*(self: Environment): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc `fogMode=`*(self: Environment; mode: Environment_FogMode) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_fog_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className Environment, addr name, 3059806579)
+  var `?param` = [getPtr mode]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc fogMode*(self: Environment): Environment_FogMode =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_fog_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className Environment, addr name, 2456062483)
+  var ret: encoded Environment_FogMode
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Environment_FogMode)
 proc `fogLightColor=`*(self: Environment; lightColor: Color) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -1052,6 +1067,51 @@ proc fogSkyAffect*(self: Environment): Float =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_fog_sky_affect"
+    methodbind = interface_ClassDB_getMethodBind(addr className Environment, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
+proc `fogDepthCurve=`*(self: Environment; curve: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_fog_depth_curve"
+    methodbind = interface_ClassDB_getMethodBind(addr className Environment, addr name, 373806689)
+  var `?param` = [getPtr curve]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc fogDepthCurve*(self: Environment): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_fog_depth_curve"
+    methodbind = interface_ClassDB_getMethodBind(addr className Environment, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
+proc `fogDepthBegin=`*(self: Environment; begin: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_fog_depth_begin"
+    methodbind = interface_ClassDB_getMethodBind(addr className Environment, addr name, 373806689)
+  var `?param` = [getPtr begin]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc fogDepthBegin*(self: Environment): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_fog_depth_begin"
+    methodbind = interface_ClassDB_getMethodBind(addr className Environment, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
+proc `fogDepthEnd=`*(self: Environment; `end`: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_fog_depth_end"
+    methodbind = interface_ClassDB_getMethodBind(addr className Environment, addr name, 373806689)
+  var `?param` = [getPtr `end`]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc fogDepthEnd*(self: Environment): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_fog_depth_end"
     methodbind = interface_ClassDB_getMethodBind(addr className Environment, addr name, 1740695150)
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

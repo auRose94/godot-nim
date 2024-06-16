@@ -18,10 +18,7 @@ var hook_destroy_String: PtrDestructor
 proc hook_destroy(value: String) =
   hook_destroy_String(addr value)
 proc `=destroy`(val: String) =
-  if val == String(): return
-  try:
-    hook_destroy(val)
-  except: discard
+  hook_destroy(val)
 var hook_copy_StringName: PtrConstructor
 proc hook_copy(copy_from: StringName): StringName =
   let argPtr = cast[pointer](addr copy_from)
@@ -37,10 +34,7 @@ var hook_destroy_StringName: PtrDestructor
 proc hook_destroy(value: StringName) =
   hook_destroy_StringName(addr value)
 proc `=destroy`(val: StringName) =
-  if val == StringName(): return
-  try:
-    hook_destroy(val)
-  except: discard
+  hook_destroy(val)
 var hook_copy_NodePath: PtrConstructor
 proc hook_copy(copy_from: NodePath): NodePath =
   let argPtr = cast[pointer](addr copy_from)
@@ -318,6 +312,25 @@ proc `=destroy`(val: PackedColorArray) =
   try:
     hook_destroy(val)
   except: discard
+var hook_copy_PackedVector4Array: PtrConstructor
+proc hook_copy(copy_from: PackedVector4Array): PackedVector4Array =
+  let argPtr = cast[pointer](addr copy_from)
+  hook_copy_PackedVector4Array(addr result, addr argPtr)
+proc `=copy`(dst: var PackedVector4Array; src: PackedVector4Array) =
+  if dst == src: return
+  `=destroy` dst
+  wasMoved dst
+  dst = hook_copy(src)
+proc `=dup`(src: PackedVector4Array): PackedVector4Array =
+  hook_copy(src)
+var hook_destroy_PackedVector4Array: PtrDestructor
+proc hook_destroy(value: PackedVector4Array) =
+  hook_destroy_PackedVector4Array(addr value)
+proc `=destroy`(val: PackedVector4Array) =
+  if val == PackedVector4Array(): return
+  try:
+    hook_destroy(val)
+  except: discard
 proc load_interface_VariantHook =
   hook_copy_String = interface_Variant_getPtrConstructor(VariantType_String, 1)
   hook_destroy_String = interface_Variant_getPtrDestructor(VariantType_String)
@@ -352,3 +365,5 @@ proc load_interface_VariantHook =
   hook_destroy_PackedVector3Array = interface_Variant_getPtrDestructor(VariantType_PackedVector3Array)
   hook_copy_PackedColorArray = interface_Variant_getPtrConstructor(VariantType_PackedColorArray, 1)
   hook_destroy_PackedColorArray = interface_Variant_getPtrDestructor(VariantType_PackedColorArray)
+  hook_copy_PackedVector4Array = interface_Variant_getPtrConstructor(VariantType_PackedVector4Array, 1)
+  hook_destroy_PackedVector4Array = interface_Variant_getPtrDestructor(VariantType_PackedVector4Array)

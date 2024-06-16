@@ -17,7 +17,7 @@ proc addSource*(self: TileSet; source: GD_ref[TileSetSource]; atlasSourceIdOverr
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_source"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileSet, addr name, 276991387)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSet, addr name, 1059186179)
   var `?param` = [getPtr source, getPtr atlasSourceIdOverride]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -342,7 +342,7 @@ proc addTerrain*(self: TileSet; terrainSet: int32; toPosition: int32 = -1) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_terrain"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileSet, addr name, 3023605688)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSet, addr name, 1230568737)
   var `?param` = [getPtr terrainSet, getPtr toPosition]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc moveTerrain*(self: TileSet; terrainSet: int32; terrainIndex: int32; toPosition: int32) =
@@ -643,7 +643,7 @@ proc addPattern*(self: TileSet; pattern: GD_ref[TileMapPattern]; index: int32 = 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_pattern"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileSet, addr name, 3009264082)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSet, addr name, 763712015)
   var `?param` = [getPtr pattern, getPtr index]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

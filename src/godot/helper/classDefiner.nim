@@ -69,7 +69,7 @@ template register_class*(T: typedesc[SomeUserClass]) =
   if dataunit.initTarget != initManager.currentLevel: return
   (log_register T)
   let info = T.creationInfo(false, false)
-  interfaceClassdbRegisterExtensionClass(library, addr className(T), addr className(T.Super), addr info)
+  interfaceClassdbRegisterExtensionClass3(library, addr className(T), addr className(T.Super), addr info)
   T.EngineClass.bind_virtuals(T)
   start dataunit
 

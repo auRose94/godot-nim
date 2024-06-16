@@ -48,6 +48,15 @@ proc setEase*(self: PropertyTweener; ease: Tween_EaseType): GD_ref[PropertyTween
   var ret: encoded GD_ref[PropertyTweener]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(GD_ref[PropertyTweener])
+proc setCustomInterpolator*(self: PropertyTweener; interpolatorMethod: Callable): GD_ref[PropertyTweener] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_custom_interpolator"
+    methodbind = interface_ClassDB_getMethodBind(addr className PropertyTweener, addr name, 3174170268)
+  var `?param` = [getPtr interpolatorMethod]
+  var ret: encoded GD_ref[PropertyTweener]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(GD_ref[PropertyTweener])
 proc setDelay*(self: PropertyTweener; delay: float64): GD_ref[PropertyTweener] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

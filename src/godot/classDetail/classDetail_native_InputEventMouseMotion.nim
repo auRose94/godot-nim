@@ -65,6 +65,21 @@ proc relative*(self: InputEventMouseMotion): Vector2 =
   var ret: encoded Vector2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Vector2)
+proc `screenRelative=`*(self: InputEventMouseMotion; relative: Vector2) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_screen_relative"
+    methodbind = interface_ClassDB_getMethodBind(addr className InputEventMouseMotion, addr name, 743155724)
+  var `?param` = [getPtr relative]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc screenRelative*(self: InputEventMouseMotion): Vector2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_screen_relative"
+    methodbind = interface_ClassDB_getMethodBind(addr className InputEventMouseMotion, addr name, 3341600327)
+  var ret: encoded Vector2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Vector2)
 proc `velocity=`*(self: InputEventMouseMotion; velocity: Vector2) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -76,6 +91,21 @@ proc velocity*(self: InputEventMouseMotion): Vector2 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_velocity"
+    methodbind = interface_ClassDB_getMethodBind(addr className InputEventMouseMotion, addr name, 3341600327)
+  var ret: encoded Vector2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Vector2)
+proc `screenVelocity=`*(self: InputEventMouseMotion; velocity: Vector2) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_screen_velocity"
+    methodbind = interface_ClassDB_getMethodBind(addr className InputEventMouseMotion, addr name, 743155724)
+  var `?param` = [getPtr velocity]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc screenVelocity*(self: InputEventMouseMotion): Vector2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_screen_velocity"
     methodbind = interface_ClassDB_getMethodBind(addr className InputEventMouseMotion, addr name, 3341600327)
   var ret: encoded Vector2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

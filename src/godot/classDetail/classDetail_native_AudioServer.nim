@@ -159,7 +159,7 @@ proc addBusEffect*(self: AudioServer; busIdx: int32; effect: GD_ref[AudioEffect]
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_bus_effect"
-    methodbind = interface_ClassDB_getMethodBind(addr className AudioServer, addr name, 4147765248)
+    methodbind = interface_ClassDB_getMethodBind(addr className AudioServer, addr name, 4068819785)
   var `?param` = [getPtr busIdx, getPtr effect, getPtr atPosition]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc removeBusEffect*(self: AudioServer; busIdx: int32; effectIdx: int32) =
@@ -191,7 +191,7 @@ proc getBusEffectInstance*(self: AudioServer; busIdx: int32; effectIdx: int32; c
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_bus_effect_instance"
-    methodbind = interface_ClassDB_getMethodBind(addr className AudioServer, addr name, 2887144608)
+    methodbind = interface_ClassDB_getMethodBind(addr className AudioServer, addr name, 1829771234)
   var `?param` = [getPtr busIdx, getPtr effectIdx, getPtr channel]
   var ret: encoded GD_ref[AudioEffectInstance]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

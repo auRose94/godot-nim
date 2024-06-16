@@ -12,6 +12,15 @@ proc addUsedExtension*(self: GLTFState; extensionName: String; required: Bool) =
     methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 2678287736)
   var `?param` = [getPtr extensionName, getPtr required]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc appendDataToBuffers*(self: GLTFState; data: PackedByteArray; deduplication: Bool): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "append_data_to_buffers"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 1460416665)
+  var `?param` = [getPtr data, getPtr deduplication]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
 proc json*(self: GLTFState): Dictionary =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -56,6 +65,21 @@ proc `minorVersion=`*(self: GLTFState; minorVersion: int32) =
     let name = api.newStringName "set_minor_version"
     methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 1286410249)
   var `?param` = [getPtr minorVersion]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc copyright*(self: GLTFState): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_copyright"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
+proc `copyright=`*(self: GLTFState; copyright: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_copyright"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 83702148)
+  var `?param` = [getPtr copyright]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc glbData*(self: GLTFState): PackedByteArray =
   var methodbind {.global.}: MethodBindPtr
@@ -225,6 +249,21 @@ proc `basePath=`*(self: GLTFState; basePath: String) =
     methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 83702148)
   var `?param` = [getPtr basePath]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc filename*(self: GLTFState): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_filename"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
+proc `filename=`*(self: GLTFState; filename: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_filename"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 83702148)
+  var `?param` = [getPtr filename]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc rootNodes*(self: GLTFState): PackedInt32Array =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -390,6 +429,21 @@ proc `createAnimations=`*(self: GLTFState; createAnimations: Bool) =
     methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 2586408642)
   var `?param` = [getPtr createAnimations]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc importAsSkeletonBones*(self: GLTFState): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_import_as_skeleton_bones"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 2240911060)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `importAsSkeletonBones=`*(self: GLTFState; importAsSkeletonBones: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_import_as_skeleton_bones"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 2586408642)
+  var `?param` = [getPtr importAsSkeletonBones]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc animations*(self: GLTFState): GD_ref[GLTFAnimation] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -454,3 +508,18 @@ proc `handleBinaryImage=`*(self: GLTFState; `method`: int32) =
     methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 1286410249)
   var `?param` = [getPtr `method`]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc `bakeFps=`*(self: GLTFState; value: float64) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_bake_fps"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 373806689)
+  var `?param` = [getPtr value]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc bakeFps*(self: GLTFState): float64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_bake_fps"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFState, addr name, 1740695150)
+  var ret: encoded float64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(float64)

@@ -9,7 +9,7 @@ proc stringify*(_: typedesc[JSON]; data: Variant; indent: String = ""; sortKeys:
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "stringify"
-    methodbind = interface_ClassDB_getMethodBind(addr className JSON, addr name, 2656701787)
+    methodbind = interface_ClassDB_getMethodBind(addr className JSON, addr name, 462733549)
   var `?param` = [getPtr data, getPtr indent, getPtr sortKeys, getPtr fullPrecision]
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)

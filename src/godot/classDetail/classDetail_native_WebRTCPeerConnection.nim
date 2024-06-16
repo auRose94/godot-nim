@@ -25,7 +25,7 @@ proc createDataChannel*(self: WebRTCPeerConnection; label: String; options: Dict
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_data_channel"
-    methodbind = interface_ClassDB_getMethodBind(addr className WebRTCPeerConnection, addr name, 3997447457)
+    methodbind = interface_ClassDB_getMethodBind(addr className WebRTCPeerConnection, addr name, 1288557393)
   var `?param` = [getPtr label, getPtr options]
   var ret: encoded GD_ref[WebRTCDataChannel]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

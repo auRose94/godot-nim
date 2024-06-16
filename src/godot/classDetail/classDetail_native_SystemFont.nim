@@ -20,6 +20,21 @@ proc antialiasing*(self: SystemFont): TextServer_FontAntialiasing =
   var ret: encoded TextServer_FontAntialiasing
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(TextServer_FontAntialiasing)
+proc `disableEmbeddedBitmaps=`*(self: SystemFont; disableEmbeddedBitmaps: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_disable_embedded_bitmaps"
+    methodbind = interface_ClassDB_getMethodBind(addr className SystemFont, addr name, 2586408642)
+  var `?param` = [getPtr disableEmbeddedBitmaps]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc disableEmbeddedBitmaps*(self: SystemFont): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_disable_embedded_bitmaps"
+    methodbind = interface_ClassDB_getMethodBind(addr className SystemFont, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc `generateMipmaps=`*(self: SystemFont; generateMipmaps: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

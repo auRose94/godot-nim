@@ -279,7 +279,7 @@ proc applyImpulse*(self: RigidBody3D; impulse: Vector3; position: Vector3 = gdve
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "apply_impulse"
-    methodbind = interface_ClassDB_getMethodBind(addr className RigidBody3D, addr name, 1002852006)
+    methodbind = interface_ClassDB_getMethodBind(addr className RigidBody3D, addr name, 2754756483)
   var `?param` = [getPtr impulse, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc applyTorqueImpulse*(self: RigidBody3D; impulse: Vector3) =
@@ -300,7 +300,7 @@ proc applyForce*(self: RigidBody3D; force: Vector3; position: Vector3 = gdvec(0,
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "apply_force"
-    methodbind = interface_ClassDB_getMethodBind(addr className RigidBody3D, addr name, 1002852006)
+    methodbind = interface_ClassDB_getMethodBind(addr className RigidBody3D, addr name, 2754756483)
   var `?param` = [getPtr force, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc applyTorque*(self: RigidBody3D; torque: Vector3) =
@@ -321,7 +321,7 @@ proc addConstantForce*(self: RigidBody3D; force: Vector3; position: Vector3 = gd
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_constant_force"
-    methodbind = interface_ClassDB_getMethodBind(addr className RigidBody3D, addr name, 1002852006)
+    methodbind = interface_ClassDB_getMethodBind(addr className RigidBody3D, addr name, 2754756483)
   var `?param` = [getPtr force, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc addConstantTorque*(self: RigidBody3D; torque: Vector3) =

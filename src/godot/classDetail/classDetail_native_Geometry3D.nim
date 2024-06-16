@@ -5,6 +5,15 @@
 import ./../helper/engineClassDefiner
 import ./classDetail_native_Object; export classDetail_native_Object
 
+proc computeConvexMeshPoints*(self: Geometry3D; planes: TypedArray[Plane]): PackedVector3Array =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "compute_convex_mesh_points"
+    methodbind = interface_ClassDB_getMethodBind(addr className Geometry3D, addr name, 1936902142)
+  var `?param` = [getPtr planes]
+  var ret: encoded PackedVector3Array
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(PackedVector3Array)
 proc buildBoxPlanes*(self: Geometry3D; extents: Vector3): TypedArray[Plane] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -18,7 +27,7 @@ proc buildCylinderPlanes*(self: Geometry3D; radius: Float; height: Float; sides:
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "build_cylinder_planes"
-    methodbind = interface_ClassDB_getMethodBind(addr className Geometry3D, addr name, 3142160516)
+    methodbind = interface_ClassDB_getMethodBind(addr className Geometry3D, addr name, 449920067)
   var `?param` = [getPtr radius, getPtr height, getPtr sides, getPtr axis]
   var ret: encoded TypedArray[Plane]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -27,7 +36,7 @@ proc buildCapsulePlanes*(self: Geometry3D; radius: Float; height: Float; sides: 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "build_capsule_planes"
-    methodbind = interface_ClassDB_getMethodBind(addr className Geometry3D, addr name, 410870045)
+    methodbind = interface_ClassDB_getMethodBind(addr className Geometry3D, addr name, 2113592876)
   var `?param` = [getPtr radius, getPtr height, getPtr sides, getPtr lats, getPtr axis]
   var ret: encoded TypedArray[Plane]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -56,6 +65,15 @@ proc getClosestPointToSegmentUncapped*(self: Geometry3D; point: Vector3; s1: Vec
     let name = api.newStringName "get_closest_point_to_segment_uncapped"
     methodbind = interface_ClassDB_getMethodBind(addr className Geometry3D, addr name, 2168193209)
   var `?param` = [getPtr point, getPtr s1, getPtr s2]
+  var ret: encoded Vector3
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Vector3)
+proc getTriangleBarycentricCoords*(self: Geometry3D; point: Vector3; a: Vector3; b: Vector3; c: Vector3): Vector3 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_triangle_barycentric_coords"
+    methodbind = interface_ClassDB_getMethodBind(addr className Geometry3D, addr name, 1362048029)
+  var `?param` = [getPtr point, getPtr a, getPtr b, getPtr c]
   var ret: encoded Vector3
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Vector3)
@@ -113,3 +131,12 @@ proc clipPolygon*(self: Geometry3D; points: PackedVector3Array; plane: Plane): P
   var ret: encoded PackedVector3Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(PackedVector3Array)
+proc tetrahedralizeDelaunay*(self: Geometry3D; points: PackedVector3Array): PackedInt32Array =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "tetrahedralize_delaunay"
+    methodbind = interface_ClassDB_getMethodBind(addr className Geometry3D, addr name, 1230191221)
+  var `?param` = [getPtr points]
+  var ret: encoded PackedInt32Array
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(PackedInt32Array)

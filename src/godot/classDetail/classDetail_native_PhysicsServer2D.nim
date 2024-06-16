@@ -171,7 +171,7 @@ proc areaAddShape*(self: PhysicsServer2D; area: RID; shape: RID; transform: Tran
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "area_add_shape"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 754862190)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 339056240)
   var `?param` = [getPtr area, getPtr shape, getPtr transform, getPtr disabled]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc areaSetShape*(self: PhysicsServer2D; area: RID; shapeIdx: int32; shape: RID) =
@@ -397,7 +397,7 @@ proc bodyAddShape*(self: PhysicsServer2D; body: RID; shape: RID; transform: Tran
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "body_add_shape"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 754862190)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 339056240)
   var `?param` = [getPtr body, getPtr shape, getPtr transform, getPtr disabled]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc bodySetShape*(self: PhysicsServer2D; body: RID; shapeIdx: int32; shape: RID) =
@@ -622,7 +622,7 @@ proc bodyApplyImpulse*(self: PhysicsServer2D; body: RID; impulse: Vector2; posit
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "body_apply_impulse"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 34330743)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 205485391)
   var `?param` = [getPtr body, getPtr impulse, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc bodyApplyCentralForce*(self: PhysicsServer2D; body: RID; force: Vector2) =
@@ -636,7 +636,7 @@ proc bodyApplyForce*(self: PhysicsServer2D; body: RID; force: Vector2; position:
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "body_apply_force"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 34330743)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 205485391)
   var `?param` = [getPtr body, getPtr force, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc bodyApplyTorque*(self: PhysicsServer2D; body: RID; torque: Float) =
@@ -657,7 +657,7 @@ proc bodyAddConstantForce*(self: PhysicsServer2D; body: RID; force: Vector2; pos
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "body_add_constant_force"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 34330743)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 205485391)
   var `?param` = [getPtr body, getPtr force, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc bodyAddConstantTorque*(self: PhysicsServer2D; body: RID; torque: Float) =
@@ -828,23 +828,39 @@ proc jointMakePin*(self: PhysicsServer2D; joint: RID; anchor: Vector2; bodyA: RI
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "joint_make_pin"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 2288600450)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 1612646186)
   var `?param` = [getPtr joint, getPtr anchor, getPtr bodyA, getPtr bodyB]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc jointMakeGroove*(self: PhysicsServer2D; joint: RID; groove1A: Vector2; groove2A: Vector2; anchorB: Vector2; bodyA: RID = RID(); bodyB: RID = RID()) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "joint_make_groove"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 3573265764)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 481430435)
   var `?param` = [getPtr joint, getPtr groove1A, getPtr groove2A, getPtr anchorB, getPtr bodyA, getPtr bodyB]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc jointMakeDampedSpring*(self: PhysicsServer2D; joint: RID; anchorA: Vector2; anchorB: Vector2; bodyA: RID; bodyB: RID = RID()) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "joint_make_damped_spring"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 206603952)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 1994657646)
   var `?param` = [getPtr joint, getPtr anchorA, getPtr anchorB, getPtr bodyA, getPtr bodyB]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc pinJointSetFlag*(self: PhysicsServer2D; joint: RID; flag: PhysicsServer2D_PinJointFlag; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "pin_joint_set_flag"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 3520002352)
+  var `?param` = [getPtr joint, getPtr flag, getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc pinJointGetFlag*(self: PhysicsServer2D; joint: RID; flag: PhysicsServer2D_PinJointFlag): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "pin_joint_get_flag"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer2D, addr name, 2647867364)
+  var `?param` = [getPtr joint, getPtr flag]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc pinJointSetParam*(self: PhysicsServer2D; joint: RID; param: PhysicsServer2D_PinJointParam; value: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

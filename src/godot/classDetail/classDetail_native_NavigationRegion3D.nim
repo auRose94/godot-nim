@@ -5,6 +5,14 @@
 import ./../helper/engineClassDefiner
 import ./classDetail_native_Node3D; export classDetail_native_Node3D
 
+proc getRid*(self: NavigationRegion3D): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_rid"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion3D, addr name, 2944877500)
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(RID)
 proc `navigationMesh=`*(self: NavigationRegion3D; navigationMesh: GD_ref[NavigationMesh]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -35,6 +43,21 @@ proc isEnabled*(self: NavigationRegion3D): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc setNavigationMap*(self: NavigationRegion3D; navigationMap: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_navigation_map"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion3D, addr name, 2722037293)
+  var `?param` = [getPtr navigationMap]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getNavigationMap*(self: NavigationRegion3D): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_navigation_map"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion3D, addr name, 2944877500)
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(RID)
 proc `useEdgeConnections=`*(self: NavigationRegion3D; enabled: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -126,3 +149,11 @@ proc bakeNavigationMesh*(self: NavigationRegion3D; onThread: Bool = true) =
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion3D, addr name, 3216645846)
   var `?param` = [getPtr onThread]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isBaking*(self: NavigationRegion3D): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_baking"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion3D, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)

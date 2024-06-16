@@ -9,14 +9,14 @@ proc addItem*(self: OptionButton; label: String; id: int32 = -1) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className OptionButton, addr name, 3043792800)
+    methodbind = interface_ClassDB_getMethodBind(addr className OptionButton, addr name, 2697778442)
   var `?param` = [getPtr label, getPtr id]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc addIconItem*(self: OptionButton; texture: GD_ref[Texture2D]; label: String; id: int32 = -1) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_icon_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className OptionButton, addr name, 3944051090)
+    methodbind = interface_ClassDB_getMethodBind(addr className OptionButton, addr name, 3781678508)
   var `?param` = [getPtr texture, getPtr label, getPtr id]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setItemText*(self: OptionButton; idx: int32; text: String) =
@@ -260,3 +260,10 @@ proc allowReselect*(self: OptionButton): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc setDisableShortcuts*(self: OptionButton; disabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_disable_shortcuts"
+    methodbind = interface_ClassDB_getMethodBind(addr className OptionButton, addr name, 2586408642)
+  var `?param` = [getPtr disabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

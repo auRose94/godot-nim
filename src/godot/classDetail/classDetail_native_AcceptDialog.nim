@@ -55,7 +55,7 @@ proc addButton*(self: AcceptDialog; text: String; right: Bool = false; action: S
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_button"
-    methodbind = interface_ClassDB_getMethodBind(addr className AcceptDialog, addr name, 4158837846)
+    methodbind = interface_ClassDB_getMethodBind(addr className AcceptDialog, addr name, 3328440682)
   var `?param` = [getPtr text, getPtr right, getPtr action]
   var ret: encoded Button
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -69,18 +69,18 @@ proc addCancelButton*(self: AcceptDialog; name: String): Button =
   var ret: encoded Button
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Button)
-proc removeButton*(self: AcceptDialog; button: Control) =
+proc removeButton*(self: AcceptDialog; button: Button) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "remove_button"
-    methodbind = interface_ClassDB_getMethodBind(addr className AcceptDialog, addr name, 1496901182)
+    methodbind = interface_ClassDB_getMethodBind(addr className AcceptDialog, addr name, 2068354942)
   var `?param` = [getPtr button]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc registerTextEnter*(self: AcceptDialog; lineEdit: Control) =
+proc registerTextEnter*(self: AcceptDialog; lineEdit: LineEdit) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "register_text_enter"
-    methodbind = interface_ClassDB_getMethodBind(addr className AcceptDialog, addr name, 1496901182)
+    methodbind = interface_ClassDB_getMethodBind(addr className AcceptDialog, addr name, 3714008017)
   var `?param` = [getPtr lineEdit]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc `text=`*(self: AcceptDialog; text: String) =

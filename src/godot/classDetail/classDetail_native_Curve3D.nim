@@ -24,7 +24,7 @@ proc addPoint*(self: Curve3D; position: Vector3; `in`: Vector3 = gdvec(0, 0, 0);
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_point"
-    methodbind = interface_ClassDB_getMethodBind(addr className Curve3D, addr name, 3836314258)
+    methodbind = interface_ClassDB_getMethodBind(addr className Curve3D, addr name, 2931053748)
   var `?param` = [getPtr position, getPtr `in`, getPtr `out`, getPtr index]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setPointPosition*(self: Curve3D; idx: int32; position: Vector3) =

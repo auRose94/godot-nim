@@ -88,3 +88,9 @@ proc uv2Padding*(self: PrimitiveMesh): Float =
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Float)
+proc requestUpdate*(self: PrimitiveMesh) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "request_update"
+    methodbind = interface_ClassDB_getMethodBind(addr className PrimitiveMesh, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)

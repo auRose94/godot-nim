@@ -18,7 +18,7 @@ proc createClient*(self: WebRTCMultiplayerPeer; peerId: int32; channelsConfig: A
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_client"
-    methodbind = interface_ClassDB_getMethodBind(addr className WebRTCMultiplayerPeer, addr name, 1777354631)
+    methodbind = interface_ClassDB_getMethodBind(addr className WebRTCMultiplayerPeer, addr name, 2641732907)
   var `?param` = [getPtr peerId, getPtr channelsConfig]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -27,7 +27,7 @@ proc createMesh*(self: WebRTCMultiplayerPeer; peerId: int32; channelsConfig: Arr
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_mesh"
-    methodbind = interface_ClassDB_getMethodBind(addr className WebRTCMultiplayerPeer, addr name, 1777354631)
+    methodbind = interface_ClassDB_getMethodBind(addr className WebRTCMultiplayerPeer, addr name, 2641732907)
   var `?param` = [getPtr peerId, getPtr channelsConfig]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -36,7 +36,7 @@ proc addPeer*(self: WebRTCMultiplayerPeer; peer: GD_ref[WebRTCPeerConnection]; p
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_peer"
-    methodbind = interface_ClassDB_getMethodBind(addr className WebRTCMultiplayerPeer, addr name, 2555866323)
+    methodbind = interface_ClassDB_getMethodBind(addr className WebRTCMultiplayerPeer, addr name, 4078953270)
   var `?param` = [getPtr peer, getPtr peerId, getPtr unreliableLifetime]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

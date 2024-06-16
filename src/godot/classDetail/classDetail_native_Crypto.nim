@@ -27,7 +27,7 @@ proc generateSelfSignedCertificate*(self: Crypto; key: GD_ref[CryptoKey]; issuer
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "generate_self_signed_certificate"
-    methodbind = interface_ClassDB_getMethodBind(addr className Crypto, addr name, 947314696)
+    methodbind = interface_ClassDB_getMethodBind(addr className Crypto, addr name, 492266173)
   var `?param` = [getPtr key, getPtr issuerName, getPtr notBefore, getPtr notAfter]
   var ret: encoded GD_ref[X509Certificate]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

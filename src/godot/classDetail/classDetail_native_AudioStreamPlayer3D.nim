@@ -142,7 +142,7 @@ proc isAutoplayEnabled*(self: AudioStreamPlayer3D): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_autoplay_enabled"
-    methodbind = interface_ClassDB_getMethodBind(addr className AudioStreamPlayer3D, addr name, 2240911060)
+    methodbind = interface_ClassDB_getMethodBind(addr className AudioStreamPlayer3D, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)

@@ -24,6 +24,7 @@ var Transform2D_determinant: PtrBuiltinMethod
 var Transform2D_basisXform: PtrBuiltinMethod
 var Transform2D_basisXformInv: PtrBuiltinMethod
 var Transform2D_interpolateWith: PtrBuiltinMethod
+var Transform2D_isConformal: PtrBuiltinMethod
 var Transform2D_isEqualApprox: PtrBuiltinMethod
 var Transform2D_isFinite: PtrBuiltinMethod
 var Transform2D_lookingAt: PtrBuiltinMethod
@@ -62,6 +63,7 @@ proc basisXformInv*(self: Transform2D; v: Vector2): Vector2 =
 proc interpolateWith*(self: Transform2D; xform: Transform2D; weight: Float): Transform2D =
   let argArr = [getPtr xform, getPtr weight]
   Transform2D_interpolateWith(addr self, addr argArr[0], addr result, 2)
+proc isConformal*(self: Transform2D): Bool = Transform2D_isConformal(addr self, nil, addr result, 0)
 proc isEqualApprox*(self: Transform2D; xform: Transform2D): Bool =
   let argArr = [getPtr xform]
   Transform2D_isEqualApprox(addr self, addr argArr[0], addr result, 1)
@@ -105,6 +107,8 @@ proc load_Transform2D_proc =
   Transform2D_basisXformInv = interface_Variant_getPtrBuiltinMethod(variantType Transform2D, addr proc_name, 2026743667)
   proc_name = api.newStringName "interpolate_with"
   Transform2D_interpolateWith = interface_Variant_getPtrBuiltinMethod(variantType Transform2D, addr proc_name, 359399686)
+  proc_name = api.newStringName "is_conformal"
+  Transform2D_isConformal = interface_Variant_getPtrBuiltinMethod(variantType Transform2D, addr proc_name, 3918633141)
   proc_name = api.newStringName "is_equal_approx"
   Transform2D_isEqualApprox = interface_Variant_getPtrBuiltinMethod(variantType Transform2D, addr proc_name, 3837431929)
   proc_name = api.newStringName "is_finite"
@@ -115,7 +119,9 @@ var Equal_Transform2D_Variant: PtrOperatorEvaluator
 var NotEqual_Transform2D_Variant: PtrOperatorEvaluator
 var Not_Transform2D: PtrOperatorEvaluator
 var Multiply_Transform2D_Int: PtrOperatorEvaluator
+var Divide_Transform2D_Int: PtrOperatorEvaluator
 var Multiply_Transform2D_Float: PtrOperatorEvaluator
+var Divide_Transform2D_Float: PtrOperatorEvaluator
 var Multiply_Transform2D_Vector2: PtrOperatorEvaluator
 var Multiply_Transform2D_Rect2: PtrOperatorEvaluator
 var Equal_Transform2D_Transform2D: PtrOperatorEvaluator
@@ -128,7 +134,9 @@ proc `==`*(left: Transform2D; right: Variant): Bool = Equal_Transform2D_Variant(
 proc `!=`*(left: Transform2D; right: Variant): Bool = NotEqual_Transform2D_Variant(getPtr left, getPtr right, addr result)
 proc `not`*(left: Transform2D): Bool = Not_Transform2D(getPtr left, nil, addr result)
 proc `*`*(left: Transform2D; right: Int): Transform2D = Multiply_Transform2D_Int(getPtr left, getPtr right, addr result)
+proc `/`*(left: Transform2D; right: Int): Transform2D = Divide_Transform2D_Int(getPtr left, getPtr right, addr result)
 proc `*`*(left: Transform2D; right: Float): Transform2D = Multiply_Transform2D_Float(getPtr left, getPtr right, addr result)
+proc `/`*(left: Transform2D; right: Float): Transform2D = Divide_Transform2D_Float(getPtr left, getPtr right, addr result)
 proc `*`*(left: Transform2D; right: Vector2): Vector2 = Multiply_Transform2D_Vector2(getPtr left, getPtr right, addr result)
 proc `*`*(left: Transform2D; right: Rect2): Rect2 = Multiply_Transform2D_Rect2(getPtr left, getPtr right, addr result)
 proc `==`*(left: Transform2D; right: Transform2D): Bool = Equal_Transform2D_Transform2D(getPtr left, getPtr right, addr result)
@@ -142,7 +150,9 @@ proc load_Transform2D_op =
   NotEqual_Transform2D_Variant = interface_variantGetPtrOperatorEvaluator(VariantOP_NotEqual, VariantType_Transform2D, VariantType_Nil)
   Not_Transform2D = interface_variantGetPtrOperatorEvaluator(VariantOP_Not, VariantType_Transform2D, VariantType_Nil)
   Multiply_Transform2D_Int = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Transform2D, VariantType_Int)
+  Divide_Transform2D_Int = interface_variantGetPtrOperatorEvaluator(VariantOP_Divide, VariantType_Transform2D, VariantType_Int)
   Multiply_Transform2D_Float = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Transform2D, VariantType_Float)
+  Divide_Transform2D_Float = interface_variantGetPtrOperatorEvaluator(VariantOP_Divide, VariantType_Transform2D, VariantType_Float)
   Multiply_Transform2D_Vector2 = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Transform2D, VariantType_Vector2)
   Multiply_Transform2D_Rect2 = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Transform2D, VariantType_Rect2)
   Equal_Transform2D_Transform2D = interface_variantGetPtrOperatorEvaluator(VariantOP_Equal, VariantType_Transform2D, VariantType_Transform2D)

@@ -35,3 +35,33 @@ proc isPercentageShown*(self: ProgressBar): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc `indeterminate=`*(self: ProgressBar; indeterminate: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_indeterminate"
+    methodbind = interface_ClassDB_getMethodBind(addr className ProgressBar, addr name, 2586408642)
+  var `?param` = [getPtr indeterminate]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isIndeterminate*(self: ProgressBar): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_indeterminate"
+    methodbind = interface_ClassDB_getMethodBind(addr className ProgressBar, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `editorPreviewIndeterminate=`*(self: ProgressBar; previewIndeterminate: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_editor_preview_indeterminate"
+    methodbind = interface_ClassDB_getMethodBind(addr className ProgressBar, addr name, 2586408642)
+  var `?param` = [getPtr previewIndeterminate]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isEditorPreviewIndeterminateEnabled*(self: ProgressBar): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_editor_preview_indeterminate_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className ProgressBar, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)

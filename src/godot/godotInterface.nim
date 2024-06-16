@@ -113,6 +113,9 @@ type
   PackedVector3Array* {.bycopy.} = object
     proxy: pointer
     data_unsafe*: ptr UncheckedArray[Vector3]
+  PackedVector4Array* {.bycopy.} = object
+    proxy: pointer
+    data_unsafe*: ptr UncheckedArray[Vector4]
   PackedColorArray* {.bycopy.} = object
     proxy: pointer
     data_unsafe*: ptr UncheckedArray[Color]
@@ -214,6 +217,7 @@ template Item*(T: typedesc[PackedInt64Array]): typedesc = int64
 template Item*(T: typedesc[PackedStringArray]): typedesc = String
 template Item*(T: typedesc[PackedVector2Array]): typedesc = Vector2
 template Item*(T: typedesc[PackedVector3Array]): typedesc = Vector3
+template Item*(T: typedesc[PackedVector4Array]): typedesc = Vector4
 template Item*(T: typedesc[String]): typedesc = Rune
 template Item*(T: typedesc[Array]): typedesc = Variant
 template Item*(T: typedesc[Dictionary]): typedesc = Variant

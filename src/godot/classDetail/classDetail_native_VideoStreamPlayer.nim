@@ -55,6 +55,21 @@ proc isPaused*(self: VideoStreamPlayer): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc `loop=`*(self: VideoStreamPlayer; loop: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_loop"
+    methodbind = interface_ClassDB_getMethodBind(addr className VideoStreamPlayer, addr name, 2586408642)
+  var `?param` = [getPtr loop]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc hasLoop*(self: VideoStreamPlayer): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "has_loop"
+    methodbind = interface_ClassDB_getMethodBind(addr className VideoStreamPlayer, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc `volume=`*(self: VideoStreamPlayer; volume: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -108,6 +123,14 @@ proc getStreamName*(self: VideoStreamPlayer): String =
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(String)
+proc getStreamLength*(self: VideoStreamPlayer): float64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_stream_length"
+    methodbind = interface_ClassDB_getMethodBind(addr className VideoStreamPlayer, addr name, 1740695150)
+  var ret: encoded float64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(float64)
 proc `streamPosition=`*(self: VideoStreamPlayer; position: float64) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

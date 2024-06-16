@@ -9,7 +9,7 @@ proc createAction*(self: UndoRedo; name: String; mergeMode: UndoRedo_MergeMode =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_action"
-    methodbind = interface_ClassDB_getMethodBind(addr className UndoRedo, addr name, 3900135403)
+    methodbind = interface_ClassDB_getMethodBind(addr className UndoRedo, addr name, 3171901514)
   var `?param` = [getPtr name, getPtr mergeMode, getPtr backwardUndoOps]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc commitAction*(self: UndoRedo; execute: Bool = true) =
@@ -145,6 +145,21 @@ proc getVersion*(self: UndoRedo): uint64 =
   var ret: encoded uint64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(uint64)
+proc `maxSteps=`*(self: UndoRedo; maxSteps: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_max_steps"
+    methodbind = interface_ClassDB_getMethodBind(addr className UndoRedo, addr name, 1286410249)
+  var `?param` = [getPtr maxSteps]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc maxSteps*(self: UndoRedo): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_max_steps"
+    methodbind = interface_ClassDB_getMethodBind(addr className UndoRedo, addr name, 3905245786)
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(int32)
 proc redo*(self: UndoRedo): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

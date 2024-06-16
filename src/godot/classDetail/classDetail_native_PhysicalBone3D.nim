@@ -16,7 +16,7 @@ proc applyImpulse*(self: PhysicalBone3D; impulse: Vector3; position: Vector3 = g
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "apply_impulse"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicalBone3D, addr name, 1002852006)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicalBone3D, addr name, 2754756483)
   var `?param` = [getPtr impulse, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc `jointType=`*(self: PhysicalBone3D; jointType: PhysicalBone3D_JointType) =

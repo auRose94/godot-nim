@@ -126,6 +126,21 @@ proc cellHeight*(self: NavigationMesh): Float =
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Float)
+proc `borderSize=`*(self: NavigationMesh; borderSize: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_border_size"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationMesh, addr name, 373806689)
+  var `?param` = [getPtr borderSize]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc borderSize*(self: NavigationMesh): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_border_size"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationMesh, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
 proc `agentHeight=`*(self: NavigationMesh; agentHeight: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -418,3 +433,9 @@ proc createFromMesh*(self: NavigationMesh; mesh: GD_ref[Mesh]) =
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationMesh, addr name, 194775623)
   var `?param` = [getPtr mesh]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc clear*(self: NavigationMesh) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "clear"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationMesh, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)

@@ -210,7 +210,7 @@ proc getSupportedEnvironmentBlendModes*(self: XRInterface): Array =
   var ret: encoded Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Array)
-proc setEnvironmentBlendMode*(self: XRInterface; mode: XRInterface_EnvironmentBlendMode): Bool =
+proc `environmentBlendMode=`*(self: XRInterface; mode: XRInterface_EnvironmentBlendMode): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_environment_blend_mode"
@@ -219,3 +219,11 @@ proc setEnvironmentBlendMode*(self: XRInterface; mode: XRInterface_EnvironmentBl
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
+proc environmentBlendMode*(self: XRInterface): XRInterface_EnvironmentBlendMode =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_environment_blend_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className XRInterface, addr name, 1984334071)
+  var ret: encoded XRInterface_EnvironmentBlendMode
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(XRInterface_EnvironmentBlendMode)

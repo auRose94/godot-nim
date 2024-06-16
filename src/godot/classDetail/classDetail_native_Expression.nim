@@ -9,7 +9,7 @@ proc parse*(self: Expression; expression: String; inputNames: PackedStringArray 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "parse"
-    methodbind = interface_ClassDB_getMethodBind(addr className Expression, addr name, 3658149758)
+    methodbind = interface_ClassDB_getMethodBind(addr className Expression, addr name, 3069722906)
   var `?param` = [getPtr expression, getPtr inputNames]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

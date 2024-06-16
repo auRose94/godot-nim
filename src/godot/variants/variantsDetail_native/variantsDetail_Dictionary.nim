@@ -10,6 +10,7 @@ var Dictionary_size: PtrBuiltinMethod
 var Dictionary_isEmpty: PtrBuiltinMethod
 var Dictionary_clear: PtrBuiltinMethod
 var Dictionary_merge: PtrBuiltinMethod
+var Dictionary_merged: PtrBuiltinMethod
 var Dictionary_has: PtrBuiltinMethod
 var Dictionary_hasAll: PtrBuiltinMethod
 var Dictionary_findKey: PtrBuiltinMethod
@@ -19,14 +20,19 @@ var Dictionary_keys: PtrBuiltinMethod
 var Dictionary_values: PtrBuiltinMethod
 var Dictionary_duplicate: PtrBuiltinMethod
 var Dictionary_get: PtrBuiltinMethod
+var Dictionary_getOrAdd: PtrBuiltinMethod
 var Dictionary_makeReadOnly: PtrBuiltinMethod
 var Dictionary_isReadOnly: PtrBuiltinMethod
+var Dictionary_recursiveEqual: PtrBuiltinMethod
 proc size*(self: Dictionary): Int = Dictionary_size(addr self, nil, addr result, 0)
 proc isEmpty*(self: Dictionary): Bool = Dictionary_isEmpty(addr self, nil, addr result, 0)
 proc clear*(self: var Dictionary) = Dictionary_clear(addr self, nil, nil, 0)
 proc merge*(self: var Dictionary; dictionary: Dictionary; overwrite: Bool = false) =
   let argArr = [getPtr dictionary, getPtr overwrite]
   Dictionary_merge(addr self, addr argArr[0], nil, 2)
+proc merged*(self: Dictionary; dictionary: Dictionary; overwrite: Bool = false): Dictionary =
+  let argArr = [getPtr dictionary, getPtr overwrite]
+  Dictionary_merged(addr self, addr argArr[0], addr result, 2)
 proc has*(self: Dictionary; key: Variant): Bool =
   let argArr = [getPtr key]
   Dictionary_has(addr self, addr argArr[0], addr result, 1)
@@ -48,8 +54,14 @@ proc duplicate*(self: Dictionary; deep: Bool = false): Dictionary =
 proc get*(self: Dictionary; key: Variant; default: Variant = default(Variant)): Variant =
   let argArr = [getPtr key, getPtr default]
   Dictionary_get(addr self, addr argArr[0], addr result, 2)
+proc getOrAdd*(self: var Dictionary; key: Variant; default: Variant = default(Variant)): Variant =
+  let argArr = [getPtr key, getPtr default]
+  Dictionary_getOrAdd(addr self, addr argArr[0], addr result, 2)
 proc makeReadOnly*(self: var Dictionary) = Dictionary_makeReadOnly(addr self, nil, nil, 0)
 proc isReadOnly*(self: Dictionary): Bool = Dictionary_isReadOnly(addr self, nil, addr result, 0)
+proc recursiveEqual*(self: Dictionary; dictionary: Dictionary; recursionCount: Int): Bool =
+  let argArr = [getPtr dictionary, getPtr recursionCount]
+  Dictionary_recursiveEqual(addr self, addr argArr[0], addr result, 2)
 proc load_Dictionary_proc =
   var proc_name: StringName
   proc_name = api.newStringName "size"
@@ -60,6 +72,8 @@ proc load_Dictionary_proc =
   Dictionary_clear = interface_Variant_getPtrBuiltinMethod(variantType Dictionary, addr proc_name, 3218959716)
   proc_name = api.newStringName "merge"
   Dictionary_merge = interface_Variant_getPtrBuiltinMethod(variantType Dictionary, addr proc_name, 2079548978)
+  proc_name = api.newStringName "merged"
+  Dictionary_merged = interface_Variant_getPtrBuiltinMethod(variantType Dictionary, addr proc_name, 2271165639)
   proc_name = api.newStringName "has"
   Dictionary_has = interface_Variant_getPtrBuiltinMethod(variantType Dictionary, addr proc_name, 3680194679)
   proc_name = api.newStringName "has_all"
@@ -78,10 +92,14 @@ proc load_Dictionary_proc =
   Dictionary_duplicate = interface_Variant_getPtrBuiltinMethod(variantType Dictionary, addr proc_name, 830099069)
   proc_name = api.newStringName "get"
   Dictionary_get = interface_Variant_getPtrBuiltinMethod(variantType Dictionary, addr proc_name, 2205440559)
+  proc_name = api.newStringName "get_or_add"
+  Dictionary_getOrAdd = interface_Variant_getPtrBuiltinMethod(variantType Dictionary, addr proc_name, 1052551076)
   proc_name = api.newStringName "make_read_only"
   Dictionary_makeReadOnly = interface_Variant_getPtrBuiltinMethod(variantType Dictionary, addr proc_name, 3218959716)
   proc_name = api.newStringName "is_read_only"
   Dictionary_isReadOnly = interface_Variant_getPtrBuiltinMethod(variantType Dictionary, addr proc_name, 3918633141)
+  proc_name = api.newStringName "recursive_equal"
+  Dictionary_recursiveEqual = interface_Variant_getPtrBuiltinMethod(variantType Dictionary, addr proc_name, 1404404751)
 var Equal_Dictionary_Variant: PtrOperatorEvaluator
 var NotEqual_Dictionary_Variant: PtrOperatorEvaluator
 var Not_Dictionary: PtrOperatorEvaluator

@@ -100,7 +100,7 @@ proc isMatch*(self: InputEvent; event: GD_ref[InputEvent]; exactMatch: Bool = tr
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_match"
-    methodbind = interface_ClassDB_getMethodBind(addr className InputEvent, addr name, 3392494811)
+    methodbind = interface_ClassDB_getMethodBind(addr className InputEvent, addr name, 1754951977)
   var `?param` = [getPtr event, getPtr exactMatch]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -126,7 +126,7 @@ proc xformedBy*(self: InputEvent; xform: Transform2D; localOfs: Vector2 = gdvec(
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "xformed_by"
-    methodbind = interface_ClassDB_getMethodBind(addr className InputEvent, addr name, 2747409789)
+    methodbind = interface_ClassDB_getMethodBind(addr className InputEvent, addr name, 1282766827)
   var `?param` = [getPtr xform, getPtr localOfs]
   var ret: encoded GD_ref[InputEvent]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

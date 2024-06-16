@@ -73,6 +73,12 @@ proc position*(self: Window): Vector2i =
   var ret: encoded Vector2i
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Vector2i)
+proc moveToCenter*(self: Window) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "move_to_center"
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
 proc `size=`*(self: Window; size: Vector2i) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -185,12 +191,6 @@ proc requestAttention*(self: Window) =
     let name = api.newStringName "request_attention"
     methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 3218959716)
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
-proc moveToForeground*(self: Window) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "move_to_foreground"
-    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 3218959716)
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
 proc `visible=`*(self: Window; visible: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -229,6 +229,21 @@ proc isTransient*(self: Window): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_transient"
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `transientToFocused=`*(self: Window; enable: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_transient_to_focused"
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 2586408642)
+  var `?param` = [getPtr enable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isTransientToFocused*(self: Window): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_transient_to_focused"
     methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
@@ -307,6 +322,21 @@ proc getContentsMinimumSize*(self: Window): Vector2 =
   var ret: encoded Vector2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Vector2)
+proc `forceNative=`*(self: Window; forceNative: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_force_native"
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 2586408642)
+  var `?param` = [getPtr forceNative]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc forceNative*(self: Window): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_force_native"
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc `contentScaleSize=`*(self: Window; size: Vector2i) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -352,6 +382,36 @@ proc contentScaleAspect*(self: Window): Window_ContentScaleAspect =
   var ret: encoded Window_ContentScaleAspect
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Window_ContentScaleAspect)
+proc `contentScaleStretch=`*(self: Window; stretch: Window_ContentScaleStretch) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_content_scale_stretch"
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 349355940)
+  var `?param` = [getPtr stretch]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc contentScaleStretch*(self: Window): Window_ContentScaleStretch =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_content_scale_stretch"
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 536857316)
+  var ret: encoded Window_ContentScaleStretch
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Window_ContentScaleStretch)
+proc `keepTitleVisible=`*(self: Window; titleVisible: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_keep_title_visible"
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 2586408642)
+  var `?param` = [getPtr titleVisible]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc keepTitleVisible*(self: Window): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_keep_title_visible"
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc `contentScaleFactor=`*(self: Window; factor: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -753,21 +813,6 @@ proc isLayoutRtl*(self: Window): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
-proc `autoTranslate=`*(self: Window; enable: Bool) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_auto_translate"
-    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 2586408642)
-  var `?param` = [getPtr enable]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc isAutoTranslating*(self: Window): Bool =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "is_auto_translating"
-    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 36873697)
-  var ret: encoded Bool
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
-  (addr ret).decode_result(Bool)
 proc popup*(self: Window; rect: Rect2i = init_Rect2i(0, 0, 0, 0)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -807,7 +852,7 @@ proc popupExclusive*(self: Window; fromNode: Node; rect: Rect2i = init_Rect2i(0,
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "popup_exclusive"
-    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 1728044812)
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 2134721627)
   var `?param` = [getPtr fromNode, getPtr rect]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc popupExclusiveOnParent*(self: Window; fromNode: Node; parentRect: Rect2i) =
@@ -821,20 +866,20 @@ proc popupExclusiveCentered*(self: Window; fromNode: Node; minsize: Vector2i = g
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "popup_exclusive_centered"
-    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 2561668109)
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 3357594017)
   var `?param` = [getPtr fromNode, getPtr minsize]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc popupExclusiveCenteredRatio*(self: Window; fromNode: Node; ratio: Float = 0.8) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "popup_exclusive_centered_ratio"
-    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 4257659513)
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 2284776287)
   var `?param` = [getPtr fromNode, getPtr ratio]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc popupExclusiveCenteredClamped*(self: Window; fromNode: Node; minsize: Vector2i = gdveci(0, 0); fallbackRatio: Float = 0.75) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "popup_exclusive_centered_clamped"
-    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 224798062)
+    methodbind = interface_ClassDB_getMethodBind(addr className Window, addr name, 2612708785)
   var `?param` = [getPtr fromNode, getPtr minsize, getPtr fallbackRatio]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

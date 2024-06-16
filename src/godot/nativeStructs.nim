@@ -84,6 +84,7 @@ type PhysicsServer3DExtensionRayResult* = object
   colliderId*: ObjectID
   collider*: ObjectBase
   shape*: cint
+  faceIndex*: cint
 type PhysicsServer3DExtensionShapeRestInfo* = object
   point*: Vector3
   normal*: Vector3

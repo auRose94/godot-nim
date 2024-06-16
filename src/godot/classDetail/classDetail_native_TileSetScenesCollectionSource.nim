@@ -35,7 +35,7 @@ proc createSceneTile*(self: TileSetScenesCollectionSource; packedScene: GD_ref[P
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_scene_tile"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileSetScenesCollectionSource, addr name, 2633389122)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSetScenesCollectionSource, addr name, 1117465415)
   var `?param` = [getPtr packedScene, getPtr idOverride]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

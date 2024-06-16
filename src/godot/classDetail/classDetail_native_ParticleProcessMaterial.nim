@@ -20,6 +20,21 @@ proc direction*(self: ParticleProcessMaterial): Vector3 =
   var ret: encoded Vector3
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Vector3)
+proc `inheritVelocityRatio=`*(self: ParticleProcessMaterial; ratio: float64) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_inherit_velocity_ratio"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 373806689)
+  var `?param` = [getPtr ratio]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc inheritVelocityRatio*(self: ParticleProcessMaterial): float64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_inherit_velocity_ratio"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 191475506)
+  var ret: encoded float64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(float64)
 proc `spread=`*(self: ParticleProcessMaterial; degrees: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -50,6 +65,22 @@ proc flatness*(self: ParticleProcessMaterial): Float =
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Float)
+proc `param=`*(self: ParticleProcessMaterial; param: ParticleProcessMaterial_Parameter; value: Vector2) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_param"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 676779352)
+  var `?param` = [getPtr param, getPtr value]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc param*(self: ParticleProcessMaterial; param: ParticleProcessMaterial_Parameter): Vector2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_param"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 2623708480)
+  var `?param` = [getPtr param]
+  var ret: encoded Vector2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Vector2)
 proc `paramMin=`*(self: ParticleProcessMaterial; param: ParticleProcessMaterial_Parameter; value: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -128,6 +159,36 @@ proc colorRamp*(self: ParticleProcessMaterial): GD_ref[Texture2D] =
   var ret: encoded GD_ref[Texture2D]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(GD_ref[Texture2D])
+proc `alphaCurve=`*(self: ParticleProcessMaterial; curve: GD_ref[Texture2D]) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_alpha_curve"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 4051416890)
+  var `?param` = [getPtr curve]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc alphaCurve*(self: ParticleProcessMaterial): GD_ref[Texture2D] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_alpha_curve"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 3635182373)
+  var ret: encoded GD_ref[Texture2D]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(GD_ref[Texture2D])
+proc `emissionCurve=`*(self: ParticleProcessMaterial; curve: GD_ref[Texture2D]) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_emission_curve"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 4051416890)
+  var `?param` = [getPtr curve]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc emissionCurve*(self: ParticleProcessMaterial): GD_ref[Texture2D] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_emission_curve"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 3635182373)
+  var ret: encoded GD_ref[Texture2D]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(GD_ref[Texture2D])
 proc `colorInitialRamp=`*(self: ParticleProcessMaterial; ramp: GD_ref[Texture2D]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -139,6 +200,21 @@ proc colorInitialRamp*(self: ParticleProcessMaterial): GD_ref[Texture2D] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_color_initial_ramp"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 3635182373)
+  var ret: encoded GD_ref[Texture2D]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(GD_ref[Texture2D])
+proc `velocityLimitCurve=`*(self: ParticleProcessMaterial; curve: GD_ref[Texture2D]) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_velocity_limit_curve"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 4051416890)
+  var `?param` = [getPtr curve]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc velocityLimitCurve*(self: ParticleProcessMaterial): GD_ref[Texture2D] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_velocity_limit_curve"
     methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 3635182373)
   var ret: encoded GD_ref[Texture2D]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
@@ -159,6 +235,21 @@ proc particleFlag*(self: ParticleProcessMaterial; particleFlag: ParticleProcessM
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
+proc `velocityPivot=`*(self: ParticleProcessMaterial; pivot: Vector3) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_velocity_pivot"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 3460891852)
+  var `?param` = [getPtr pivot]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc velocityPivot*(self: ParticleProcessMaterial): Vector3 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_velocity_pivot"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 3783033775)
+  var ret: encoded Vector3
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Vector3)
 proc `emissionShape=`*(self: ParticleProcessMaterial; shape: ParticleProcessMaterial_EmissionShape) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -324,6 +415,36 @@ proc emissionRingInnerRadius*(self: ParticleProcessMaterial): Float =
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Float)
+proc `emissionShapeOffset=`*(self: ParticleProcessMaterial; emissionShapeOffset: Vector3) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_emission_shape_offset"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 3460891852)
+  var `?param` = [getPtr emissionShapeOffset]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc emissionShapeOffset*(self: ParticleProcessMaterial): Vector3 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_emission_shape_offset"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 3360562783)
+  var ret: encoded Vector3
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Vector3)
+proc `emissionShapeScale=`*(self: ParticleProcessMaterial; emissionShapeScale: Vector3) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_emission_shape_scale"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 3460891852)
+  var `?param` = [getPtr emissionShapeScale]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc emissionShapeScale*(self: ParticleProcessMaterial): Vector3 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_emission_shape_scale"
+    methodbind = interface_ClassDB_getMethodBind(addr className ParticleProcessMaterial, addr name, 3360562783)
+  var ret: encoded Vector3
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Vector3)
 proc turbulenceEnabled*(self: ParticleProcessMaterial): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

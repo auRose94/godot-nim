@@ -4,6 +4,7 @@
 # ======================================== #
 import ./../../helper/variantDefiner
 
+var Callable_create: PtrBuiltinMethod
 var Callable_callv: PtrBuiltinMethod
 var Callable_isNull: PtrBuiltinMethod
 var Callable_isCustom: PtrBuiltinMethod
@@ -12,6 +13,7 @@ var Callable_isValid: PtrBuiltinMethod
 var Callable_getObject: PtrBuiltinMethod
 var Callable_getObjectId: PtrBuiltinMethod
 var Callable_getMethod: PtrBuiltinMethod
+var Callable_getArgumentCount: PtrBuiltinMethod
 var Callable_getBoundArgumentsCount: PtrBuiltinMethod
 var Callable_getBoundArguments: PtrBuiltinMethod
 var Callable_hash: PtrBuiltinMethod
@@ -22,6 +24,9 @@ var Callable_callDeferred: PtrBuiltinMethod
 var Callable_rpc: PtrBuiltinMethod
 var Callable_rpcId: PtrBuiltinMethod
 var Callable_bind: PtrBuiltinMethod
+proc create*(_: typedesc[Callable]; variant: Variant; `method`: StringName): Callable =
+  let argArr = [getPtr variant, getPtr `method`]
+  Callable_create(nil, addr argArr[0], addr result, 2)
 proc callv*(self: Callable; arguments: Array): Variant =
   let argArr = [getPtr arguments]
   Callable_callv(addr self, addr argArr[0], addr result, 1)
@@ -32,6 +37,7 @@ proc isValid*(self: Callable): Bool = Callable_isValid(addr self, nil, addr resu
 proc getObject*(self: Callable): Object = Callable_getObject(addr self, nil, addr result, 0)
 proc getObjectId*(self: Callable): Int = Callable_getObjectId(addr self, nil, addr result, 0)
 proc getMethod*(self: Callable): StringName = Callable_getMethod(addr self, nil, addr result, 0)
+proc getArgumentCount*(self: Callable): Int = Callable_getArgumentCount(addr self, nil, addr result, 0)
 proc getBoundArgumentsCount*(self: Callable): Int = Callable_getBoundArgumentsCount(addr self, nil, addr result, 0)
 proc getBoundArguments*(self: Callable): Array = Callable_getBoundArguments(addr self, nil, addr result, 0)
 proc hash*(self: Callable): Int = Callable_hash(addr self, nil, addr result, 0)
@@ -48,6 +54,8 @@ proc rpcId*(self: Callable; peerId: Int; args: varargs[Variant]) {.error.}
 proc `bind`*(self: Callable; args: varargs[Variant]): Callable {.error.}
 proc load_Callable_proc =
   var proc_name: StringName
+  proc_name = api.newStringName "create"
+  Callable_create = interface_Variant_getPtrBuiltinMethod(variantType Callable, addr proc_name, 1709381114)
   proc_name = api.newStringName "callv"
   Callable_callv = interface_Variant_getPtrBuiltinMethod(variantType Callable, addr proc_name, 413578926)
   proc_name = api.newStringName "is_null"
@@ -64,6 +72,8 @@ proc load_Callable_proc =
   Callable_getObjectId = interface_Variant_getPtrBuiltinMethod(variantType Callable, addr proc_name, 3173160232)
   proc_name = api.newStringName "get_method"
   Callable_getMethod = interface_Variant_getPtrBuiltinMethod(variantType Callable, addr proc_name, 1825232092)
+  proc_name = api.newStringName "get_argument_count"
+  Callable_getArgumentCount = interface_Variant_getPtrBuiltinMethod(variantType Callable, addr proc_name, 3173160232)
   proc_name = api.newStringName "get_bound_arguments_count"
   Callable_getBoundArgumentsCount = interface_Variant_getPtrBuiltinMethod(variantType Callable, addr proc_name, 3173160232)
   proc_name = api.newStringName "get_bound_arguments"

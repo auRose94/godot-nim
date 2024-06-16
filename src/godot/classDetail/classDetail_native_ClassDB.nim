@@ -121,6 +121,15 @@ proc classSetProperty*(self: ClassDB; `object`: Object; property: StringName; va
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Error)
+proc classGetPropertyDefaultValue*(self: ClassDB; class: StringName; property: StringName): Variant =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "class_get_property_default_value"
+    methodbind = interface_ClassDB_getMethodBind(addr className ClassDB, addr name, 2718203076)
+  var `?param` = [getPtr class, getPtr property]
+  var ret: encoded Variant
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Variant)
 proc classHasMethod*(self: ClassDB; class: StringName; `method`: StringName; noInheritance: Bool = false): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -130,6 +139,15 @@ proc classHasMethod*(self: ClassDB; class: StringName; `method`: StringName; noI
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
+proc classGetMethodArgumentCount*(self: ClassDB; class: StringName; `method`: StringName; noInheritance: Bool = false): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "class_get_method_argument_count"
+    methodbind = interface_ClassDB_getMethodBind(addr className ClassDB, addr name, 3885694822)
+  var `?param` = [getPtr class, getPtr `method`, getPtr noInheritance]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
 proc classGetMethodList*(self: ClassDB; class: StringName; noInheritance: Bool = false): TypedArray[Dictionary] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -202,6 +220,15 @@ proc classGetIntegerConstantEnum*(self: ClassDB; class: StringName; name: String
   var ret: encoded StringName
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(StringName)
+proc isClassEnumBitfield*(self: ClassDB; class: StringName; `enum`: StringName; noInheritance: Bool = false): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_class_enum_bitfield"
+    methodbind = interface_ClassDB_getMethodBind(addr className ClassDB, addr name, 3860701026)
+  var `?param` = [getPtr class, getPtr `enum`, getPtr noInheritance]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc isClassEnabled*(self: ClassDB; class: StringName): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

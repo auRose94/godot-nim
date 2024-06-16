@@ -9,7 +9,7 @@ proc playStream*(self: AudioStreamPlaybackPolyphonic; stream: GD_ref[AudioStream
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "play_stream"
-    methodbind = interface_ClassDB_getMethodBind(addr className AudioStreamPlaybackPolyphonic, addr name, 3792189967)
+    methodbind = interface_ClassDB_getMethodBind(addr className AudioStreamPlaybackPolyphonic, addr name, 604492179)
   var `?param` = [getPtr stream, getPtr fromOffset, getPtr volumeDb, getPtr pitchScale]
   var ret: encoded int64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

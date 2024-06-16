@@ -49,7 +49,7 @@ proc downloadBuffer*(self: JavaScriptBridge; buffer: PackedByteArray; name: Stri
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "download_buffer"
-    methodbind = interface_ClassDB_getMethodBind(addr className JavaScriptBridge, addr name, 4123979296)
+    methodbind = interface_ClassDB_getMethodBind(addr className JavaScriptBridge, addr name, 3352272093)
   var `?param` = [getPtr buffer, getPtr name, getPtr mime]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc pwaNeedsUpdate*(self: JavaScriptBridge): Bool =

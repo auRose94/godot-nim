@@ -170,6 +170,21 @@ proc textOverrunBehavior*(self: Label): TextServer_OverrunBehavior =
   var ret: encoded TextServer_OverrunBehavior
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(TextServer_OverrunBehavior)
+proc `ellipsisChar=`*(self: Label; char: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_ellipsis_char"
+    methodbind = interface_ClassDB_getMethodBind(addr className Label, addr name, 83702148)
+  var `?param` = [getPtr char]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc ellipsisChar*(self: Label): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_ellipsis_char"
+    methodbind = interface_ClassDB_getMethodBind(addr className Label, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
 proc `uppercase=`*(self: Label; enable: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -323,3 +338,12 @@ proc structuredTextBidiOverrideOptions*(self: Label): Array =
   var ret: encoded Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Array)
+proc getCharacterBounds*(self: Label; pos: int32): Rect2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_character_bounds"
+    methodbind = interface_ClassDB_getMethodBind(addr className Label, addr name, 3327874267)
+  var `?param` = [getPtr pos]
+  var ret: encoded Rect2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Rect2)

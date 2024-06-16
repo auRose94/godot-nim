@@ -5,6 +5,21 @@
 import ./../helper/engineClassDefiner
 import ./classDetail_native_Resource; export classDetail_native_Resource
 
+proc originalName*(self: GLTFNode): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_original_name"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFNode, addr name, 2841200299)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
+proc `originalName=`*(self: GLTFNode; originalName: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_original_name"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFNode, addr name, 83702148)
+  var `?param` = [getPtr originalName]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc parent*(self: GLTFNode): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

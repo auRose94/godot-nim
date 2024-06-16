@@ -9,7 +9,7 @@ proc create*(_: typedesc[PhysicsRayQueryParameters2D]; `from`: Vector2; to: Vect
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsRayQueryParameters2D, addr name, 1118143851)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsRayQueryParameters2D, addr name, 3196569324)
   var `?param` = [getPtr `from`, getPtr to, getPtr collisionMask, getPtr exclude]
   var ret: encoded GD_ref[PhysicsRayQueryParameters2D]
   interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)

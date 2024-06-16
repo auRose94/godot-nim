@@ -18,7 +18,7 @@ proc addCustomMonitor*(self: Performance; id: StringName; callable: Callable; ar
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_custom_monitor"
-    methodbind = interface_ClassDB_getMethodBind(addr className Performance, addr name, 2865980031)
+    methodbind = interface_ClassDB_getMethodBind(addr className Performance, addr name, 4099036814)
   var `?param` = [getPtr id, getPtr callable, getPtr arguments]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc removeCustomMonitor*(self: Performance; id: StringName) =

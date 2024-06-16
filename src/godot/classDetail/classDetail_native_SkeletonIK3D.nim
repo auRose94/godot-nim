@@ -3,7 +3,7 @@
 # Edits will be lost.                      #
 # ======================================== #
 import ./../helper/engineClassDefiner
-import ./classDetail_native_Node; export classDetail_native_Node
+import ./classDetail_native_SkeletonModifier3D; export classDetail_native_SkeletonModifier3D
 
 proc `rootBone=`*(self: SkeletonIK3D; rootBone: StringName) =
   var methodbind {.global.}: MethodBindPtr
@@ -35,21 +35,6 @@ proc tipBone*(self: SkeletonIK3D): StringName =
   var ret: encoded StringName
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(StringName)
-proc `interpolation=`*(self: SkeletonIK3D; interpolation: Float) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_interpolation"
-    methodbind = interface_ClassDB_getMethodBind(addr className SkeletonIK3D, addr name, 373806689)
-  var `?param` = [getPtr interpolation]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc interpolation*(self: SkeletonIK3D): Float =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_interpolation"
-    methodbind = interface_ClassDB_getMethodBind(addr className SkeletonIK3D, addr name, 1740695150)
-  var ret: encoded Float
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
-  (addr ret).decode_result(Float)
 proc `targetTransform=`*(self: SkeletonIK3D; target: Transform3D) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

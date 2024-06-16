@@ -23,6 +23,24 @@ proc toNode*(self: GLTFPhysicsShape; cacheShapes: Bool = false): CollisionShape3
   var ret: encoded CollisionShape3D
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(CollisionShape3D)
+proc fromResource*(_: typedesc[GLTFPhysicsShape]; shapeResource: GD_ref[Shape3D]): GD_ref[GLTFPhysicsShape] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "from_resource"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFPhysicsShape, addr name, 3845569786)
+  var `?param` = [getPtr shapeResource]
+  var ret: encoded GD_ref[GLTFPhysicsShape]
+  interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
+  (addr ret).decode_result(GD_ref[GLTFPhysicsShape])
+proc toResource*(self: GLTFPhysicsShape; cacheShapes: Bool = false): GD_ref[Shape3D] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "to_resource"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFPhysicsShape, addr name, 1913542110)
+  var `?param` = [getPtr cacheShapes]
+  var ret: encoded GD_ref[Shape3D]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(GD_ref[Shape3D])
 proc fromDictionary*(_: typedesc[GLTFPhysicsShape]; dictionary: Dictionary): GD_ref[GLTFPhysicsShape] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

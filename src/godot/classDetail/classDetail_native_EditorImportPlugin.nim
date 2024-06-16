@@ -9,7 +9,7 @@ proc appendImportExternalResource*(self: EditorImportPlugin; path: String; custo
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "append_import_external_resource"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorImportPlugin, addr name, 3645925746)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorImportPlugin, addr name, 320493106)
   var `?param` = [getPtr path, getPtr customOptions, getPtr customImporter, getPtr generatorParameters]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

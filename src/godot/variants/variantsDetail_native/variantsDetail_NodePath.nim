@@ -12,6 +12,7 @@ var NodePath_hash: PtrBuiltinMethod
 var NodePath_getSubname: PtrBuiltinMethod
 var NodePath_getConcatenatedNames: PtrBuiltinMethod
 var NodePath_getConcatenatedSubnames: PtrBuiltinMethod
+var NodePath_slice: PtrBuiltinMethod
 var NodePath_getAsPropertyPath: PtrBuiltinMethod
 var NodePath_isEmpty: PtrBuiltinMethod
 proc isAbsolute*(self: NodePath): Bool = NodePath_isAbsolute(addr self, nil, addr result, 0)
@@ -26,6 +27,9 @@ proc getSubname*(self: NodePath; idx: Int): StringName =
   NodePath_getSubname(addr self, addr argArr[0], addr result, 1)
 proc getConcatenatedNames*(self: NodePath): StringName = NodePath_getConcatenatedNames(addr self, nil, addr result, 0)
 proc getConcatenatedSubnames*(self: NodePath): StringName = NodePath_getConcatenatedSubnames(addr self, nil, addr result, 0)
+proc slice*(self: NodePath; begin: Int; `end`: Int = 2147483647): NodePath =
+  let argArr = [getPtr begin, getPtr `end`]
+  NodePath_slice(addr self, addr argArr[0], addr result, 2)
 proc getAsPropertyPath*(self: NodePath): NodePath = NodePath_getAsPropertyPath(addr self, nil, addr result, 0)
 proc isEmpty*(self: NodePath): Bool = NodePath_isEmpty(addr self, nil, addr result, 0)
 proc load_NodePath_proc =
@@ -46,6 +50,8 @@ proc load_NodePath_proc =
   NodePath_getConcatenatedNames = interface_Variant_getPtrBuiltinMethod(variantType NodePath, addr proc_name, 1825232092)
   proc_name = api.newStringName "get_concatenated_subnames"
   NodePath_getConcatenatedSubnames = interface_Variant_getPtrBuiltinMethod(variantType NodePath, addr proc_name, 1825232092)
+  proc_name = api.newStringName "slice"
+  NodePath_slice = interface_Variant_getPtrBuiltinMethod(variantType NodePath, addr proc_name, 421628484)
   proc_name = api.newStringName "get_as_property_path"
   NodePath_getAsPropertyPath = interface_Variant_getPtrBuiltinMethod(variantType NodePath, addr proc_name, 1598598043)
   proc_name = api.newStringName "is_empty"

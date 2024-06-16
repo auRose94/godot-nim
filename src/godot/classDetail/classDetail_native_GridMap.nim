@@ -191,7 +191,7 @@ proc setCellItem*(self: GridMap; position: Vector3i; item: int32; orientation: i
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_cell_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className GridMap, addr name, 4177201334)
+    methodbind = interface_ClassDB_getMethodBind(addr className GridMap, addr name, 3449088946)
   var `?param` = [getPtr position, getPtr item, getPtr orientation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getCellItem*(self: GridMap; position: Vector3i): int32 =
@@ -257,13 +257,6 @@ proc mapToLocal*(self: GridMap; mapPosition: Vector3i): Vector3 =
   var ret: encoded Vector3
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Vector3)
-proc resourceChanged*(self: GridMap; resource: GD_ref[Resource]) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "resource_changed"
-    methodbind = interface_ClassDB_getMethodBind(addr className GridMap, addr name, 968641751)
-  var `?param` = [getPtr resource]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc `centerX=`*(self: GridMap; enable: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

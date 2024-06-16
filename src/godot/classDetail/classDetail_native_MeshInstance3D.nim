@@ -50,6 +50,14 @@ proc skin*(self: MeshInstance3D): GD_ref[Skin] =
   var ret: encoded GD_ref[Skin]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(GD_ref[Skin])
+proc getSkinReference*(self: MeshInstance3D): GD_ref[SkinReference] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_skin_reference"
+    methodbind = interface_ClassDB_getMethodBind(addr className MeshInstance3D, addr name, 2060603409)
+  var ret: encoded GD_ref[SkinReference]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(GD_ref[SkinReference])
 proc getSurfaceOverrideMaterialCount*(self: MeshInstance3D): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -142,3 +150,12 @@ proc createDebugTangents*(self: MeshInstance3D) =
     let name = api.newStringName "create_debug_tangents"
     methodbind = interface_ClassDB_getMethodBind(addr className MeshInstance3D, addr name, 3218959716)
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc bakeMeshFromCurrentBlendShapeMix*(self: MeshInstance3D; existing: GD_ref[ArrayMesh] = default GD_ref[ArrayMesh]): GD_ref[ArrayMesh] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "bake_mesh_from_current_blend_shape_mix"
+    methodbind = interface_ClassDB_getMethodBind(addr className MeshInstance3D, addr name, 1457573577)
+  var `?param` = [getPtr existing]
+  var ret: encoded GD_ref[ArrayMesh]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(GD_ref[ArrayMesh])

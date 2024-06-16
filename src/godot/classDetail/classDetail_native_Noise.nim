@@ -54,7 +54,7 @@ proc getImage*(self: Noise; width: int32; height: int32; invert: Bool = false; i
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_image"
-    methodbind = interface_ClassDB_getMethodBind(addr className Noise, addr name, 2569233413)
+    methodbind = interface_ClassDB_getMethodBind(addr className Noise, addr name, 3180683109)
   var `?param` = [getPtr width, getPtr height, getPtr invert, getPtr in3dSpace, getPtr normalize]
   var ret: encoded GD_ref[Image]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -63,7 +63,7 @@ proc getSeamlessImage*(self: Noise; width: int32; height: int32; invert: Bool = 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_seamless_image"
-    methodbind = interface_ClassDB_getMethodBind(addr className Noise, addr name, 2210827790)
+    methodbind = interface_ClassDB_getMethodBind(addr className Noise, addr name, 2770743602)
   var `?param` = [getPtr width, getPtr height, getPtr invert, getPtr in3dSpace, getPtr skirt, getPtr normalize]
   var ret: encoded GD_ref[Image]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -72,7 +72,7 @@ proc getImage3d*(self: Noise; width: int32; height: int32; depth: int32; invert:
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_image_3d"
-    methodbind = interface_ClassDB_getMethodBind(addr className Noise, addr name, 2358868431)
+    methodbind = interface_ClassDB_getMethodBind(addr className Noise, addr name, 3977814329)
   var `?param` = [getPtr width, getPtr height, getPtr depth, getPtr invert, getPtr normalize]
   var ret: encoded GD_ref[Image]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -81,7 +81,7 @@ proc getSeamlessImage3d*(self: Noise; width: int32; height: int32; depth: int32;
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_seamless_image_3d"
-    methodbind = interface_ClassDB_getMethodBind(addr className Noise, addr name, 3328694319)
+    methodbind = interface_ClassDB_getMethodBind(addr className Noise, addr name, 451006340)
   var `?param` = [getPtr width, getPtr height, getPtr depth, getPtr invert, getPtr skirt, getPtr normalize]
   var ret: encoded GD_ref[Image]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

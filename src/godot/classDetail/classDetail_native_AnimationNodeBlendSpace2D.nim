@@ -9,7 +9,7 @@ proc addBlendPoint*(self: AnimationNodeBlendSpace2D; node: GD_ref[AnimationRootN
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_blend_point"
-    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeBlendSpace2D, addr name, 1533588937)
+    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeBlendSpace2D, addr name, 402261981)
   var `?param` = [getPtr node, getPtr pos, getPtr atIndex]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setBlendPointPosition*(self: AnimationNodeBlendSpace2D; point: int32; pos: Vector2) =
@@ -63,7 +63,7 @@ proc addTriangle*(self: AnimationNodeBlendSpace2D; x: int32; y: int32; z: int32;
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_triangle"
-    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeBlendSpace2D, addr name, 642454959)
+    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeBlendSpace2D, addr name, 753017335)
   var `?param` = [getPtr x, getPtr y, getPtr z, getPtr atIndex]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getTrianglePoint*(self: AnimationNodeBlendSpace2D; triangle: int32; point: int32): int32 =

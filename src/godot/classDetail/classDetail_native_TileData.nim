@@ -132,12 +132,12 @@ proc setOccluder*(self: TileData; layerId: int32; occluderPolygon: GD_ref[Occlud
     methodbind = interface_ClassDB_getMethodBind(addr className TileData, addr name, 914399637)
   var `?param` = [getPtr layerId, getPtr occluderPolygon]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc getOccluder*(self: TileData; layerId: int32): GD_ref[OccluderPolygon2D] =
+proc getOccluder*(self: TileData; layerId: int32; flipH: Bool = false; flipV: Bool = false; transpose: Bool = false): GD_ref[OccluderPolygon2D] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_occluder"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileData, addr name, 2458574231)
-  var `?param` = [getPtr layerId]
+    methodbind = interface_ClassDB_getMethodBind(addr className TileData, addr name, 2377324099)
+  var `?param` = [getPtr layerId, getPtr flipH, getPtr flipV, getPtr transpose]
   var ret: encoded GD_ref[OccluderPolygon2D]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(GD_ref[OccluderPolygon2D])
@@ -297,6 +297,15 @@ proc getTerrainPeeringBit*(self: TileData; peeringBit: TileSet_CellNeighbor): in
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(int32)
+proc isValidTerrainPeeringBit*(self: TileData; peeringBit: TileSet_CellNeighbor): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_valid_terrain_peering_bit"
+    methodbind = interface_ClassDB_getMethodBind(addr className TileData, addr name, 845723972)
+  var `?param` = [getPtr peeringBit]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc setNavigationPolygon*(self: TileData; layerId: int32; navigationPolygon: GD_ref[NavigationPolygon]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -304,12 +313,12 @@ proc setNavigationPolygon*(self: TileData; layerId: int32; navigationPolygon: GD
     methodbind = interface_ClassDB_getMethodBind(addr className TileData, addr name, 2224691167)
   var `?param` = [getPtr layerId, getPtr navigationPolygon]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc getNavigationPolygon*(self: TileData; layerId: int32): GD_ref[NavigationPolygon] =
+proc getNavigationPolygon*(self: TileData; layerId: int32; flipH: Bool = false; flipV: Bool = false; transpose: Bool = false): GD_ref[NavigationPolygon] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_navigation_polygon"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileData, addr name, 3991786031)
-  var `?param` = [getPtr layerId]
+    methodbind = interface_ClassDB_getMethodBind(addr className TileData, addr name, 2907127272)
+  var `?param` = [getPtr layerId, getPtr flipH, getPtr flipV, getPtr transpose]
   var ret: encoded GD_ref[NavigationPolygon]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(GD_ref[NavigationPolygon])

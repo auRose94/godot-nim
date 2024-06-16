@@ -32,14 +32,14 @@ proc setDefaultTextureParameter*(self: Shader; name: StringName; texture: GD_ref
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_default_texture_parameter"
-    methodbind = interface_ClassDB_getMethodBind(addr className Shader, addr name, 1628453603)
+    methodbind = interface_ClassDB_getMethodBind(addr className Shader, addr name, 2750740428)
   var `?param` = [getPtr name, getPtr texture, getPtr index]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getDefaultTextureParameter*(self: Shader; name: StringName; index: int32 = 0): GD_ref[Texture2D] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_default_texture_parameter"
-    methodbind = interface_ClassDB_getMethodBind(addr className Shader, addr name, 3823812009)
+    methodbind = interface_ClassDB_getMethodBind(addr className Shader, addr name, 3090538643)
   var `?param` = [getPtr name, getPtr index]
   var ret: encoded GD_ref[Texture2D]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

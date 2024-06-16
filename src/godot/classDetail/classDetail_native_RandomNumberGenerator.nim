@@ -78,6 +78,15 @@ proc randiRange*(self: RandomNumberGenerator; `from`: int32; to: int32): int32 =
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(int32)
+proc randWeighted*(self: RandomNumberGenerator; weights: PackedFloat32Array): int64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "rand_weighted"
+    methodbind = interface_ClassDB_getMethodBind(addr className RandomNumberGenerator, addr name, 4189642986)
+  var `?param` = [getPtr weights]
+  var ret: encoded int64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int64)
 proc randomize*(self: RandomNumberGenerator) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

@@ -118,6 +118,21 @@ proc use3dAvoidance*(self: NavigationAgent3D): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc `keepYVelocity=`*(self: NavigationAgent3D; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_keep_y_velocity"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationAgent3D, addr name, 2586408642)
+  var `?param` = [getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc keepYVelocity*(self: NavigationAgent3D): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_keep_y_velocity"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationAgent3D, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc `neighborDistance=`*(self: NavigationAgent3D; neighborDistance: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -314,6 +329,36 @@ proc tarposition*(self: NavigationAgent3D): Vector3 =
   var ret: encoded Vector3
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Vector3)
+proc `simplifyPath=`*(self: NavigationAgent3D; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_simplify_path"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationAgent3D, addr name, 2586408642)
+  var `?param` = [getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc simplifyPath*(self: NavigationAgent3D): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_simplify_path"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationAgent3D, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `simplifyEpsilon=`*(self: NavigationAgent3D; epsilon: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_simplify_epsilon"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationAgent3D, addr name, 373806689)
+  var `?param` = [getPtr epsilon]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc simplifyEpsilon*(self: NavigationAgent3D): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_simplify_epsilon"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationAgent3D, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
 proc getNextPathPosition*(self: NavigationAgent3D): Vector3 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

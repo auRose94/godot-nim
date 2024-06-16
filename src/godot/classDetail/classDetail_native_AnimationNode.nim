@@ -91,14 +91,14 @@ proc blendAnimation*(self: AnimationNode; animation: StringName; time: float64; 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "blend_animation"
-    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNode, addr name, 11797022)
+    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNode, addr name, 1630801826)
   var `?param` = [getPtr animation, getPtr time, getPtr delta, getPtr seeked, getPtr isExternalSeeking, getPtr blend, getPtr loopedFlag]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc blendNode*(self: AnimationNode; name: StringName; node: GD_ref[AnimationNode]; time: float64; seek: Bool; isExternalSeeking: Bool; blend: Float; filter: AnimationNode_FilterAction = filterIgnore; sync: Bool = true; testOnly: Bool = false): float64 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "blend_node"
-    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNode, addr name, 263389446)
+    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNode, addr name, 1746075988)
   var `?param` = [getPtr name, getPtr node, getPtr time, getPtr seek, getPtr isExternalSeeking, getPtr blend, getPtr filter, getPtr sync, getPtr testOnly]
   var ret: encoded float64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -107,7 +107,7 @@ proc blendInput*(self: AnimationNode; inputIndex: int32; time: float64; seek: Bo
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "blend_input"
-    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNode, addr name, 2709059328)
+    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNode, addr name, 1361527350)
   var `?param` = [getPtr inputIndex, getPtr time, getPtr seek, getPtr isExternalSeeking, getPtr blend, getPtr filter, getPtr sync, getPtr testOnly]
   var ret: encoded float64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

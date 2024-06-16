@@ -169,7 +169,7 @@ proc addUserSignal*(self: Object; signal: String; arguments: Array = init_Array(
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_user_signal"
-    methodbind = interface_ClassDB_getMethodBind(addr className Object, addr name, 3780025912)
+    methodbind = interface_ClassDB_getMethodBind(addr className Object, addr name, 85656714)
   var `?param` = [getPtr signal, getPtr arguments]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc hasUserSignal*(self: Object; signal: StringName): Bool =
@@ -181,6 +181,13 @@ proc hasUserSignal*(self: Object; signal: StringName): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
+proc removeUserSignal*(self: Object; signal: StringName) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "remove_user_signal"
+    methodbind = interface_ClassDB_getMethodBind(addr className Object, addr name, 3304788590)
+  var `?param` = [getPtr signal]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc emitSignal*(self: Object; signal: Variant; args: varargs[Variant]): Error =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -245,6 +252,15 @@ proc hasMethod*(self: Object; `method`: StringName): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
+proc getMethodArgumentCount*(self: Object; `method`: StringName): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_method_argument_count"
+    methodbind = interface_ClassDB_getMethodBind(addr className Object, addr name, 2458036349)
+  var `?param` = [getPtr `method`]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
 proc hasSignal*(self: Object; signal: StringName): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -283,7 +299,7 @@ proc connect*(self: Object; signal: StringName; callable: Callable; flags: uint3
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "connect"
-    methodbind = interface_ClassDB_getMethodBind(addr className Object, addr name, 1469446357)
+    methodbind = interface_ClassDB_getMethodBind(addr className Object, addr name, 1518946055)
   var `?param` = [getPtr signal, getPtr callable, getPtr flags]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

@@ -50,3 +50,33 @@ proc motionRange*(self: OpenXRHand): OpenXRHand_MotionRange =
   var ret: encoded OpenXRHand_MotionRange
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(OpenXRHand_MotionRange)
+proc `skeletonRig=`*(self: OpenXRHand; skeletonRig: OpenXRHand_SkeletonRig) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_skeleton_rig"
+    methodbind = interface_ClassDB_getMethodBind(addr className OpenXRHand, addr name, 1528072213)
+  var `?param` = [getPtr skeletonRig]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc skeletonRig*(self: OpenXRHand): OpenXRHand_SkeletonRig =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_skeleton_rig"
+    methodbind = interface_ClassDB_getMethodBind(addr className OpenXRHand, addr name, 968409338)
+  var ret: encoded OpenXRHand_SkeletonRig
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(OpenXRHand_SkeletonRig)
+proc `boneUpdate=`*(self: OpenXRHand; boneUpdate: OpenXRHand_BoneUpdate) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_bone_update"
+    methodbind = interface_ClassDB_getMethodBind(addr className OpenXRHand, addr name, 3144625444)
+  var `?param` = [getPtr boneUpdate]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc boneUpdate*(self: OpenXRHand): OpenXRHand_BoneUpdate =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_bone_update"
+    methodbind = interface_ClassDB_getMethodBind(addr className OpenXRHand, addr name, 1310695248)
+  var ret: encoded OpenXRHand_BoneUpdate
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(OpenXRHand_BoneUpdate)

@@ -29,7 +29,7 @@ proc alert*(self: OS; text: String; title: String = "Alert!") =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "alert"
-    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 233059325)
+    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 1783970740)
   var `?param` = [getPtr text, getPtr title]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc crash*(self: OS; message: String) =
@@ -112,7 +112,7 @@ proc getSystemFontPath*(self: OS; fontName: String; weight: int32 = 400; stretch
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_system_font_path"
-    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 2262142305)
+    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 626580860)
   var `?param` = [getPtr fontName, getPtr weight, getPtr stretch, getPtr italic]
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -121,7 +121,7 @@ proc getSystemFontPathForText*(self: OS; fontName: String; text: String; locale:
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_system_font_path_for_text"
-    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 3824042574)
+    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 197317981)
   var `?param` = [getPtr fontName, getPtr text, getPtr locale, getPtr script, getPtr weight, getPtr stretch, getPtr italic]
   var ret: encoded PackedStringArray
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -146,11 +146,20 @@ proc execute*(self: OS; path: String; arguments: PackedStringArray; output: Arra
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "execute"
-    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 2881709059)
+    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 1488299882)
   var `?param` = [getPtr path, getPtr arguments, getPtr output, getPtr readStderr, getPtr openConsole]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(int32)
+proc executeWithPipe*(self: OS; path: String; arguments: PackedStringArray): Dictionary =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "execute_with_pipe"
+    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 3845631403)
+  var `?param` = [getPtr path, getPtr arguments]
+  var ret: encoded Dictionary
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Dictionary)
 proc createProcess*(self: OS; path: String; arguments: PackedStringArray; openConsole: Bool = false): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -191,7 +200,7 @@ proc shellShowInFileManager*(self: OS; fileOrDirPath: String; openFolder: Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shell_show_in_file_manager"
-    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 885841341)
+    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 3565188097)
   var `?param` = [getPtr fileOrDirPath, getPtr openFolder]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -205,6 +214,15 @@ proc isProcessRunning*(self: OS; pid: int32): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
+proc getProcessExitCode*(self: OS; pid: int32): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_process_exit_code"
+    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 923996154)
+  var `?param` = [getPtr pid]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
 proc getProcessId*(self: OS): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -297,7 +315,7 @@ proc setRestartOnExit*(self: OS; restart: Bool; arguments: PackedStringArray = P
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_restart_on_exit"
-    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 611198603)
+    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 3331453935)
   var `?param` = [getPtr restart, getPtr arguments]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc isRestartOnExitSet*(self: OS): Bool =
@@ -423,7 +441,7 @@ proc getSystemDir*(self: OS; dir: OS_SystemDir; sharedStorage: Bool = true): Str
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_system_dir"
-    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 1965199849)
+    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 3073895123)
   var `?param` = [getPtr dir, getPtr sharedStorage]
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -528,6 +546,14 @@ proc hasFeature*(self: OS; tagName: String): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
+proc isSandboxed*(self: OS): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_sandboxed"
+    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc requestPermission*(self: OS; name: String): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -553,3 +579,9 @@ proc getGrantedPermissions*(self: OS): PackedStringArray =
   var ret: encoded PackedStringArray
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(PackedStringArray)
+proc revokeGrantedPermissions*(self: OS) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "revoke_granted_permissions"
+    methodbind = interface_ClassDB_getMethodBind(addr className OS, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)

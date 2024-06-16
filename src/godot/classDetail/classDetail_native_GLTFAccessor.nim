@@ -80,6 +80,21 @@ proc `count=`*(self: GLTFAccessor; count: int32) =
     methodbind = interface_ClassDB_getMethodBind(addr className GLTFAccessor, addr name, 1286410249)
   var `?param` = [getPtr count]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc accessorType*(self: GLTFAccessor): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_accessor_type"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFAccessor, addr name, 2455072627)
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(int32)
+proc `accessorType=`*(self: GLTFAccessor; accessorType: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_accessor_type"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFAccessor, addr name, 1286410249)
+  var `?param` = [getPtr accessorType]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc `type`*(self: GLTFAccessor): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

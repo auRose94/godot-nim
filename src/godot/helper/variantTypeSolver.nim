@@ -41,6 +41,7 @@ template variantType*(_: typedesc[PackedFloat64Array]): VariantType = VariantTyp
 template variantType*(_: typedesc[PackedStringArray]): VariantType = VariantType_PackedStringArray
 template variantType*(_: typedesc[PackedVector2Array]): VariantType = VariantType_PackedVector2Array
 template variantType*(_: typedesc[PackedVector3Array]): VariantType = VariantType_PackedVector3Array
+template variantType*(_: typedesc[PackedVector4Array]): VariantType = VariantType_PackedVector4Array
 template variantType*(_: typedesc[PackedColorArray]): VariantType = VariantType_PackedColorArray
 
 # Object

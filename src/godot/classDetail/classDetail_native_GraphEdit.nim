@@ -45,6 +45,24 @@ proc getConnectionList*(self: GraphEdit): TypedArray[Dictionary] =
   var ret: encoded TypedArray[Dictionary]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(TypedArray[Dictionary])
+proc getClosestConnectionAtPoint*(self: GraphEdit; point: Vector2; maxDistance: Float = 4.0): Dictionary =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_closest_connection_at_point"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 453879819)
+  var `?param` = [getPtr point, getPtr maxDistance]
+  var ret: encoded Dictionary
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Dictionary)
+proc getConnectionsIntersectingWithRect*(self: GraphEdit; rect: Rect2): TypedArray[Dictionary] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_connections_intersecting_with_rect"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 2709748719)
+  var `?param` = [getPtr rect]
+  var ret: encoded TypedArray[Dictionary]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(TypedArray[Dictionary])
 proc clearConnections*(self: GraphEdit) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -57,18 +75,18 @@ proc forceConnectionDragEnd*(self: GraphEdit) =
     let name = api.newStringName "force_connection_drag_end"
     methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 3218959716)
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
-proc scrollOfs*(self: GraphEdit): Vector2 =
+proc scrollOffset*(self: GraphEdit): Vector2 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_scroll_ofs"
+    let name = api.newStringName "get_scroll_offset"
     methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 3341600327)
   var ret: encoded Vector2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Vector2)
-proc `scrollOfs=`*(self: GraphEdit; offset: Vector2) =
+proc `scrollOffset=`*(self: GraphEdit; offset: Vector2) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_scroll_ofs"
+    let name = api.newStringName "set_scroll_offset"
     methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 743155724)
   var `?param` = [getPtr offset]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
@@ -127,11 +145,43 @@ proc getConnectionLine*(self: GraphEdit; fromNode: Vector2; toNode: Vector2): Pa
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_connection_line"
-    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 1562168077)
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 3932192302)
   var `?param` = [getPtr fromNode, getPtr toNode]
   var ret: encoded PackedVector2Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(PackedVector2Array)
+proc attachGraphElementToFrame*(self: GraphEdit; element: StringName; frame: StringName) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "attach_graph_element_to_frame"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 3740211285)
+  var `?param` = [getPtr element, getPtr frame]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc detachGraphElementFromFrame*(self: GraphEdit; element: StringName) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "detach_graph_element_from_frame"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 3304788590)
+  var `?param` = [getPtr element]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getElementFrame*(self: GraphEdit; element: StringName): GraphFrame =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_element_frame"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 988084372)
+  var `?param` = [getPtr element]
+  var ret: encoded GraphFrame
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(GraphFrame)
+proc getAttachedNodesOfFrame*(self: GraphEdit; frame: StringName): TypedArray[StringName] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_attached_nodes_of_frame"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 689397652)
+  var `?param` = [getPtr frame]
+  var ret: encoded TypedArray[StringName]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(TypedArray[StringName])
 proc `panningScheme=`*(self: GraphEdit; scheme: GraphEdit_PanningScheme) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -207,51 +257,66 @@ proc zoomStep*(self: GraphEdit): Float =
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Float)
-proc `showZoomLabel=`*(self: GraphEdit; enable: Bool) =
+proc `showGrid=`*(self: GraphEdit; enable: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_show_zoom_label"
+    let name = api.newStringName "set_show_grid"
     methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 2586408642)
   var `?param` = [getPtr enable]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc isShowingZoomLabel*(self: GraphEdit): Bool =
+proc isShowingGrid*(self: GraphEdit): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "is_showing_zoom_label"
+    let name = api.newStringName "is_showing_grid"
     methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
-proc `snap=`*(self: GraphEdit; pixels: int32) =
+proc `gridPattern=`*(self: GraphEdit; pattern: GraphEdit_GridPattern) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_snap"
+    let name = api.newStringName "set_grid_pattern"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 1074098205)
+  var `?param` = [getPtr pattern]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc gridPattern*(self: GraphEdit): GraphEdit_GridPattern =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_grid_pattern"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 1286127528)
+  var ret: encoded GraphEdit_GridPattern
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(GraphEdit_GridPattern)
+proc `snappingEnabled=`*(self: GraphEdit; enable: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_snapping_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 2586408642)
+  var `?param` = [getPtr enable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isSnappingEnabled*(self: GraphEdit): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_snapping_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `snappingDistance=`*(self: GraphEdit; pixels: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_snapping_distance"
     methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 1286410249)
   var `?param` = [getPtr pixels]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc snap*(self: GraphEdit): int32 =
+proc snappingDistance*(self: GraphEdit): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_snap"
+    let name = api.newStringName "get_snapping_distance"
     methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 3905245786)
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
-proc `useSnap=`*(self: GraphEdit; enable: Bool) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_use_snap"
-    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 2586408642)
-  var `?param` = [getPtr enable]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc isUsingSnap*(self: GraphEdit): Bool =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "is_using_snap"
-    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 36873697)
-  var ret: encoded Bool
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
-  (addr ret).decode_result(Bool)
 proc `connectionLinesCurvature=`*(self: GraphEdit; curvature: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -342,17 +407,92 @@ proc isMinimapEnabled*(self: GraphEdit): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
-proc `arrangeNodesButtonHidden=`*(self: GraphEdit; enable: Bool) =
+proc `showMenu=`*(self: GraphEdit; hidden: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_arrange_nodes_button_hidden"
+    let name = api.newStringName "set_show_menu"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 2586408642)
+  var `?param` = [getPtr hidden]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isShowingMenu*(self: GraphEdit): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_showing_menu"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `showZoomLabel=`*(self: GraphEdit; enable: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_show_zoom_label"
     methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 2586408642)
   var `?param` = [getPtr enable]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc isArrangeNodesButtonHidden*(self: GraphEdit): Bool =
+proc isShowingZoomLabel*(self: GraphEdit): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "is_arrange_nodes_button_hidden"
+    let name = api.newStringName "is_showing_zoom_label"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `showGridButtons=`*(self: GraphEdit; hidden: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_show_grid_buttons"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 2586408642)
+  var `?param` = [getPtr hidden]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isShowingGridButtons*(self: GraphEdit): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_showing_grid_buttons"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `showZoomButtons=`*(self: GraphEdit; hidden: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_show_zoom_buttons"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 2586408642)
+  var `?param` = [getPtr hidden]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isShowingZoomButtons*(self: GraphEdit): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_showing_zoom_buttons"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `showMinimapButton=`*(self: GraphEdit; hidden: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_show_minimap_button"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 2586408642)
+  var `?param` = [getPtr hidden]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isShowingMinimapButton*(self: GraphEdit): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_showing_minimap_button"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `showArrangeButton=`*(self: GraphEdit; hidden: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_show_arrange_button"
+    methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 2586408642)
+  var `?param` = [getPtr hidden]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isShowingArrangeButton*(self: GraphEdit): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_showing_arrange_button"
     methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
@@ -372,10 +512,10 @@ proc isRightDisconnectsEnabled*(self: GraphEdit): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
-proc getZoomHbox*(self: GraphEdit): HBoxContainer =
+proc getMenuHbox*(self: GraphEdit): HBoxContainer =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_zoom_hbox"
+    let name = api.newStringName "get_menu_hbox"
     methodbind = interface_ClassDB_getMethodBind(addr className GraphEdit, addr name, 3590609951)
   var ret: encoded HBoxContainer
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

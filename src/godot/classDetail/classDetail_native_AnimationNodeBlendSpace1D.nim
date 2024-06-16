@@ -9,7 +9,7 @@ proc addBlendPoint*(self: AnimationNodeBlendSpace1D; node: GD_ref[AnimationRootN
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_blend_point"
-    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeBlendSpace1D, addr name, 4069484420)
+    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeBlendSpace1D, addr name, 285050433)
   var `?param` = [getPtr node, getPtr pos, getPtr atIndex]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setBlendPointPosition*(self: AnimationNodeBlendSpace1D; point: int32; pos: Float) =

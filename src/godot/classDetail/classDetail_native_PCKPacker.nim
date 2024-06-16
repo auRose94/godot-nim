@@ -9,7 +9,7 @@ proc pckStart*(self: PCKPacker; pckName: String; alignment: int32 = 32; key: Str
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "pck_start"
-    methodbind = interface_ClassDB_getMethodBind(addr className PCKPacker, addr name, 3232891339)
+    methodbind = interface_ClassDB_getMethodBind(addr className PCKPacker, addr name, 508410629)
   var `?param` = [getPtr pckName, getPtr alignment, getPtr key, getPtr encryptDirectory]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

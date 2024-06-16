@@ -9,7 +9,7 @@ proc `bind`*(self: StreamPeerTCP; port: int32; host: String = "*"): Error =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "bind"
-    methodbind = interface_ClassDB_getMethodBind(addr className StreamPeerTCP, addr name, 4025329869)
+    methodbind = interface_ClassDB_getMethodBind(addr className StreamPeerTCP, addr name, 3167955072)
   var `?param` = [getPtr port, getPtr host]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

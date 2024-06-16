@@ -50,6 +50,21 @@ proc bounces*(self: LightmapGI): int32 =
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
+proc `bounceIndirectEnergy=`*(self: LightmapGI; bounceIndirectEnergy: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_bounce_indirect_energy"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGI, addr name, 373806689)
+  var `?param` = [getPtr bounceIndirectEnergy]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc bounceIndirectEnergy*(self: LightmapGI): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_bounce_indirect_energy"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGI, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
 proc `generateProbes=`*(self: LightmapGI; subdivision: LightmapGI_GenerateProbes) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -140,6 +155,21 @@ proc environmentCustomEnergy*(self: LightmapGI): Float =
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Float)
+proc `texelScale=`*(self: LightmapGI; texelScale: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_texel_scale"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGI, addr name, 373806689)
+  var `?param` = [getPtr texelScale]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc texelScale*(self: LightmapGI): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_texel_scale"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGI, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
 proc `maxTextureSize=`*(self: LightmapGI; maxTextureSize: int32) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -170,6 +200,36 @@ proc isUsingDenoiser*(self: LightmapGI): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc `denoiserStrength=`*(self: LightmapGI; denoiserStrength: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_denoiser_strength"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGI, addr name, 373806689)
+  var `?param` = [getPtr denoiserStrength]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc denoiserStrength*(self: LightmapGI): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_denoiser_strength"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGI, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
+proc `denoiserRange=`*(self: LightmapGI; denoiserRange: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_denoiser_range"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGI, addr name, 1286410249)
+  var `?param` = [getPtr denoiserRange]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc denoiserRange*(self: LightmapGI): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_denoiser_range"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGI, addr name, 3905245786)
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(int32)
 proc `interior=`*(self: LightmapGI; enable: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -196,6 +256,21 @@ proc isDirectional*(self: LightmapGI): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_directional"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGI, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `useTextureForBounces=`*(self: LightmapGI; useTextureForBounces: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_use_texture_for_bounces"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGI, addr name, 2586408642)
+  var `?param` = [getPtr useTextureForBounces]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isUsingTextureForBounces*(self: LightmapGI): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_using_texture_for_bounces"
     methodbind = interface_ClassDB_getMethodBind(addr className LightmapGI, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

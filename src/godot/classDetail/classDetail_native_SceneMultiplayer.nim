@@ -138,7 +138,7 @@ proc sendBytes*(self: SceneMultiplayer; bytes: PackedByteArray; id: int32 = 0; m
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "send_bytes"
-    methodbind = interface_ClassDB_getMethodBind(addr className SceneMultiplayer, addr name, 2742700601)
+    methodbind = interface_ClassDB_getMethodBind(addr className SceneMultiplayer, addr name, 1307428718)
   var `?param` = [getPtr bytes, getPtr id, getPtr mode, getPtr channel]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

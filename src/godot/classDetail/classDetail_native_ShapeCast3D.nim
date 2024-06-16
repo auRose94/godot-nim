@@ -5,13 +5,6 @@
 import ./../helper/engineClassDefiner
 import ./classDetail_native_Node3D; export classDetail_native_Node3D
 
-proc resourceChanged*(self: ShapeCast3D; resource: GD_ref[Resource]) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "resource_changed"
-    methodbind = interface_ClassDB_getMethodBind(addr className ShapeCast3D, addr name, 968641751)
-  var `?param` = [getPtr resource]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc `enabled=`*(self: ShapeCast3D; enabled: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

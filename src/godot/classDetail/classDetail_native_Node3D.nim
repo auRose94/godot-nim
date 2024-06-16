@@ -170,6 +170,21 @@ proc globalPosition*(self: Node3D): Vector3 =
   var ret: encoded Vector3
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Vector3)
+proc `globalBasis=`*(self: Node3D; basis: Basis) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_global_basis"
+    methodbind = interface_ClassDB_getMethodBind(addr className Node3D, addr name, 1055510324)
+  var `?param` = [getPtr basis]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc globalBasis*(self: Node3D): Basis =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_global_basis"
+    methodbind = interface_ClassDB_getMethodBind(addr className Node3D, addr name, 2716978435)
+  var ret: encoded Basis
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Basis)
 proc `globalRotation=`*(self: Node3D; eulerRadians: Vector3) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -472,14 +487,14 @@ proc lookAt*(self: Node3D; target: Vector3; up: Vector3 = gdvec(0, 1, 0); useMod
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "look_at"
-    methodbind = interface_ClassDB_getMethodBind(addr className Node3D, addr name, 3123400617)
+    methodbind = interface_ClassDB_getMethodBind(addr className Node3D, addr name, 2882425029)
   var `?param` = [getPtr target, getPtr up, getPtr useModelFront]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc lookAtFromPosition*(self: Node3D; position: Vector3; target: Vector3; up: Vector3 = gdvec(0, 1, 0); useModelFront: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "look_at_from_position"
-    methodbind = interface_ClassDB_getMethodBind(addr className Node3D, addr name, 4067663783)
+    methodbind = interface_ClassDB_getMethodBind(addr className Node3D, addr name, 2086826090)
   var `?param` = [getPtr position, getPtr target, getPtr up, getPtr useModelFront]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc toLocal*(self: Node3D; globalPoint: Vector3): Vector3 =

@@ -9,7 +9,7 @@ proc connectToHost*(self: HTTPClient; host: String; port: int32 = -1; tlsOptions
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "connect_to_host"
-    methodbind = interface_ClassDB_getMethodBind(addr className HTTPClient, addr name, 1970282951)
+    methodbind = interface_ClassDB_getMethodBind(addr className HTTPClient, addr name, 504540374)
   var `?param` = [getPtr host, getPtr port, getPtr tlsOptions]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -42,7 +42,7 @@ proc request*(self: HTTPClient; `method`: HTTPClient_Method; url: String; header
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "request"
-    methodbind = interface_ClassDB_getMethodBind(addr className HTTPClient, addr name, 3249905507)
+    methodbind = interface_ClassDB_getMethodBind(addr className HTTPClient, addr name, 3778990155)
   var `?param` = [getPtr `method`, getPtr url, getPtr headers, getPtr body]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

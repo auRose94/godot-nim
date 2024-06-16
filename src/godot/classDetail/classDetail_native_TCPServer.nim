@@ -9,7 +9,7 @@ proc listen*(self: TCPServer; port: uint16; bindAddress: String = "*"): Error =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "listen"
-    methodbind = interface_ClassDB_getMethodBind(addr className TCPServer, addr name, 4025329869)
+    methodbind = interface_ClassDB_getMethodBind(addr className TCPServer, addr name, 3167955072)
   var `?param` = [getPtr port, getPtr bindAddress]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

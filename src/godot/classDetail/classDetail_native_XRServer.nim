@@ -43,6 +43,12 @@ proc getReferenceFrame*(self: XRServer): Transform3D =
   var ret: encoded Transform3D
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Transform3D)
+proc clearReferenceFrame*(self: XRServer) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "clear_reference_frame"
+    methodbind = interface_ClassDB_getMethodBind(addr className XRServer, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
 proc centerOnHmd*(self: XRServer; rotationMode: XRServer_RotationMode; keepHeight: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -106,18 +112,18 @@ proc findInterface*(self: XRServer; name: String): GD_ref[XRInterface] =
   var ret: encoded GD_ref[XRInterface]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(GD_ref[XRInterface])
-proc addTracker*(self: XRServer; tracker: GD_ref[XRPositionalTracker]) =
+proc addTracker*(self: XRServer; tracker: GD_ref[XRTracker]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_tracker"
-    methodbind = interface_ClassDB_getMethodBind(addr className XRServer, addr name, 2692800323)
+    methodbind = interface_ClassDB_getMethodBind(addr className XRServer, addr name, 684804553)
   var `?param` = [getPtr tracker]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc removeTracker*(self: XRServer; tracker: GD_ref[XRPositionalTracker]) =
+proc removeTracker*(self: XRServer; tracker: GD_ref[XRTracker]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "remove_tracker"
-    methodbind = interface_ClassDB_getMethodBind(addr className XRServer, addr name, 2692800323)
+    methodbind = interface_ClassDB_getMethodBind(addr className XRServer, addr name, 684804553)
   var `?param` = [getPtr tracker]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getTrackers*(self: XRServer; trackerTypes: int32): Dictionary =
@@ -129,15 +135,15 @@ proc getTrackers*(self: XRServer; trackerTypes: int32): Dictionary =
   var ret: encoded Dictionary
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Dictionary)
-proc getTracker*(self: XRServer; trackerName: StringName): GD_ref[XRPositionalTracker] =
+proc getTracker*(self: XRServer; trackerName: StringName): GD_ref[XRTracker] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_tracker"
-    methodbind = interface_ClassDB_getMethodBind(addr className XRServer, addr name, 2742084544)
+    methodbind = interface_ClassDB_getMethodBind(addr className XRServer, addr name, 147382240)
   var `?param` = [getPtr trackerName]
-  var ret: encoded GD_ref[XRPositionalTracker]
+  var ret: encoded GD_ref[XRTracker]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(GD_ref[XRPositionalTracker])
+  (addr ret).decode_result(GD_ref[XRTracker])
 proc primaryInterface*(self: XRServer): GD_ref[XRInterface] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

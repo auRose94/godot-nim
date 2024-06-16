@@ -61,7 +61,7 @@ proc addSurfaceFromArrays*(self: ArrayMesh; primitive: Mesh_PrimitiveType; array
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_surface_from_arrays"
-    methodbind = interface_ClassDB_getMethodBind(addr className ArrayMesh, addr name, 172284304)
+    methodbind = interface_ClassDB_getMethodBind(addr className ArrayMesh, addr name, 1796411378)
   var `?param` = [getPtr primitive, getPtr arrays, getPtr blendShapes, getPtr lods, getPtr flags]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc clearSurfaces*(self: ArrayMesh) =

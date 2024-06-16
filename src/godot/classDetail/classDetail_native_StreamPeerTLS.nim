@@ -24,7 +24,7 @@ proc connectToStream*(self: StreamPeerTLS; stream: GD_ref[StreamPeer]; commonNam
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "connect_to_stream"
-    methodbind = interface_ClassDB_getMethodBind(addr className StreamPeerTLS, addr name, 1325480781)
+    methodbind = interface_ClassDB_getMethodBind(addr className StreamPeerTLS, addr name, 57169517)
   var `?param` = [getPtr stream, getPtr commonName, getPtr clientOptions]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

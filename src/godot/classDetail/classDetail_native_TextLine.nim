@@ -82,7 +82,7 @@ proc addString*(self: TextLine; text: String; font: GD_ref[Font]; fontSize: int3
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_string"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 867188035)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 621426851)
   var `?param` = [getPtr text, getPtr font, getPtr fontSize, getPtr language, getPtr meta]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -91,7 +91,7 @@ proc addObject*(self: TextLine; key: Variant; size: Vector2; inlineAlign: Inline
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_object"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 735420116)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 1316529304)
   var `?param` = [getPtr key, getPtr size, getPtr inlineAlign, getPtr length, getPtr baseline]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -100,7 +100,7 @@ proc resizeObject*(self: TextLine; key: Variant; size: Vector2; inlineAlign: Inl
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "resize_object"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 960819067)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 2095776372)
   var `?param` = [getPtr key, getPtr size, getPtr inlineAlign, getPtr baseline]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -172,6 +172,21 @@ proc textOverrunBehavior*(self: TextLine): TextServer_OverrunBehavior =
   var ret: encoded TextServer_OverrunBehavior
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(TextServer_OverrunBehavior)
+proc `ellipsisChar=`*(self: TextLine; char: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_ellipsis_char"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 83702148)
+  var `?param` = [getPtr char]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc ellipsisChar*(self: TextLine): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_ellipsis_char"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
 proc getObjects*(self: TextLine): Array =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -249,14 +264,14 @@ proc draw*(self: TextLine; canvas: RID; pos: Vector2; color: Color = init_Color(
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 1164457837)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 856975658)
   var `?param` = [getPtr canvas, getPtr pos, getPtr color]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawOutline*(self: TextLine; canvas: RID; pos: Vector2; outlineSize: int32 = 1; color: Color = init_Color(1, 1, 1, 1)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_outline"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 1364491366)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextLine, addr name, 1343401456)
   var `?param` = [getPtr canvas, getPtr pos, getPtr outlineSize, getPtr color]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc hitTest*(self: TextLine; coords: Float): int32 =

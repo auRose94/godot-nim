@@ -406,6 +406,12 @@ proc toggleFoldableLine*(self: CodeEdit; line: int32) =
     methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 1286410249)
   var `?param` = [getPtr line]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc toggleFoldableLinesAtCarets*(self: CodeEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "toggle_foldable_lines_at_carets"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
 proc isLineFolded*(self: CodeEdit; line: int32): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -423,6 +429,53 @@ proc getFoldedLines*(self: CodeEdit): TypedArray[Int] =
   var ret: encoded TypedArray[Int]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(TypedArray[Int])
+proc createCodeRegion*(self: CodeEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "create_code_region"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc getCodeRegionStartTag*(self: CodeEdit): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_code_region_start_tag"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
+proc getCodeRegionEndTag*(self: CodeEdit): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_code_region_end_tag"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
+proc setCodeRegionTags*(self: CodeEdit; start: String = "region"; `end`: String = "endregion") =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_code_region_tags"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 708800718)
+  var `?param` = [getPtr start, getPtr `end`]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isLineCodeRegionStart*(self: CodeEdit; line: int32): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_line_code_region_start"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 1116898809)
+  var `?param` = [getPtr line]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
+proc isLineCodeRegionEnd*(self: CodeEdit; line: int32): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_line_code_region_end"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 1116898809)
+  var `?param` = [getPtr line]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc addStringDelimiter*(self: CodeEdit; startKey: String; endKey: String; lineOnly: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -471,7 +524,7 @@ proc isInString*(self: CodeEdit; line: int32; column: int32 = -1): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_in_string"
-    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 3294126239)
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 688195400)
   var `?param` = [getPtr line, getPtr column]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -524,7 +577,7 @@ proc isInComment*(self: CodeEdit; line: int32; column: int32 = -1): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_in_comment"
-    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 3294126239)
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 688195400)
   var `?param` = [getPtr line, getPtr column]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -598,7 +651,7 @@ proc addCodeCompletionOption*(self: CodeEdit; `type`: CodeEdit_CodeCompletionKin
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_code_completion_option"
-    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 1629240608)
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 3944379502)
   var `?param` = [getPtr `type`, getPtr displayText, getPtr insertText, getPtr textColor, getPtr icon, getPtr value, getPtr location]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc updateCodeCompletionOptions*(self: CodeEdit; force: Bool) =
@@ -717,9 +770,18 @@ proc getTextForSymbolLookup*(self: CodeEdit): String =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_text_for_symbol_lookup"
-    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 2841200299)
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 201670096)
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
+proc getTextWithCursorChar*(self: CodeEdit; line: int32; column: int32): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_text_with_cursor_char"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 1391810591)
+  var `?param` = [getPtr line, getPtr column]
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(String)
 proc setSymbolLookupWordAsValid*(self: CodeEdit; valid: Bool) =
   var methodbind {.global.}: MethodBindPtr
@@ -728,3 +790,33 @@ proc setSymbolLookupWordAsValid*(self: CodeEdit; valid: Bool) =
     methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 2586408642)
   var `?param` = [getPtr valid]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc moveLinesUp*(self: CodeEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "move_lines_up"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc moveLinesDown*(self: CodeEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "move_lines_down"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc deleteLines*(self: CodeEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "delete_lines"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc duplicateSelection*(self: CodeEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "duplicate_selection"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc duplicateLines*(self: CodeEdit) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "duplicate_lines"
+    methodbind = interface_ClassDB_getMethodBind(addr className CodeEdit, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)

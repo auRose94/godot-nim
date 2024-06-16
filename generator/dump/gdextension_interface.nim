@@ -25,6 +25,7 @@ type
     VariantType_PackedStringArray,
     VariantType_PackedVector2Array,
     VariantType_PackedVector3Array,
+    VariantType_PackedVector4Array,
     VariantType_PackedColorArray,
   VariantOperator* {.size: sizeof(cuint).} = enum
     VariantOP_Equal, VariantOP_NotEqual,
@@ -316,7 +317,7 @@ type
   ScriptInstanceFree* = proc (p_instance: ScriptInstanceDataPtr)
   ScriptInstancePtr* = pointer
 type
-  ScriptInstanceInfo* {.bycopy.} = object
+  ScriptInstanceInfo3* {.bycopy.} = object
     set_func*: ScriptInstanceSet
     get_func*: ScriptInstanceGet
     get_property_list_func*: ScriptInstanceGetPropertyList
@@ -704,6 +705,12 @@ type
   InterfacePackedVector2ArrayOperatorIndexConst* = proc (
       p_self: ConstTypePtr; p_index: Int): TypePtr
 type
+  InterfacePackedVector4ArrayOperatorIndex* = proc (
+      p_self: TypePtr; p_index: Int): TypePtr
+type
+  InterfacePackedVector4ArrayOperatorIndexConst* = proc (
+      p_self: ConstTypePtr; p_index: Int): TypePtr
+type
   InterfacePackedVector3ArrayOperatorIndex* = proc (
       p_self: TypePtr; p_index: Int): TypePtr
 type
@@ -772,8 +779,8 @@ type
   InterfaceRefSetObject* = proc (p_ref: RefPtr;
       p_object: ObjectPtr)
 type
-  InterfaceScriptInstanceCreate* = proc (
-      p_info: ptr ScriptInstanceInfo;
+  InterfaceScriptInstanceCreate3* = proc (
+      p_info: ptr ScriptInstanceInfo3;
       p_instance_data: ScriptInstanceDataPtr): ScriptInstancePtr
 type
   InterfaceClassdbConstructObject* = proc (

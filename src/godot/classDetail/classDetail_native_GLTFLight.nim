@@ -129,3 +129,19 @@ proc `outerConeAngle=`*(self: GLTFLight; outerConeAngle: Float) =
     methodbind = interface_ClassDB_getMethodBind(addr className GLTFLight, addr name, 373806689)
   var `?param` = [getPtr outerConeAngle]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getAdditionalData*(self: GLTFLight; extensionName: StringName): Variant =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_additional_data"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFLight, addr name, 2138907829)
+  var `?param` = [getPtr extensionName]
+  var ret: encoded Variant
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Variant)
+proc setAdditionalData*(self: GLTFLight; extensionName: StringName; additionalData: Variant) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_additional_data"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFLight, addr name, 3776071444)
+  var `?param` = [getPtr extensionName, getPtr additionalData]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

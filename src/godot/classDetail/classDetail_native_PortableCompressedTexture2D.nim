@@ -9,7 +9,7 @@ proc createFromImage*(self: PortableCompressedTexture2D; image: GD_ref[Image]; c
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_from_image"
-    methodbind = interface_ClassDB_getMethodBind(addr className PortableCompressedTexture2D, addr name, 97251393)
+    methodbind = interface_ClassDB_getMethodBind(addr className PortableCompressedTexture2D, addr name, 3679243433)
   var `?param` = [getPtr image, getPtr compressionMode, getPtr normalMap, getPtr lossyQuality]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getFormat*(self: PortableCompressedTexture2D): Image_Format =

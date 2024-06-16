@@ -10,6 +10,8 @@ const Vector4i_AxisZ*: int = 2
 const Vector4i_AxisW*: int = 3
 const Vector4i_Zero*: Vector4i = gdveci(0, 0, 0, 0)
 const Vector4i_One*: Vector4i = gdveci(1, 1, 1, 1)
+const Vector4i_Min*: Vector4i = gdveci(-2147483648, -2147483648, -2147483648, -2147483648)
+const Vector4i_Max*: Vector4i = gdveci(2147483647, 2147483647, 2147483647, 2147483647)
 var Equal_Vector4i_Variant: PtrOperatorEvaluator
 var NotEqual_Vector4i_Variant: PtrOperatorEvaluator
 var In_Vector4i_Dictionary: PtrOperatorEvaluator

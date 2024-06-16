@@ -38,21 +38,21 @@ proc setOffsetsPreset*(self: Control; preset: Control_LayoutPreset; resizeMode: 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_offsets_preset"
-    methodbind = interface_ClassDB_getMethodBind(addr className Control, addr name, 3651818904)
+    methodbind = interface_ClassDB_getMethodBind(addr className Control, addr name, 3724524307)
   var `?param` = [getPtr preset, getPtr resizeMode, getPtr margin]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setAnchorsAndOffsetsPreset*(self: Control; preset: Control_LayoutPreset; resizeMode: Control_LayoutPresetMode = presetModeMinsize; margin: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_anchors_and_offsets_preset"
-    methodbind = interface_ClassDB_getMethodBind(addr className Control, addr name, 3651818904)
+    methodbind = interface_ClassDB_getMethodBind(addr className Control, addr name, 3724524307)
   var `?param` = [getPtr preset, getPtr resizeMode, getPtr margin]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setAnchor*(self: Control; side: Side; anchor: Float; keepOffset: Bool = false; pushOppositeAnchor: Bool = true) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_anchor"
-    methodbind = interface_ClassDB_getMethodBind(addr className Control, addr name, 2589937826)
+    methodbind = interface_ClassDB_getMethodBind(addr className Control, addr name, 2302782885)
   var `?param` = [getPtr side, getPtr anchor, getPtr keepOffset, getPtr pushOppositeAnchor]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc anchor*(self: Control; side: Side): Float =
@@ -325,6 +325,15 @@ proc findNextValidFocus*(self: Control): Control =
     methodbind = interface_ClassDB_getMethodBind(addr className Control, addr name, 2783021301)
   var ret: encoded Control
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Control)
+proc findValidFocusNeighbor*(self: Control; side: Side): Control =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "find_valid_focus_neighbor"
+    methodbind = interface_ClassDB_getMethodBind(addr className Control, addr name, 1543910170)
+  var `?param` = [getPtr side]
+  var ret: encoded Control
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Control)
 proc `hSizeFlags=`*(self: Control; flags: set[Control_SizeFlags]) =
   var methodbind {.global.}: MethodBindPtr
@@ -942,21 +951,6 @@ proc isLayoutRtl*(self: Control): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_layout_rtl"
-    methodbind = interface_ClassDB_getMethodBind(addr className Control, addr name, 36873697)
-  var ret: encoded Bool
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
-  (addr ret).decode_result(Bool)
-proc `autoTranslate=`*(self: Control; enable: Bool) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_auto_translate"
-    methodbind = interface_ClassDB_getMethodBind(addr className Control, addr name, 2586408642)
-  var `?param` = [getPtr enable]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc isAutoTranslating*(self: Control): Bool =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "is_auto_translating"
     methodbind = interface_ClassDB_getMethodBind(addr className Control, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

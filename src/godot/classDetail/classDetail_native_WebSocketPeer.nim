@@ -9,7 +9,7 @@ proc connectToUrl*(self: WebSocketPeer; url: String; tlsClientOptions: GD_ref[TL
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "connect_to_url"
-    methodbind = interface_ClassDB_getMethodBind(addr className WebSocketPeer, addr name, 3097527179)
+    methodbind = interface_ClassDB_getMethodBind(addr className WebSocketPeer, addr name, 1966198364)
   var `?param` = [getPtr url, getPtr tlsClientOptions]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -27,7 +27,7 @@ proc send*(self: WebSocketPeer; message: PackedByteArray; writeMode: WebSocketPe
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "send"
-    methodbind = interface_ClassDB_getMethodBind(addr className WebSocketPeer, addr name, 3440492527)
+    methodbind = interface_ClassDB_getMethodBind(addr className WebSocketPeer, addr name, 2780360567)
   var `?param` = [getPtr message, getPtr writeMode]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

@@ -92,6 +92,13 @@ proc shapeSetData*(self: PhysicsServer3D; shape: RID; data: Variant) =
     methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 3175752987)
   var `?param` = [getPtr shape, getPtr data]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc shapeSetMargin*(self: PhysicsServer3D; shape: RID; margin: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "shape_set_margin"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 1794382983)
+  var `?param` = [getPtr shape, getPtr margin]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc shapeGetType*(self: PhysicsServer3D; shape: RID): PhysicsServer3D_ShapeType =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -110,6 +117,15 @@ proc shapeGetData*(self: PhysicsServer3D; shape: RID): Variant =
   var ret: encoded Variant
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Variant)
+proc shapeGetMargin*(self: PhysicsServer3D; shape: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "shape_get_margin"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 866169185)
+  var `?param` = [getPtr shape]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
 proc spaceCreate*(self: PhysicsServer3D): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -187,7 +203,7 @@ proc areaAddShape*(self: PhysicsServer3D; area: RID; shape: RID; transform: Tran
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "area_add_shape"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 4040559639)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 3711419014)
   var `?param` = [getPtr area, getPtr shape, getPtr transform, getPtr disabled]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc areaSetShape*(self: PhysicsServer3D; area: RID; shapeIdx: int32; shape: RID) =
@@ -452,7 +468,7 @@ proc bodyAddShape*(self: PhysicsServer3D; body: RID; shape: RID; transform: Tran
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "body_add_shape"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 4040559639)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 3711419014)
   var `?param` = [getPtr body, getPtr shape, getPtr transform, getPtr disabled]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc bodySetShape*(self: PhysicsServer3D; body: RID; shapeIdx: int32; shape: RID) =
@@ -599,7 +615,7 @@ proc bodyApplyImpulse*(self: PhysicsServer3D; body: RID; impulse: Vector3; posit
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "body_apply_impulse"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 110375048)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 390416203)
   var `?param` = [getPtr body, getPtr impulse, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc bodyApplyTorqueImpulse*(self: PhysicsServer3D; body: RID; impulse: Vector3) =
@@ -620,7 +636,7 @@ proc bodyApplyForce*(self: PhysicsServer3D; body: RID; force: Vector3; position:
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "body_apply_force"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 110375048)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 390416203)
   var `?param` = [getPtr body, getPtr force, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc bodyApplyTorque*(self: PhysicsServer3D; body: RID; torque: Vector3) =
@@ -641,7 +657,7 @@ proc bodyAddConstantForce*(self: PhysicsServer3D; body: RID; force: Vector3; pos
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "body_add_constant_force"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 110375048)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 390416203)
   var `?param` = [getPtr body, getPtr force, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc bodyAddConstantTorque*(self: PhysicsServer3D; body: RID; torque: Vector3) =
@@ -784,6 +800,44 @@ proc bodyGetDirectState*(self: PhysicsServer3D; body: RID): PhysicsDirectBodySta
   var ret: encoded PhysicsDirectBodyState3D
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(PhysicsDirectBodyState3D)
+proc softBodyCreate*(self: PhysicsServer3D): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_create"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 529393457)
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(RID)
+proc softBodyUpdateRenderingServer*(self: PhysicsServer3D; body: RID; renderingServerHandler: PhysicsServer3DRenderingServerHandler) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_update_rendering_server"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 2218179753)
+  var `?param` = [getPtr body, getPtr renderingServerHandler]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodySetSpace*(self: PhysicsServer3D; body: RID; space: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_space"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 395945892)
+  var `?param` = [getPtr body, getPtr space]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyGetSpace*(self: PhysicsServer3D; body: RID): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_get_space"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 3814569979)
+  var `?param` = [getPtr body]
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(RID)
+proc softBodySetMesh*(self: PhysicsServer3D; body: RID; mesh: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_mesh"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 395945892)
+  var `?param` = [getPtr body, getPtr mesh]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc softBodyGetBounds*(self: PhysicsServer3D; body: RID): AABB =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -793,6 +847,217 @@ proc softBodyGetBounds*(self: PhysicsServer3D; body: RID): AABB =
   var ret: encoded AABB
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(AABB)
+proc softBodySetCollisionLayer*(self: PhysicsServer3D; body: RID; layer: uint32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_collision_layer"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 3411492887)
+  var `?param` = [getPtr body, getPtr layer]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyGetCollisionLayer*(self: PhysicsServer3D; body: RID): uint32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_get_collision_layer"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 2198884583)
+  var `?param` = [getPtr body]
+  var ret: encoded uint32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(uint32)
+proc softBodySetCollisionMask*(self: PhysicsServer3D; body: RID; mask: uint32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_collision_mask"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 3411492887)
+  var `?param` = [getPtr body, getPtr mask]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyGetCollisionMask*(self: PhysicsServer3D; body: RID): uint32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_get_collision_mask"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 2198884583)
+  var `?param` = [getPtr body]
+  var ret: encoded uint32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(uint32)
+proc softBodyAddCollisionException*(self: PhysicsServer3D; body: RID; bodyB: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_add_collision_exception"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 395945892)
+  var `?param` = [getPtr body, getPtr bodyB]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyRemoveCollisionException*(self: PhysicsServer3D; body: RID; bodyB: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_remove_collision_exception"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 395945892)
+  var `?param` = [getPtr body, getPtr bodyB]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodySetState*(self: PhysicsServer3D; body: RID; state: PhysicsServer3D_BodyState; variant: Variant) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_state"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 599977762)
+  var `?param` = [getPtr body, getPtr state, getPtr variant]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyGetState*(self: PhysicsServer3D; body: RID; state: PhysicsServer3D_BodyState): Variant =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_get_state"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 1850449534)
+  var `?param` = [getPtr body, getPtr state]
+  var ret: encoded Variant
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Variant)
+proc softBodySetTransform*(self: PhysicsServer3D; body: RID; transform: Transform3D) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_transform"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 3935195649)
+  var `?param` = [getPtr body, getPtr transform]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodySetRayPickable*(self: PhysicsServer3D; body: RID; enable: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_ray_pickable"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 1265174801)
+  var `?param` = [getPtr body, getPtr enable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodySetSimulationPrecision*(self: PhysicsServer3D; body: RID; simulationPrecision: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_simulation_precision"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 3411492887)
+  var `?param` = [getPtr body, getPtr simulationPrecision]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyGetSimulationPrecision*(self: PhysicsServer3D; body: RID): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_get_simulation_precision"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 2198884583)
+  var `?param` = [getPtr body]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
+proc softBodySetTotalMass*(self: PhysicsServer3D; body: RID; totalMass: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_total_mass"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 1794382983)
+  var `?param` = [getPtr body, getPtr totalMass]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyGetTotalMass*(self: PhysicsServer3D; body: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_get_total_mass"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 866169185)
+  var `?param` = [getPtr body]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
+proc softBodySetLinearStiffness*(self: PhysicsServer3D; body: RID; stiffness: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_linear_stiffness"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 1794382983)
+  var `?param` = [getPtr body, getPtr stiffness]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyGetLinearStiffness*(self: PhysicsServer3D; body: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_get_linear_stiffness"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 866169185)
+  var `?param` = [getPtr body]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
+proc softBodySetPressureCoefficient*(self: PhysicsServer3D; body: RID; pressureCoefficient: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_pressure_coefficient"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 1794382983)
+  var `?param` = [getPtr body, getPtr pressureCoefficient]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyGetPressureCoefficient*(self: PhysicsServer3D; body: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_get_pressure_coefficient"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 866169185)
+  var `?param` = [getPtr body]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
+proc softBodySetDampingCoefficient*(self: PhysicsServer3D; body: RID; dampingCoefficient: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_damping_coefficient"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 1794382983)
+  var `?param` = [getPtr body, getPtr dampingCoefficient]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyGetDampingCoefficient*(self: PhysicsServer3D; body: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_get_damping_coefficient"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 866169185)
+  var `?param` = [getPtr body]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
+proc softBodySetDragCoefficient*(self: PhysicsServer3D; body: RID; dragCoefficient: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_set_drag_coefficient"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 1794382983)
+  var `?param` = [getPtr body, getPtr dragCoefficient]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyGetDragCoefficient*(self: PhysicsServer3D; body: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_get_drag_coefficient"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 866169185)
+  var `?param` = [getPtr body]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
+proc softBodyMovePoint*(self: PhysicsServer3D; body: RID; pointIndex: int32; globalPosition: Vector3) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_move_point"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 831953689)
+  var `?param` = [getPtr body, getPtr pointIndex, getPtr globalPosition]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyGetPointGlobalPosition*(self: PhysicsServer3D; body: RID; pointIndex: int32): Vector3 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_get_point_global_position"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 3440143363)
+  var `?param` = [getPtr body, getPtr pointIndex]
+  var ret: encoded Vector3
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Vector3)
+proc softBodyRemoveAllPinnedPoints*(self: PhysicsServer3D; body: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_remove_all_pinned_points"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 2722037293)
+  var `?param` = [getPtr body]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyPinPoint*(self: PhysicsServer3D; body: RID; pointIndex: int32; pin: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_pin_point"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 2658558584)
+  var `?param` = [getPtr body, getPtr pointIndex, getPtr pin]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc softBodyIsPointPinned*(self: PhysicsServer3D; body: RID; pointIndex: int32): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "soft_body_is_point_pinned"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsServer3D, addr name, 3120086654)
+  var `?param` = [getPtr body, getPtr pointIndex]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc jointCreate*(self: PhysicsServer3D): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

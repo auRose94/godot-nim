@@ -1,8 +1,8 @@
-# Godot-Nim v4.1
+# Godot-Nim v4.3 Beta
 
-It enable us to work godot-4.x with Nim.
+It enable us to work godot-4.3+ with Nim.
 
-Based on **[godot-cpp 4.1 stable](https://github.com/godotengine/godot-cpp/tree/godot-4.1-stable)**
+Based on **[godot-cpp 4.1 stable](https://github.com/godotengine/godot-cpp/tree/godot-4.1-stable)**, Modified for 4.3+
 
 ## How to use
 
@@ -55,7 +55,7 @@ See **[NimSideTester](https://github.com/panno8M/godot-nim/tree/main/test/src/ni
 
 ### ⚫In progress
 
-* [ ] Upgrade to v4.2
+* [x] Upgrade to v4.2
 * [ ] Define utility functions (E.g. `print`)
 * [ ] Register user-defined methods
   * [x] Register and call simple method

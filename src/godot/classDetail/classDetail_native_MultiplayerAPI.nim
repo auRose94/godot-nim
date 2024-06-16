@@ -64,7 +64,7 @@ proc rpc*(self: MultiplayerAPI; peer: int32; `object`: Object; `method`: StringN
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "rpc"
-    methodbind = interface_ClassDB_getMethodBind(addr className MultiplayerAPI, addr name, 1833408346)
+    methodbind = interface_ClassDB_getMethodBind(addr className MultiplayerAPI, addr name, 2077486355)
   var `?param` = [getPtr peer, getPtr `object`, getPtr `method`, getPtr arguments]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

@@ -27,12 +27,19 @@ proc `text=`*(self: RichTextLabel; text: String) =
     methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 83702148)
   var `?param` = [getPtr text]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc addImage*(self: RichTextLabel; image: GD_ref[Texture2D]; width: int32 = 0; height: int32 = 0; color: Color = init_Color(1, 1, 1, 1); inlineAlign: InlineAlignment = inlineAlignmentCenter; region: Rect2 = init_Rect2(0, 0, 0, 0)) =
+proc addImage*(self: RichTextLabel; image: GD_ref[Texture2D]; width: int32 = 0; height: int32 = 0; color: Color = init_Color(1, 1, 1, 1); inlineAlign: InlineAlignment = inlineAlignmentCenter; region: Rect2 = init_Rect2(0, 0, 0, 0); key: Variant = default(Variant); pad: Bool = false; tooltip: String = ""; sizeInPercent: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_image"
-    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3346058748)
-  var `?param` = [getPtr image, getPtr width, getPtr height, getPtr color, getPtr inlineAlign, getPtr region]
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3017663154)
+  var `?param` = [getPtr image, getPtr width, getPtr height, getPtr color, getPtr inlineAlign, getPtr region, getPtr key, getPtr pad, getPtr tooltip, getPtr sizeInPercent]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc updateImage*(self: RichTextLabel; key: Variant; mask: set[RichTextLabel_ImageUpdateMask]; image: GD_ref[Texture2D]; width: int32 = 0; height: int32 = 0; color: Color = init_Color(1, 1, 1, 1); inlineAlign: InlineAlignment = inlineAlignmentCenter; region: Rect2 = init_Rect2(0, 0, 0, 0); pad: Bool = false; tooltip: String = ""; sizeInPercent: Bool = false) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "update_image"
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 815048486)
+  var `?param` = [getPtr key, getPtr mask, getPtr image, getPtr width, getPtr height, getPtr color, getPtr inlineAlign, getPtr region, getPtr pad, getPtr tooltip, getPtr sizeInPercent]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc newline*(self: RichTextLabel) =
   var methodbind {.global.}: MethodBindPtr
@@ -40,20 +47,29 @@ proc newline*(self: RichTextLabel) =
     let name = api.newStringName "newline"
     methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3218959716)
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
-proc removeParagraph*(self: RichTextLabel; paragraph: int32): Bool =
+proc removeParagraph*(self: RichTextLabel; paragraph: int32; noInvalidate: Bool = false): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "remove_paragraph"
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3262369265)
+  var `?param` = [getPtr paragraph, getPtr noInvalidate]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
+proc invalidateParagraph*(self: RichTextLabel; paragraph: int32): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "invalidate_paragraph"
     methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3067735520)
   var `?param` = [getPtr paragraph]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
-proc pushFont*(self: RichTextLabel; font: GD_ref[Font]; fontSize: int32) =
+proc pushFont*(self: RichTextLabel; font: GD_ref[Font]; fontSize: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "push_font"
-    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3014009009)
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 2347424842)
   var `?param` = [getPtr font, getPtr fontSize]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc pushFontSize*(self: RichTextLabel; fontSize: int32) =
@@ -118,7 +134,7 @@ proc pushParagraph*(self: RichTextLabel; alignment: HorizontalAlignment; baseDir
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "push_paragraph"
-    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3218895358)
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3089306873)
   var `?param` = [getPtr alignment, getPtr baseDirection, getPtr language, getPtr stParser, getPtr justificationFlags, getPtr tabStops]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc pushIndent*(self: RichTextLabel; level: int32) =
@@ -132,15 +148,15 @@ proc pushList*(self: RichTextLabel; level: int32; `type`: RichTextLabel_ListType
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "push_list"
-    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 4036303897)
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3017143144)
   var `?param` = [getPtr level, getPtr `type`, getPtr capitalize, getPtr bullet]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc pushMeta*(self: RichTextLabel; data: Variant) =
+proc pushMeta*(self: RichTextLabel; data: Variant; underlineMode: RichTextLabel_MetaUnderline = metaUnderlineAlways) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "push_meta"
-    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 1114965689)
-  var `?param` = [getPtr data]
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 2206155733)
+  var `?param` = [getPtr data, getPtr underlineMode]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc pushHint*(self: RichTextLabel; description: String) =
   var methodbind {.global.}: MethodBindPtr
@@ -148,6 +164,13 @@ proc pushHint*(self: RichTextLabel; description: String) =
     let name = api.newStringName "push_hint"
     methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 83702148)
   var `?param` = [getPtr description]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc pushLanguage*(self: RichTextLabel; language: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "push_language"
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 83702148)
+  var `?param` = [getPtr language]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc pushUnderline*(self: RichTextLabel) =
   var methodbind {.global.}: MethodBindPtr
@@ -165,21 +188,21 @@ proc pushTable*(self: RichTextLabel; columns: int32; inlineAlign: InlineAlignmen
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "push_table"
-    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 1125058220)
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 2623499273)
   var `?param` = [getPtr columns, getPtr inlineAlign, getPtr alignToRow]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc pushDropcap*(self: RichTextLabel; string: String; font: GD_ref[Font]; size: int32; dropcapMargins: Rect2 = init_Rect2(0, 0, 0, 0); color: Color = init_Color(1, 1, 1, 1); outlineSize: int32 = 0; outlineColor: Color = init_Color(0, 0, 0, 0)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "push_dropcap"
-    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 311501835)
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 4061635501)
   var `?param` = [getPtr string, getPtr font, getPtr size, getPtr dropcapMargins, getPtr color, getPtr outlineSize, getPtr outlineColor]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc setTableColumnExpand*(self: RichTextLabel; column: int32; expand: Bool; ratio: int32) =
+proc setTableColumnExpand*(self: RichTextLabel; column: int32; expand: Bool; ratio: int32 = 1) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_table_column_expand"
-    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 4258957458)
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 2185176273)
   var `?param` = [getPtr column, getPtr expand, getPtr ratio]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setCellRowBackgroundColor*(self: RichTextLabel; oddRowBg: Color; evenRowBg: Color) =
@@ -237,10 +260,28 @@ proc pushCustomfx*(self: RichTextLabel; effect: GD_ref[RichTextEffect]; env: Dic
     methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 2337942958)
   var `?param` = [getPtr effect, getPtr env]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc pushContext*(self: RichTextLabel) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "push_context"
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc popContext*(self: RichTextLabel) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "pop_context"
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
 proc pop*(self: RichTextLabel) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "pop"
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc popAll*(self: RichTextLabel) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "pop_all"
     methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 3218959716)
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
 proc clear*(self: RichTextLabel) =
@@ -498,6 +539,21 @@ proc isDeselectOnFocusLossEnabled*(self: RichTextLabel): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_deselect_on_focus_loss_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `dragAndDropSelectionEnabled=`*(self: RichTextLabel; enable: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_drag_and_drop_selection_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 2586408642)
+  var `?param` = [getPtr enable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isDragAndDropSelectionEnabled*(self: RichTextLabel): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_drag_and_drop_selection_enabled"
     methodbind = interface_ClassDB_getMethodBind(addr className RichTextLabel, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

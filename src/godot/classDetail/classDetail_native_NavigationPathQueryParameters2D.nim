@@ -110,3 +110,33 @@ proc metadataFlags*(self: NavigationPathQueryParameters2D): set[NavigationPathQu
   var ret: encoded set[NavigationPathQueryParameters2D_PathMetadataFlags]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(set[NavigationPathQueryParameters2D_PathMetadataFlags])
+proc `simplifyPath=`*(self: NavigationPathQueryParameters2D; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_simplify_path"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationPathQueryParameters2D, addr name, 2586408642)
+  var `?param` = [getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc simplifyPath*(self: NavigationPathQueryParameters2D): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_simplify_path"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationPathQueryParameters2D, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `simplifyEpsilon=`*(self: NavigationPathQueryParameters2D; epsilon: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_simplify_epsilon"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationPathQueryParameters2D, addr name, 373806689)
+  var `?param` = [getPtr epsilon]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc simplifyEpsilon*(self: NavigationPathQueryParameters2D): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_simplify_epsilon"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationPathQueryParameters2D, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)

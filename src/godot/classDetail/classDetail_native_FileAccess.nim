@@ -36,7 +36,7 @@ proc openCompressed*(_: typedesc[FileAccess]; path: String; modeFlags: FileAcces
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "open_compressed"
-    methodbind = interface_ClassDB_getMethodBind(addr className FileAccess, addr name, 2874458257)
+    methodbind = interface_ClassDB_getMethodBind(addr className FileAccess, addr name, 3686439335)
   var `?param` = [getPtr path, getPtr modeFlags, getPtr compressionMode]
   var ret: encoded GD_ref[FileAccess]
   interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
@@ -67,6 +67,15 @@ proc getFileAsString*(_: typedesc[FileAccess]; path: String): String =
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
   (addr ret).decode_result(String)
+proc resize*(self: FileAccess; length: int64): Error =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "resize"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileAccess, addr name, 844576869)
+  var `?param` = [getPtr length]
+  var ret: encoded Error
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Error)
 proc flush*(self: FileAccess) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -343,7 +352,7 @@ proc storeCsvLine*(self: FileAccess; values: PackedStringArray; delim: String = 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "store_csv_line"
-    methodbind = interface_ClassDB_getMethodBind(addr className FileAccess, addr name, 2217842308)
+    methodbind = interface_ClassDB_getMethodBind(addr className FileAccess, addr name, 2173791505)
   var `?param` = [getPtr values, getPtr delim]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc storeString*(self: FileAccess; string: String) =
@@ -399,3 +408,57 @@ proc getModifiedTime*(_: typedesc[FileAccess]; file: String): uint64 =
   var ret: encoded uint64
   interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
   (addr ret).decode_result(uint64)
+proc getUnixPermissions*(_: typedesc[FileAccess]; file: String): set[FileAccess_UnixPermissionFlags] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_unix_permissions"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileAccess, addr name, 524341837)
+  var `?param` = [getPtr file]
+  var ret: encoded set[FileAccess_UnixPermissionFlags]
+  interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
+  (addr ret).decode_result(set[FileAccess_UnixPermissionFlags])
+proc setUnixPermissions*(_: typedesc[FileAccess]; file: String; permissions: set[FileAccess_UnixPermissionFlags]): Error =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_unix_permissions"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileAccess, addr name, 846038644)
+  var `?param` = [getPtr file, getPtr permissions]
+  var ret: encoded Error
+  interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Error)
+proc getHiddenAttribute*(_: typedesc[FileAccess]; file: String): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_hidden_attribute"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileAccess, addr name, 2323990056)
+  var `?param` = [getPtr file]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
+proc setHiddenAttribute*(_: typedesc[FileAccess]; file: String; hidden: Bool): Error =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_hidden_attribute"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileAccess, addr name, 2892558115)
+  var `?param` = [getPtr file, getPtr hidden]
+  var ret: encoded Error
+  interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Error)
+proc setReadOnlyAttribute*(_: typedesc[FileAccess]; file: String; ro: Bool): Error =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_read_only_attribute"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileAccess, addr name, 2892558115)
+  var `?param` = [getPtr file, getPtr ro]
+  var ret: encoded Error
+  interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Error)
+proc getReadOnlyAttribute*(_: typedesc[FileAccess]; file: String): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_read_only_attribute"
+    methodbind = interface_ClassDB_getMethodBind(addr className FileAccess, addr name, 2323990056)
+  var `?param` = [getPtr file]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)

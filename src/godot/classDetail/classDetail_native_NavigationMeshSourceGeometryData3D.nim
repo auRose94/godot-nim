@@ -35,6 +35,13 @@ proc indices*(self: NavigationMeshSourceGeometryData3D): PackedInt32Array =
   var ret: encoded PackedInt32Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(PackedInt32Array)
+proc appendArrays*(self: NavigationMeshSourceGeometryData3D; vertices: PackedFloat32Array; indices: PackedInt32Array) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "append_arrays"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationMeshSourceGeometryData3D, addr name, 3117535015)
+  var `?param` = [getPtr vertices, getPtr indices]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc clear*(self: NavigationMeshSourceGeometryData3D) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -70,3 +77,38 @@ proc addFaces*(self: NavigationMeshSourceGeometryData3D; faces: PackedVector3Arr
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationMeshSourceGeometryData3D, addr name, 1440358797)
   var `?param` = [getPtr faces, getPtr xform]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc merge*(self: NavigationMeshSourceGeometryData3D; otherGeometry: GD_ref[NavigationMeshSourceGeometryData3D]) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "merge"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationMeshSourceGeometryData3D, addr name, 655828145)
+  var `?param` = [getPtr otherGeometry]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc addProjectedObstruction*(self: NavigationMeshSourceGeometryData3D; vertices: PackedVector3Array; elevation: Float; height: Float; carve: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "add_projected_obstruction"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationMeshSourceGeometryData3D, addr name, 3351846707)
+  var `?param` = [getPtr vertices, getPtr elevation, getPtr height, getPtr carve]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc clearProjectedObstructions*(self: NavigationMeshSourceGeometryData3D) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "clear_projected_obstructions"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationMeshSourceGeometryData3D, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc `projectedObstructions=`*(self: NavigationMeshSourceGeometryData3D; projectedObstructions: Array) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_projected_obstructions"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationMeshSourceGeometryData3D, addr name, 381264803)
+  var `?param` = [getPtr projectedObstructions]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc projectedObstructions*(self: NavigationMeshSourceGeometryData3D): Array =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_projected_obstructions"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationMeshSourceGeometryData3D, addr name, 3995934104)
+  var ret: encoded Array
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Array)

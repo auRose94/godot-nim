@@ -53,6 +53,14 @@ proc getData*(self: Image): PackedByteArray =
   var ret: encoded PackedByteArray
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(PackedByteArray)
+proc getDataSize*(self: Image): int64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_data_size"
+    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 3905245786)
+  var ret: encoded int64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(int64)
 proc convert*(self: Image; format: Image_Format) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -60,6 +68,14 @@ proc convert*(self: Image; format: Image_Format) =
     methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 2120693146)
   var `?param` = [getPtr format]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getMipmapCount*(self: Image): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_mipmap_count"
+    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 3905245786)
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(int32)
 proc getMipmapOffset*(self: Image; mipmap: int32): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -80,7 +96,7 @@ proc resize*(self: Image; width: int32; height: int32; interpolation: Image_Inte
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "resize"
-    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 2461393748)
+    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 994498151)
   var `?param` = [getPtr width, getPtr height, getPtr interpolation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc shrinkX2*(self: Image) =
@@ -123,10 +139,10 @@ proc clearMipmaps*(self: Image) =
     let name = api.newStringName "clear_mipmaps"
     methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 3218959716)
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
-proc create*(_: typedesc[Image]; width: int32; height: int32; useMipmaps: Bool; format: Image_Format): GD_ref[Image] =
+proc createEmpty*(_: typedesc[Image]; width: int32; height: int32; useMipmaps: Bool; format: Image_Format): GD_ref[Image] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "create"
+    let name = api.newStringName "create_empty"
     methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 986942177)
   var `?param` = [getPtr width, getPtr height, getPtr useMipmaps, getPtr format]
   var ret: encoded GD_ref[Image]
@@ -195,7 +211,7 @@ proc saveJpg*(self: Image; path: String; quality: Float = 0.75): Error =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "save_jpg"
-    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 578836491)
+    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 2800019068)
   var `?param` = [getPtr path, getPtr quality]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -231,7 +247,7 @@ proc saveWebp*(self: Image; path: String; lossy: Bool = false; quality: Float = 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "save_webp"
-    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 3594949219)
+    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 2781156876)
   var `?param` = [getPtr path, getPtr lossy, getPtr quality]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -274,7 +290,7 @@ proc compress*(self: Image; mode: Image_CompressMode; source: Image_CompressSour
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "compress"
-    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 4094210332)
+    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 2975424957)
   var `?param` = [getPtr mode, getPtr source, getPtr astcFormat]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -283,7 +299,7 @@ proc compressFromChannels*(self: Image; mode: Image_CompressMode; channels: Imag
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "compress_from_channels"
-    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 279105990)
+    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 4212890953)
   var `?param` = [getPtr mode, getPtr channels, getPtr astcFormat]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -512,6 +528,33 @@ proc loadBmpFromBuffer*(self: Image; buffer: PackedByteArray): Error =
     let name = api.newStringName "load_bmp_from_buffer"
     methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 680677267)
   var `?param` = [getPtr buffer]
+  var ret: encoded Error
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Error)
+proc loadKtxFromBuffer*(self: Image; buffer: PackedByteArray): Error =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "load_ktx_from_buffer"
+    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 680677267)
+  var `?param` = [getPtr buffer]
+  var ret: encoded Error
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Error)
+proc loadSvgFromBuffer*(self: Image; buffer: PackedByteArray; scale: Float = 1.0): Error =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "load_svg_from_buffer"
+    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 311853421)
+  var `?param` = [getPtr buffer, getPtr scale]
+  var ret: encoded Error
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Error)
+proc loadSvgFromString*(self: Image; svgStr: String; scale: Float = 1.0): Error =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "load_svg_from_string"
+    methodbind = interface_ClassDB_getMethodBind(addr className Image, addr name, 3254053600)
+  var `?param` = [getPtr svgStr, getPtr scale]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Error)

@@ -20,17 +20,17 @@ proc tileset*(self: TileMap): GD_ref[TileSet] =
   var ret: encoded GD_ref[TileSet]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(GD_ref[TileSet])
-proc `quadrantSize=`*(self: TileMap; size: int32) =
+proc `renderingQuadrantSize=`*(self: TileMap; size: int32) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_quadrant_size"
+    let name = api.newStringName "set_rendering_quadrant_size"
     methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 1286410249)
   var `?param` = [getPtr size]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc quadrantSize*(self: TileMap): int32 =
+proc renderingQuadrantSize*(self: TileMap): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_quadrant_size"
+    let name = api.newStringName "get_rendering_quadrant_size"
     methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 3905245786)
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
@@ -160,6 +160,38 @@ proc getLayerZIndex*(self: TileMap; layer: int32): int32 =
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(int32)
+proc setLayerNavigationEnabled*(self: TileMap; layer: int32; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_layer_navigation_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 300928843)
+  var `?param` = [getPtr layer, getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isLayerNavigationEnabled*(self: TileMap; layer: int32): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_layer_navigation_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 1116898809)
+  var `?param` = [getPtr layer]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
+proc setLayerNavigationMap*(self: TileMap; layer: int32; map: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_layer_navigation_map"
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 4040184819)
+  var `?param` = [getPtr layer, getPtr map]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getLayerNavigationMap*(self: TileMap; layer: int32): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_layer_navigation_map"
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 495598643)
+  var `?param` = [getPtr layer]
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(RID)
 proc `collisionAnimatable=`*(self: TileMap; enabled: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -186,7 +218,7 @@ proc collisionVisibilityMode*(self: TileMap): TileMap_VisibilityMode =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_collision_visibility_mode"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 2026313073)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 1697018252)
   var ret: encoded TileMap_VisibilityMode
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(TileMap_VisibilityMode)
@@ -201,31 +233,15 @@ proc navigationVisibilityMode*(self: TileMap): TileMap_VisibilityMode =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_navigation_visibility_mode"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 2026313073)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 1697018252)
   var ret: encoded TileMap_VisibilityMode
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(TileMap_VisibilityMode)
-proc setNavigationMap*(self: TileMap; layer: int32; map: RID) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_navigation_map"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 4040184819)
-  var `?param` = [getPtr layer, getPtr map]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc getNavigationMap*(self: TileMap; layer: int32): RID =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_navigation_map"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 495598643)
-  var `?param` = [getPtr layer]
-  var ret: encoded RID
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(RID)
 proc setCell*(self: TileMap; layer: int32; coords: Vector2i; sourceId: int32 = -1; atlasCoords: Vector2i = gdveci(-1, -1); alternativeTile: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_cell"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 1732664643)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 966713560)
   var `?param` = [getPtr layer, getPtr coords, getPtr sourceId, getPtr atlasCoords, getPtr alternativeTile]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc eraseCell*(self: TileMap; layer: int32; coords: Vector2i) =
@@ -318,14 +334,14 @@ proc setCellsTerrainConnect*(self: TileMap; layer: int32; cells: TypedArray[Vect
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_cells_terrain_connect"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 3072115677)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 3578627656)
   var `?param` = [getPtr layer, getPtr cells, getPtr terrainSet, getPtr terrain, getPtr ignoreEmptyTerrains]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setCellsTerrainPath*(self: TileMap; layer: int32; path: TypedArray[Vector2i]; terrainSet: int32; terrain: int32; ignoreEmptyTerrains: Bool = true) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_cells_terrain_path"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 3072115677)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 3578627656)
   var `?param` = [getPtr layer, getPtr path, getPtr terrainSet, getPtr terrain, getPtr ignoreEmptyTerrains]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc fixInvalidTiles*(self: TileMap) =
@@ -347,10 +363,16 @@ proc clear*(self: TileMap) =
     let name = api.newStringName "clear"
     methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 3218959716)
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
-proc forceUpdate*(self: TileMap; layer: int32 = -1) =
+proc updateInternals*(self: TileMap) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "force_update"
+    let name = api.newStringName "update_internals"
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc notifyRuntimeTileDataUpdate*(self: TileMap; layer: int32 = -1) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "notify_runtime_tile_data_update"
     methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 1025054187)
   var `?param` = [getPtr layer]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
@@ -376,7 +398,7 @@ proc getUsedCellsById*(self: TileMap; layer: int32; sourceId: int32 = -1; atlasC
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_used_cells_by_id"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 4152068407)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 2931012785)
   var `?param` = [getPtr layer, getPtr sourceId, getPtr atlasCoords, getPtr alternativeTile]
   var ret: encoded TypedArray[Vector2i]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -385,7 +407,7 @@ proc getUsedRect*(self: TileMap): Rect2i =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_used_rect"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 2024035737)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMap, addr name, 410525958)
   var ret: encoded Rect2i
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Rect2i)

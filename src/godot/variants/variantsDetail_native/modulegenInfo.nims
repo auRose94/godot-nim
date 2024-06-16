@@ -16,6 +16,7 @@ let modules: seq[string] = @[
   "variantsDetail_Int.nim",
   "variantsDetail_Projection.nim",
   "variantsDetail_PackedFloat64Array.nim",
+  "variantsDetail_PackedVector4Array.nim",
   "variantsDetail_PackedStringArray.nim",
   "variantsDetail_PackedInt32Array.nim",
   "variantsDetail_PackedFloat32Array.nim",

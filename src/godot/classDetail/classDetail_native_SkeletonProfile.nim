@@ -218,3 +218,19 @@ proc setGroup*(self: SkeletonProfile; boneIdx: int32; group: StringName) =
     methodbind = interface_ClassDB_getMethodBind(addr className SkeletonProfile, addr name, 3780747571)
   var `?param` = [getPtr boneIdx, getPtr group]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isRequired*(self: SkeletonProfile; boneIdx: int32): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_required"
+    methodbind = interface_ClassDB_getMethodBind(addr className SkeletonProfile, addr name, 1116898809)
+  var `?param` = [getPtr boneIdx]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
+proc setRequired*(self: SkeletonProfile; boneIdx: int32; required: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_required"
+    methodbind = interface_ClassDB_getMethodBind(addr className SkeletonProfile, addr name, 300928843)
+  var `?param` = [getPtr boneIdx, getPtr required]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

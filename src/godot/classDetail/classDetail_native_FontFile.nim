@@ -88,6 +88,21 @@ proc antialiasing*(self: FontFile): TextServer_FontAntialiasing =
   var ret: encoded TextServer_FontAntialiasing
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(TextServer_FontAntialiasing)
+proc `disableEmbeddedBitmaps=`*(self: FontFile; disableEmbeddedBitmaps: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_disable_embedded_bitmaps"
+    methodbind = interface_ClassDB_getMethodBind(addr className FontFile, addr name, 2586408642)
+  var `?param` = [getPtr disableEmbeddedBitmaps]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc disableEmbeddedBitmaps*(self: FontFile): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_disable_embedded_bitmaps"
+    methodbind = interface_ClassDB_getMethodBind(addr className FontFile, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc `generateMipmaps=`*(self: FontFile; generateMipmaps: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -163,6 +178,21 @@ proc fixedSize*(self: FontFile): int32 =
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
+proc `fixedSizeScaleMode=`*(self: FontFile; fixedSizeScaleMode: TextServer_FixedSizeScaleMode) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_fixed_size_scale_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className FontFile, addr name, 1660989956)
+  var `?param` = [getPtr fixedSizeScaleMode]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc fixedSizeScaleMode*(self: FontFile): TextServer_FixedSizeScaleMode =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_fixed_size_scale_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className FontFile, addr name, 753873478)
+  var ret: encoded TextServer_FixedSizeScaleMode
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(TextServer_FixedSizeScaleMode)
 proc `allowSystemFallback=`*(self: FontFile; allowSystemFallback: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -330,6 +360,38 @@ proc getTransform*(self: FontFile; cacheIndex: int32): Transform2D =
   var ret: encoded Transform2D
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Transform2D)
+proc setExtraSpacing*(self: FontFile; cacheIndex: int32; spacing: TextServer_SpacingType; value: int64) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_extra_spacing"
+    methodbind = interface_ClassDB_getMethodBind(addr className FontFile, addr name, 62942285)
+  var `?param` = [getPtr cacheIndex, getPtr spacing, getPtr value]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getExtraSpacing*(self: FontFile; cacheIndex: int32; spacing: TextServer_SpacingType): int64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_extra_spacing"
+    methodbind = interface_ClassDB_getMethodBind(addr className FontFile, addr name, 1924257185)
+  var `?param` = [getPtr cacheIndex, getPtr spacing]
+  var ret: encoded int64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int64)
+proc setExtraBaselineOffset*(self: FontFile; cacheIndex: int32; baselineOffset: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_extra_baseline_offset"
+    methodbind = interface_ClassDB_getMethodBind(addr className FontFile, addr name, 1602489585)
+  var `?param` = [getPtr cacheIndex, getPtr baselineOffset]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getExtraBaselineOffset*(self: FontFile; cacheIndex: int32): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_extra_baseline_offset"
+    methodbind = interface_ClassDB_getMethodBind(addr className FontFile, addr name, 2339986948)
+  var `?param` = [getPtr cacheIndex]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
 proc setFaceIndex*(self: FontFile; cacheIndex: int32; faceIndex: int64) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

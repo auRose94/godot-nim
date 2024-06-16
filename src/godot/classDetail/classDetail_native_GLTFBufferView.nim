@@ -5,11 +5,20 @@
 import ./../helper/engineClassDefiner
 import ./classDetail_native_Resource; export classDetail_native_Resource
 
+proc loadBufferViewData*(self: GLTFBufferView; state: GD_ref[GLTFState]): PackedByteArray =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "load_buffer_view_data"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 3945446907)
+  var `?param` = [getPtr state]
+  var ret: encoded PackedByteArray
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(PackedByteArray)
 proc buffer*(self: GLTFBufferView): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_buffer"
-    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 2455072627)
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 3905245786)
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
@@ -24,7 +33,7 @@ proc byteOffset*(self: GLTFBufferView): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_byte_offset"
-    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 2455072627)
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 3905245786)
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
@@ -39,7 +48,7 @@ proc byteLength*(self: GLTFBufferView): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_byte_length"
-    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 2455072627)
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 3905245786)
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
@@ -54,7 +63,7 @@ proc byteStride*(self: GLTFBufferView): int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_byte_stride"
-    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 2455072627)
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 3905245786)
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
@@ -69,7 +78,7 @@ proc indices*(self: GLTFBufferView): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_indices"
-    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 2240911060)
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
@@ -79,4 +88,19 @@ proc `indices=`*(self: GLTFBufferView; indices: Bool) =
     let name = api.newStringName "set_indices"
     methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 2586408642)
   var `?param` = [getPtr indices]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc vertexAttributes*(self: GLTFBufferView): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_vertex_attributes"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `vertexAttributes=`*(self: GLTFBufferView; isAttributes: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_vertex_attributes"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFBufferView, addr name, 2586408642)
+  var `?param` = [getPtr isAttributes]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

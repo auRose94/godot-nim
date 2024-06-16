@@ -135,7 +135,7 @@ proc loadResourcePack*(self: ProjectSettings; pack: String; replaceFiles: Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "load_resource_pack"
-    methodbind = interface_ClassDB_getMethodBind(addr className ProjectSettings, addr name, 3001721055)
+    methodbind = interface_ClassDB_getMethodBind(addr className ProjectSettings, addr name, 708980503)
   var `?param` = [getPtr pack, getPtr replaceFiles, getPtr offset]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

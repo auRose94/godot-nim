@@ -21,6 +21,7 @@ import ./variantsDetail_native/variantsDetail_PackedInt64Array; export variantsD
 import ./variantsDetail_native/variantsDetail_PackedStringArray; export variantsDetail_PackedStringArray
 import ./variantsDetail_native/variantsDetail_PackedVector2Array; export variantsDetail_PackedVector2Array
 import ./variantsDetail_native/variantsDetail_PackedVector3Array; export variantsDetail_PackedVector3Array
+import ./variantsDetail_native/variantsDetail_PackedVector4Array; export variantsDetail_PackedVector4Array
 import ./variantsDetail_native/variantsDetail_Plane; export variantsDetail_Plane
 import ./variantsDetail_native/variantsDetail_Projection; export variantsDetail_Projection
 import ./variantsDetail_native/variantsDetail_Quaternion; export variantsDetail_Quaternion

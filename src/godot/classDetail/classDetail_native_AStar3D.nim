@@ -17,7 +17,7 @@ proc addPoint*(self: AStar3D; id: int64; position: Vector3; weightScale: Float =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_point"
-    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 2920922839)
+    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 1038703438)
   var `?param` = [getPtr id, getPtr position, getPtr weightScale]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getPointPosition*(self: AStar3D; id: int64): Vector3 =
@@ -89,7 +89,7 @@ proc setPointDisabled*(self: AStar3D; id: int64; disabled: Bool = true) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_point_disabled"
-    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 4023243586)
+    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 972357352)
   var `?param` = [getPtr id, getPtr disabled]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc isPointDisabled*(self: AStar3D; id: int64): Bool =
@@ -105,21 +105,21 @@ proc connectPoints*(self: AStar3D; id: int64; toId: int64; bidirectional: Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "connect_points"
-    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 3785370599)
+    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 3710494224)
   var `?param` = [getPtr id, getPtr toId, getPtr bidirectional]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc disconnectPoints*(self: AStar3D; id: int64; toId: int64; bidirectional: Bool = true) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "disconnect_points"
-    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 3785370599)
+    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 3710494224)
   var `?param` = [getPtr id, getPtr toId, getPtr bidirectional]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc arePointsConnected*(self: AStar3D; id: int64; toId: int64; bidirectional: Bool = true): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "are_points_connected"
-    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 4063588998)
+    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 2288175859)
   var `?param` = [getPtr id, getPtr toId, getPtr bidirectional]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -171,21 +171,21 @@ proc getClosestPositionInSegment*(self: AStar3D; toPosition: Vector3): Vector3 =
   var ret: encoded Vector3
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Vector3)
-proc getPointPath*(self: AStar3D; fromId: int64; toId: int64): PackedVector3Array =
+proc getPointPath*(self: AStar3D; fromId: int64; toId: int64; allowPartialPath: Bool = false): PackedVector3Array =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_point_path"
-    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 880819742)
-  var `?param` = [getPtr fromId, getPtr toId]
+    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 1562654675)
+  var `?param` = [getPtr fromId, getPtr toId, getPtr allowPartialPath]
   var ret: encoded PackedVector3Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(PackedVector3Array)
-proc getIdPath*(self: AStar3D; fromId: int64; toId: int64): PackedInt64Array =
+proc getIdPath*(self: AStar3D; fromId: int64; toId: int64; allowPartialPath: Bool = false): PackedInt64Array =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_id_path"
-    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 3404614526)
-  var `?param` = [getPtr fromId, getPtr toId]
+    methodbind = interface_ClassDB_getMethodBind(addr className AStar3D, addr name, 3136199648)
+  var `?param` = [getPtr fromId, getPtr toId, getPtr allowPartialPath]
   var ret: encoded PackedInt64Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(PackedInt64Array)

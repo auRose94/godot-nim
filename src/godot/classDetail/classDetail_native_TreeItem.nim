@@ -73,7 +73,7 @@ proc propagateCheck*(self: TreeItem; column: int32; emitSignal: Bool = true) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "propagate_check"
-    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 4023243586)
+    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 972357352)
   var `?param` = [getPtr column, getPtr emitSignal]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setText*(self: TreeItem; column: int32; text: String) =
@@ -124,6 +124,22 @@ proc getAutowrapMode*(self: TreeItem; column: int32): TextServer_AutowrapMode =
   var ret: encoded TextServer_AutowrapMode
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(TextServer_AutowrapMode)
+proc setTextOverrunBehavior*(self: TreeItem; column: int32; overrunBehavior: TextServer_OverrunBehavior) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_text_overrun_behavior"
+    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 1940772195)
+  var `?param` = [getPtr column, getPtr overrunBehavior]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getTextOverrunBehavior*(self: TreeItem; column: int32): TextServer_OverrunBehavior =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_text_overrun_behavior"
+    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 3782727860)
+  var `?param` = [getPtr column]
+  var ret: encoded TextServer_OverrunBehavior
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(TextServer_OverrunBehavior)
 proc setStructuredTextBidiOverride*(self: TreeItem; column: int32; parser: TextServer_StructuredTextParser) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -300,13 +316,22 @@ proc getMetadata*(self: TreeItem; column: int32): Variant =
   var ret: encoded Variant
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Variant)
-proc setCustomDraw*(self: TreeItem; column: int32; `object`: Object; callback: StringName) =
+proc setCustomDrawCallback*(self: TreeItem; column: int32; callback: Callable) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_custom_draw"
-    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 272420368)
-  var `?param` = [getPtr column, getPtr `object`, getPtr callback]
+    let name = api.newStringName "set_custom_draw_callback"
+    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 957362965)
+  var `?param` = [getPtr column, getPtr callback]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getCustomDrawCallback*(self: TreeItem; column: int32): Callable =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_custom_draw_callback"
+    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 1317077508)
+  var `?param` = [getPtr column]
+  var ret: encoded Callable
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Callable)
 proc `collapsed=`*(self: TreeItem; enable: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -350,6 +375,14 @@ proc isVisible*(self: TreeItem): Bool =
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_visible"
     methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 2240911060)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc isVisibleInTree*(self: TreeItem): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_visible_in_tree"
+    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
@@ -527,7 +560,7 @@ proc addButton*(self: TreeItem; column: int32; button: GD_ref[Texture2D]; id: in
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_button"
-    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 1507727907)
+    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 1688223362)
   var `?param` = [getPtr column, getPtr button, getPtr id, getPtr disabled, getPtr tooltipText]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getButtonCount*(self: TreeItem; column: int32): int32 =
@@ -566,6 +599,15 @@ proc getButtonById*(self: TreeItem; column: int32; id: int32): int32 =
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(int32)
+proc getButtonColor*(self: TreeItem; column: int32; id: int32): Color =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_button_color"
+    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 2165839948)
+  var `?param` = [getPtr column, getPtr id]
+  var ret: encoded Color
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Color)
 proc getButton*(self: TreeItem; column: int32; buttonIndex: int32): GD_ref[Texture2D] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -575,6 +617,13 @@ proc getButton*(self: TreeItem; column: int32; buttonIndex: int32): GD_ref[Textu
   var ret: encoded GD_ref[Texture2D]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(GD_ref[Texture2D])
+proc setButtonTooltipText*(self: TreeItem; column: int32; buttonIndex: int32; tooltip: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_button_tooltip_text"
+    methodbind = interface_ClassDB_getMethodBind(addr className TreeItem, addr name, 2285447957)
+  var `?param` = [getPtr column, getPtr buttonIndex, getPtr tooltip]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setButton*(self: TreeItem; column: int32; buttonIndex: int32; button: GD_ref[Texture2D]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

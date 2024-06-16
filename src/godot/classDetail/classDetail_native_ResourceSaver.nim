@@ -9,7 +9,7 @@ proc save*(self: ResourceSaver; resource: GD_ref[Resource]; path: String = ""; f
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "save"
-    methodbind = interface_ClassDB_getMethodBind(addr className ResourceSaver, addr name, 2303056517)
+    methodbind = interface_ClassDB_getMethodBind(addr className ResourceSaver, addr name, 2983274697)
   var `?param` = [getPtr resource, getPtr path, getPtr flags]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

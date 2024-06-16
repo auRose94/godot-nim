@@ -117,7 +117,7 @@ proc addTriangleFan*(self: SurfaceTool; vertices: PackedVector3Array; uvs: Packe
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_triangle_fan"
-    methodbind = interface_ClassDB_getMethodBind(addr className SurfaceTool, addr name, 297960074)
+    methodbind = interface_ClassDB_getMethodBind(addr className SurfaceTool, addr name, 2235017613)
   var `?param` = [getPtr vertices, getPtr uvs, getPtr colors, getPtr uv2s, getPtr normals, getPtr tangents]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc addIndex*(self: SurfaceTool; index: int32) =
@@ -170,7 +170,7 @@ proc generateLod*(self: SurfaceTool; ndThreshold: Float; targetIndexCount: int32
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "generate_lod"
-    methodbind = interface_ClassDB_getMethodBind(addr className SurfaceTool, addr name, 1894448909)
+    methodbind = interface_ClassDB_getMethodBind(addr className SurfaceTool, addr name, 1938056459)
   var `?param` = [getPtr ndThreshold, getPtr targetIndexCount]
   var ret: encoded PackedInt32Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -203,6 +203,13 @@ proc createFrom*(self: SurfaceTool; existing: GD_ref[Mesh]; surface: int32) =
     methodbind = interface_ClassDB_getMethodBind(addr className SurfaceTool, addr name, 1767024570)
   var `?param` = [getPtr existing, getPtr surface]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc createFromArrays*(self: SurfaceTool; arrays: Array; primitiveType: Mesh_PrimitiveType = primitiveTriangles) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "create_from_arrays"
+    methodbind = interface_ClassDB_getMethodBind(addr className SurfaceTool, addr name, 1894639680)
+  var `?param` = [getPtr arrays, getPtr primitiveType]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc createFromBlendShape*(self: SurfaceTool; existing: GD_ref[Mesh]; surface: int32; blendShape: String) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -217,7 +224,7 @@ proc appendFrom*(self: SurfaceTool; existing: GD_ref[Mesh]; surface: int32; tran
     methodbind = interface_ClassDB_getMethodBind(addr className SurfaceTool, addr name, 2217967155)
   var `?param` = [getPtr existing, getPtr surface, getPtr transform]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc commit*(self: SurfaceTool; existing: GD_ref[ArrayMesh] = default GD_ref[ArrayMesh]; flags: uint32 = 0'u32): GD_ref[ArrayMesh] =
+proc commit*(self: SurfaceTool; existing: GD_ref[ArrayMesh] = default GD_ref[ArrayMesh]; flags: uint64 = 0): GD_ref[ArrayMesh] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "commit"

@@ -26,7 +26,7 @@ proc listDirBegin*(self: DirAccess): Error =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "list_dir_begin"
-    methodbind = interface_ClassDB_getMethodBind(addr className DirAccess, addr name, 2018049411)
+    methodbind = interface_ClassDB_getMethodBind(addr className DirAccess, addr name, 2610976713)
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Error)
@@ -204,7 +204,7 @@ proc copy*(self: DirAccess; `from`: String; to: String; chmodFlags: int32 = -1):
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "copy"
-    methodbind = interface_ClassDB_getMethodBind(addr className DirAccess, addr name, 198434953)
+    methodbind = interface_ClassDB_getMethodBind(addr className DirAccess, addr name, 1063198817)
   var `?param` = [getPtr `from`, getPtr to, getPtr chmodFlags]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -213,7 +213,7 @@ proc copyAbsolute*(_: typedesc[DirAccess]; `from`: String; to: String; chmodFlag
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "copy_absolute"
-    methodbind = interface_ClassDB_getMethodBind(addr className DirAccess, addr name, 198434953)
+    methodbind = interface_ClassDB_getMethodBind(addr className DirAccess, addr name, 1063198817)
   var `?param` = [getPtr `from`, getPtr to, getPtr chmodFlags]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
@@ -254,6 +254,33 @@ proc removeAbsolute*(_: typedesc[DirAccess]; path: String): Error =
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, nil, addr `?param`[0], addr ret)
   (addr ret).decode_result(Error)
+proc isLink*(self: DirAccess; path: String): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_link"
+    methodbind = interface_ClassDB_getMethodBind(addr className DirAccess, addr name, 2323990056)
+  var `?param` = [getPtr path]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
+proc readLink*(self: DirAccess; path: String): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "read_link"
+    methodbind = interface_ClassDB_getMethodBind(addr className DirAccess, addr name, 1703090593)
+  var `?param` = [getPtr path]
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(String)
+proc createLink*(self: DirAccess; source: String; target: String): Error =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "create_link"
+    methodbind = interface_ClassDB_getMethodBind(addr className DirAccess, addr name, 852856452)
+  var `?param` = [getPtr source, getPtr target]
+  var ret: encoded Error
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Error)
 proc `includeNavigational=`*(self: DirAccess; enable: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -283,4 +310,13 @@ proc includeHidden*(self: DirAccess): Bool =
     methodbind = interface_ClassDB_getMethodBind(addr className DirAccess, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc isCaseSensitive*(self: DirAccess; path: String): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_case_sensitive"
+    methodbind = interface_ClassDB_getMethodBind(addr className DirAccess, addr name, 3927539163)
+  var `?param` = [getPtr path]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)

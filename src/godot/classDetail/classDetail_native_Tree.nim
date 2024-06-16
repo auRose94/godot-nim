@@ -220,7 +220,7 @@ proc getItemAreaRect*(self: Tree; item: TreeItem; column: int32 = -1; buttonInde
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_item_area_rect"
-    methodbind = interface_ClassDB_getMethodBind(addr className Tree, addr name, 1235226180)
+    methodbind = interface_ClassDB_getMethodBind(addr className Tree, addr name, 47968679)
   var `?param` = [getPtr item, getPtr column, getPtr buttonIndex]
   var ret: encoded Rect2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

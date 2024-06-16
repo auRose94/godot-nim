@@ -79,14 +79,14 @@ proc addFrame*(self: SpriteFrames; anim: StringName; texture: GD_ref[Texture2D];
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_frame"
-    methodbind = interface_ClassDB_getMethodBind(addr className SpriteFrames, addr name, 407562921)
+    methodbind = interface_ClassDB_getMethodBind(addr className SpriteFrames, addr name, 1351332740)
   var `?param` = [getPtr anim, getPtr texture, getPtr duration, getPtr atPosition]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setFrame*(self: SpriteFrames; anim: StringName; idx: int32; texture: GD_ref[Texture2D]; duration: Float = 1.0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_frame"
-    methodbind = interface_ClassDB_getMethodBind(addr className SpriteFrames, addr name, 3155743884)
+    methodbind = interface_ClassDB_getMethodBind(addr className SpriteFrames, addr name, 56804795)
   var `?param` = [getPtr anim, getPtr idx, getPtr texture, getPtr duration]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc removeFrame*(self: SpriteFrames; anim: StringName; idx: int32) =

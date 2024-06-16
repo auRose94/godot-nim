@@ -9,7 +9,7 @@ proc addItem*(self: ItemList; text: String; icon: GD_ref[Texture2D] = default GD
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className ItemList, addr name, 4086250691)
+    methodbind = interface_ClassDB_getMethodBind(addr className ItemList, addr name, 359861678)
   var `?param` = [getPtr text, getPtr icon, getPtr selectable]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -18,7 +18,7 @@ proc addIconItem*(self: ItemList; icon: GD_ref[Texture2D]; selectable: Bool = tr
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_icon_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className ItemList, addr name, 3332687421)
+    methodbind = interface_ClassDB_getMethodBind(addr className ItemList, addr name, 4256579627)
   var `?param` = [getPtr icon, getPtr selectable]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -219,7 +219,7 @@ proc getItemRect*(self: ItemList; idx: int32; expand: Bool = true): Rect2 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_item_rect"
-    methodbind = interface_ClassDB_getMethodBind(addr className ItemList, addr name, 1501513492)
+    methodbind = interface_ClassDB_getMethodBind(addr className ItemList, addr name, 159227807)
   var `?param` = [getPtr idx, getPtr expand]
   var ret: encoded Rect2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -260,7 +260,7 @@ proc select*(self: ItemList; idx: int32; single: Bool = true) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "select"
-    methodbind = interface_ClassDB_getMethodBind(addr className ItemList, addr name, 4023243586)
+    methodbind = interface_ClassDB_getMethodBind(addr className ItemList, addr name, 972357352)
   var `?param` = [getPtr idx, getPtr single]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc deselect*(self: ItemList; idx: int32) =
@@ -560,3 +560,9 @@ proc textOverrunBehavior*(self: ItemList): TextServer_OverrunBehavior =
   var ret: encoded TextServer_OverrunBehavior
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(TextServer_OverrunBehavior)
+proc forceUpdateListSize*(self: ItemList) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "force_update_list_size"
+    methodbind = interface_ClassDB_getMethodBind(addr className ItemList, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)

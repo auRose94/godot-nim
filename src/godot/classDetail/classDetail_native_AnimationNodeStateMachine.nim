@@ -9,7 +9,7 @@ proc addNode*(self: AnimationNodeStateMachine; name: StringName; node: GD_ref[An
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_node"
-    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeStateMachine, addr name, 2055804584)
+    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeStateMachine, addr name, 1980270704)
   var `?param` = [getPtr name, getPtr node, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc replaceNode*(self: AnimationNodeStateMachine; name: StringName; node: GD_ref[AnimationNode]) =

@@ -9,7 +9,7 @@ proc moveAndCollide*(self: PhysicsBody3D; motion: Vector3; testOnly: Bool = fals
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "move_and_collide"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsBody3D, addr name, 2825704414)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsBody3D, addr name, 3208792678)
   var `?param` = [getPtr motion, getPtr testOnly, getPtr safeMargin, getPtr recoveryAsCollision, getPtr maxCollisions]
   var ret: encoded GD_ref[KinematicCollision3D]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -18,11 +18,19 @@ proc testMove*(self: PhysicsBody3D; `from`: Transform3D; motion: Vector3; collis
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "test_move"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsBody3D, addr name, 680299713)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsBody3D, addr name, 2481691619)
   var `?param` = [getPtr `from`, getPtr motion, getPtr collision, getPtr safeMargin, getPtr recoveryAsCollision, getPtr maxCollisions]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
+proc getGravity*(self: PhysicsBody3D): Vector3 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_gravity"
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsBody3D, addr name, 3360562783)
+  var ret: encoded Vector3
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Vector3)
 proc `axisLock=`*(self: PhysicsBody3D; axis: PhysicsServer3D_BodyAxis; lock: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

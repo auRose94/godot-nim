@@ -53,3 +53,6 @@ proc `=destroy`(val: PackedVector3Array)
 proc `=copy`(dst: var PackedColorArray; src: PackedColorArray)
 proc `=dup`(src: PackedColorArray): PackedColorArray
 proc `=destroy`(val: PackedColorArray)
+proc `=copy`(dst: var PackedVector4Array; src: PackedVector4Array)
+proc `=dup`(src: PackedVector4Array): PackedVector4Array
+proc `=destroy`(val: PackedVector4Array)

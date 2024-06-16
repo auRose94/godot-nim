@@ -9,7 +9,7 @@ proc surfaceBegin*(self: ImmediateMesh; primitive: Mesh_PrimitiveType; material:
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "surface_begin"
-    methodbind = interface_ClassDB_getMethodBind(addr className ImmediateMesh, addr name, 3716480242)
+    methodbind = interface_ClassDB_getMethodBind(addr className ImmediateMesh, addr name, 2794442543)
   var `?param` = [getPtr primitive, getPtr material]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc surfaceSetColor*(self: ImmediateMesh; color: Color) =

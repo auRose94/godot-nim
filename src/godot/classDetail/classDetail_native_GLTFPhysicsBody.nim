@@ -99,18 +99,48 @@ proc `angularVelocity=`*(self: GLTFPhysicsBody; angularVelocity: Vector3) =
     methodbind = interface_ClassDB_getMethodBind(addr className GLTFPhysicsBody, addr name, 3460891852)
   var `?param` = [getPtr angularVelocity]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc inertiaTensor*(self: GLTFPhysicsBody): Basis =
+proc centerOfMass*(self: GLTFPhysicsBody): Vector3 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_inertia_tensor"
-    methodbind = interface_ClassDB_getMethodBind(addr className GLTFPhysicsBody, addr name, 2716978435)
-  var ret: encoded Basis
+    let name = api.newStringName "get_center_of_mass"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFPhysicsBody, addr name, 3360562783)
+  var ret: encoded Vector3
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
-  (addr ret).decode_result(Basis)
-proc `inertiaTensor=`*(self: GLTFPhysicsBody; inertiaTensor: Basis) =
+  (addr ret).decode_result(Vector3)
+proc `centerOfMass=`*(self: GLTFPhysicsBody; centerOfMass: Vector3) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_inertia_tensor"
-    methodbind = interface_ClassDB_getMethodBind(addr className GLTFPhysicsBody, addr name, 1055510324)
-  var `?param` = [getPtr inertiaTensor]
+    let name = api.newStringName "set_center_of_mass"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFPhysicsBody, addr name, 3460891852)
+  var `?param` = [getPtr centerOfMass]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc inertiaDiagonal*(self: GLTFPhysicsBody): Vector3 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_inertia_diagonal"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFPhysicsBody, addr name, 3360562783)
+  var ret: encoded Vector3
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Vector3)
+proc `inertiaDiagonal=`*(self: GLTFPhysicsBody; inertiaDiagonal: Vector3) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_inertia_diagonal"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFPhysicsBody, addr name, 3460891852)
+  var `?param` = [getPtr inertiaDiagonal]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc inertiaOrientation*(self: GLTFPhysicsBody): Quaternion =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_inertia_orientation"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFPhysicsBody, addr name, 1222331677)
+  var ret: encoded Quaternion
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Quaternion)
+proc `inertiaOrientation=`*(self: GLTFPhysicsBody; inertiaOrientation: Quaternion) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_inertia_orientation"
+    methodbind = interface_ClassDB_getMethodBind(addr className GLTFPhysicsBody, addr name, 1727505552)
+  var `?param` = [getPtr inertiaOrientation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

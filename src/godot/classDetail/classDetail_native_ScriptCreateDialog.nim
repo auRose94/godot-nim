@@ -9,6 +9,6 @@ proc config*(self: ScriptCreateDialog; inherits: String; path: String; builtInEn
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "config"
-    methodbind = interface_ClassDB_getMethodBind(addr className ScriptCreateDialog, addr name, 4210001628)
+    methodbind = interface_ClassDB_getMethodBind(addr className ScriptCreateDialog, addr name, 869314288)
   var `?param` = [getPtr inherits, getPtr path, getPtr builtInEnabled, getPtr loadEnabled]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

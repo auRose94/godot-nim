@@ -28,6 +28,7 @@ type Variant_Type* {.size: sizeof(cuint).} = enum
   VariantType_PackedStringArray,
   VariantType_PackedVector2Array,
   VariantType_PackedVector3Array,
+  VariantType_PackedVector4Array,
   VariantType_PackedColorArray,
 type
   VariantOperator* {.size: sizeof(cuint).} = enum
@@ -161,7 +162,7 @@ type
     arguments_metadata*: ptr ClassMethodArgumentMetadata
     default_argument_count*: uint32
     default_arguments*: ptr VariantPtr
-  ScriptInstanceInfo* {.bycopy.} = object
+  ScriptInstanceInfo3* {.bycopy.} = object
     set_func*: ScriptInstanceSet
     get_func*: ScriptInstanceGet
     get_property_list_func*: ScriptInstanceGetPropertyList
@@ -382,11 +383,11 @@ parseInterface:
     InterfaceObjectGetInstanceId* = proc ( p_object: ConstObjectPtr): GDObjectInstanceID {.gdcall.}
     InterfaceRefGetObject* = proc (p_ref: ConstRefPtr): ObjectPtr {.gdcall.}
     InterfaceRefSetObject* = proc (p_ref: RefPtr; p_object: ObjectPtr) {.gdcall.}
-    InterfaceScriptInstanceCreate* = proc ( p_info: ptr ScriptInstanceInfo; p_instance_data: ScriptInstanceDataPtr): ScriptInstancePtr {.gdcall.}
+    InterfaceScriptInstanceCreate3* = proc ( p_info: ptr ScriptInstanceInfo3; p_instance_data: ScriptInstanceDataPtr): ScriptInstancePtr {.gdcall.}
     InterfaceClassdbConstructObject* = proc ( p_classname: ConstStringNamePtr): ObjectPtr {.gdcall.}
     InterfaceClassdbGetMethodBind* = proc ( p_classname: ConstStringNamePtr; p_methodname: ConstStringNamePtr; p_hash: Int): MethodBindPtr {.gdcall.}
     InterfaceClassdbGetClassTag* = proc ( p_classname: ConstStringNamePtr): pointer {.gdcall.}
-    InterfaceClassdbRegisterExtensionClass* = proc ( p_library: ClassLibraryPtr; p_class_name: ConstStringNamePtr; p_parent_class_name: ConstStringNamePtr; p_extension_funcs: ptr ClassCreationInfo) {.gdcall.}
+    InterfaceClassdbRegisterExtensionClass3* = proc ( p_library: ClassLibraryPtr; p_class_name: ConstStringNamePtr; p_parent_class_name: ConstStringNamePtr; p_extension_funcs: ptr ClassCreationInfo) {.gdcall.}
     InterfaceClassdbRegisterExtensionClassMethod* = proc ( p_library: ClassLibraryPtr; p_class_name: ConstStringNamePtr; p_method_info: ptr ClassMethodInfo) {.gdcall.}
     InterfaceClassdbRegisterExtensionClassIntegerConstant* = proc ( p_library: ClassLibraryPtr; p_class_name: ConstStringNamePtr; p_enum_name: ConstStringNamePtr; p_constant_name: ConstStringNamePtr; p_constant_value: Int; p_is_bitfield: Bool) {.gdcall.}
     InterfaceClassdbRegisterExtensionClassProperty* = proc ( p_library: ClassLibraryPtr; p_class_name: ConstStringNamePtr; p_info: ptr PropertyInfo; p_setter: ConstStringNamePtr; p_getter: ConstStringNamePtr) {.gdcall.}

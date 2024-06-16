@@ -25,7 +25,7 @@ proc addPortMapping*(self: UPNPDevice; port: int32; portInternal: int32 = 0; des
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_port_mapping"
-    methodbind = interface_ClassDB_getMethodBind(addr className UPNPDevice, addr name, 3358934458)
+    methodbind = interface_ClassDB_getMethodBind(addr className UPNPDevice, addr name, 818314583)
   var `?param` = [getPtr port, getPtr portInternal, getPtr desc, getPtr proto, getPtr duration]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -34,7 +34,7 @@ proc deletePortMapping*(self: UPNPDevice; port: int32; proto: String = "UDP"): i
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "delete_port_mapping"
-    methodbind = interface_ClassDB_getMethodBind(addr className UPNPDevice, addr name, 760296170)
+    methodbind = interface_ClassDB_getMethodBind(addr className UPNPDevice, addr name, 3444187325)
   var `?param` = [getPtr port, getPtr proto]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

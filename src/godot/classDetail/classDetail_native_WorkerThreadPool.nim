@@ -9,7 +9,7 @@ proc addTask*(self: WorkerThreadPool; action: Callable; highPriority: Bool = fal
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_task"
-    methodbind = interface_ClassDB_getMethodBind(addr className WorkerThreadPool, addr name, 3976347598)
+    methodbind = interface_ClassDB_getMethodBind(addr className WorkerThreadPool, addr name, 3745067146)
   var `?param` = [getPtr action, getPtr highPriority, getPtr description]
   var ret: encoded int64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -36,7 +36,7 @@ proc addGroupTask*(self: WorkerThreadPool; action: Callable; elements: int32; ta
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_group_task"
-    methodbind = interface_ClassDB_getMethodBind(addr className WorkerThreadPool, addr name, 2377228549)
+    methodbind = interface_ClassDB_getMethodBind(addr className WorkerThreadPool, addr name, 1801953219)
   var `?param` = [getPtr action, getPtr elements, getPtr tasksNeeded, getPtr highPriority, getPtr description]
   var ret: encoded int64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

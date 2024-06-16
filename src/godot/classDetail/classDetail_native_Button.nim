@@ -35,6 +35,21 @@ proc textOverrunBehavior*(self: Button): TextServer_OverrunBehavior =
   var ret: encoded TextServer_OverrunBehavior
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(TextServer_OverrunBehavior)
+proc `autowrapMode=`*(self: Button; autowrapMode: TextServer_AutowrapMode) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_autowrap_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className Button, addr name, 3289138044)
+  var `?param` = [getPtr autowrapMode]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc autowrapMode*(self: Button): TextServer_AutowrapMode =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_autowrap_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className Button, addr name, 1549071663)
+  var ret: encoded TextServer_AutowrapMode
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(TextServer_AutowrapMode)
 proc `textDirection=`*(self: Button; direction: Control_TextDirection) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

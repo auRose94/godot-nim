@@ -52,8 +52,8 @@ proc orthogonal*(self: Vector2): Vector2 = Vector2_orthogonal(addr self, nil, ad
 proc bounce*(self: Vector2; n: Vector2): Vector2 =
   let argArr = [getPtr n]
   Vector2_bounce(addr self, addr argArr[0], addr result, 1)
-proc reflect*(self: Vector2; n: Vector2): Vector2 =
-  let argArr = [getPtr n]
+proc reflect*(self: Vector2; line: Vector2): Vector2 =
+  let argArr = [getPtr line]
   Vector2_reflect(addr self, addr argArr[0], addr result, 1)
 proc load_Vector2_proc =
   var proc_name: StringName

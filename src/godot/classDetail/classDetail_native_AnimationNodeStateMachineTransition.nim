@@ -80,6 +80,21 @@ proc xfadeCurve*(self: AnimationNodeStateMachineTransition): GD_ref[Curve] =
   var ret: encoded GD_ref[Curve]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(GD_ref[Curve])
+proc `breakLoopAtEnd=`*(self: AnimationNodeStateMachineTransition; enable: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_break_loop_at_end"
+    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeStateMachineTransition, addr name, 2586408642)
+  var `?param` = [getPtr enable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isLoopBrokenAtEnd*(self: AnimationNodeStateMachineTransition): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_loop_broken_at_end"
+    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeStateMachineTransition, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc `reset=`*(self: AnimationNodeStateMachineTransition; reset: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

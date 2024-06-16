@@ -5,6 +5,21 @@
 import ./../helper/engineClassDefiner
 import ./classDetail_native_RefCounted; export classDetail_native_RefCounted
 
+proc transform*(self: CharFXTransform): Transform2D =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_transform"
+    methodbind = interface_ClassDB_getMethodBind(addr className CharFXTransform, addr name, 3761352769)
+  var ret: encoded Transform2D
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Transform2D)
+proc `transform=`*(self: CharFXTransform; transform: Transform2D) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_transform"
+    methodbind = interface_ClassDB_getMethodBind(addr className CharFXTransform, addr name, 2761652528)
+  var `?param` = [getPtr transform]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc range*(self: CharFXTransform): Vector2i =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

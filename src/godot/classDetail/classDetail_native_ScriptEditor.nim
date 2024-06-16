@@ -65,3 +65,10 @@ proc openScriptCreateDialog*(self: ScriptEditor; baseName: String; basePath: Str
     methodbind = interface_ClassDB_getMethodBind(addr className ScriptEditor, addr name, 3186203200)
   var `?param` = [getPtr baseName, getPtr basePath]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc gotoHelp*(self: ScriptEditor; topic: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "goto_help"
+    methodbind = interface_ClassDB_getMethodBind(addr className ScriptEditor, addr name, 83702148)
+  var `?param` = [getPtr topic]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

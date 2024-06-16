@@ -9,7 +9,7 @@ proc loadThreadedRequest*(self: ResourceLoader; path: String; typeHint: String =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "load_threaded_request"
-    methodbind = interface_ClassDB_getMethodBind(addr className ResourceLoader, addr name, 1939848623)
+    methodbind = interface_ClassDB_getMethodBind(addr className ResourceLoader, addr name, 3614384323)
   var `?param` = [getPtr path, getPtr typeHint, getPtr useSubThreads, getPtr cacheMode]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -18,7 +18,7 @@ proc loadThreadedGetStatus*(self: ResourceLoader; path: String; progress: Array 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "load_threaded_get_status"
-    methodbind = interface_ClassDB_getMethodBind(addr className ResourceLoader, addr name, 3931021148)
+    methodbind = interface_ClassDB_getMethodBind(addr className ResourceLoader, addr name, 4137685479)
   var `?param` = [getPtr path, getPtr progress]
   var ret: encoded ResourceLoader_ThreadLoadStatus
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -36,7 +36,7 @@ proc load*(self: ResourceLoader; path: String; typeHint: String = ""; cacheMode:
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "load"
-    methodbind = interface_ClassDB_getMethodBind(addr className ResourceLoader, addr name, 2622212233)
+    methodbind = interface_ClassDB_getMethodBind(addr className ResourceLoader, addr name, 3358495409)
   var `?param` = [getPtr path, getPtr typeHint, getPtr cacheMode]
   var ret: encoded GD_ref[Resource]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -93,7 +93,7 @@ proc exists*(self: ResourceLoader; path: String; typeHint: String = ""): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "exists"
-    methodbind = interface_ClassDB_getMethodBind(addr className ResourceLoader, addr name, 2220807150)
+    methodbind = interface_ClassDB_getMethodBind(addr className ResourceLoader, addr name, 4185558881)
   var `?param` = [getPtr path, getPtr typeHint]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

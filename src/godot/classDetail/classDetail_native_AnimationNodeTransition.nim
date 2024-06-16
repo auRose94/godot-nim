@@ -28,6 +28,22 @@ proc isInputSetAsAutoAdvance*(self: AnimationNodeTransition; input: int32): Bool
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
+proc setInputBreakLoopAtEnd*(self: AnimationNodeTransition; input: int32; enable: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_input_break_loop_at_end"
+    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeTransition, addr name, 300928843)
+  var `?param` = [getPtr input, getPtr enable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isInputLoopBrokenAtEnd*(self: AnimationNodeTransition; input: int32): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_input_loop_broken_at_end"
+    methodbind = interface_ClassDB_getMethodBind(addr className AnimationNodeTransition, addr name, 1116898809)
+  var `?param` = [getPtr input]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc setInputReset*(self: AnimationNodeTransition; input: int32; enable: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

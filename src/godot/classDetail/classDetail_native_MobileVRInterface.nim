@@ -65,6 +65,21 @@ proc displayToLens*(self: MobileVRInterface): float64 =
   var ret: encoded float64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(float64)
+proc `offrect=`*(self: MobileVRInterface; offsetRect: Rect2) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_offset_rect"
+    methodbind = interface_ClassDB_getMethodBind(addr className MobileVRInterface, addr name, 2046264180)
+  var `?param` = [getPtr offsetRect]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc offsetRect*(self: MobileVRInterface): Rect2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_offset_rect"
+    methodbind = interface_ClassDB_getMethodBind(addr className MobileVRInterface, addr name, 1639390495)
+  var ret: encoded Rect2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Rect2)
 proc `oversample=`*(self: MobileVRInterface; oversample: float64) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -110,3 +125,33 @@ proc k2*(self: MobileVRInterface): float64 =
   var ret: encoded float64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(float64)
+proc vrsMinRadius*(self: MobileVRInterface): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_vrs_min_radius"
+    methodbind = interface_ClassDB_getMethodBind(addr className MobileVRInterface, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
+proc `vrsMinRadius=`*(self: MobileVRInterface; radius: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_vrs_min_radius"
+    methodbind = interface_ClassDB_getMethodBind(addr className MobileVRInterface, addr name, 373806689)
+  var `?param` = [getPtr radius]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc vrsStrength*(self: MobileVRInterface): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_vrs_strength"
+    methodbind = interface_ClassDB_getMethodBind(addr className MobileVRInterface, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
+proc `vrsStrength=`*(self: MobileVRInterface; strength: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_vrs_strength"
+    methodbind = interface_ClassDB_getMethodBind(addr className MobileVRInterface, addr name, 373806689)
+  var `?param` = [getPtr strength]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

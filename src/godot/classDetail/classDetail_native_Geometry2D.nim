@@ -189,7 +189,7 @@ proc offsetPolygon*(self: Geometry2D; polygon: PackedVector2Array; delta: Float;
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "offset_polygon"
-    methodbind = interface_ClassDB_getMethodBind(addr className Geometry2D, addr name, 3837618924)
+    methodbind = interface_ClassDB_getMethodBind(addr className Geometry2D, addr name, 1275354010)
   var `?param` = [getPtr polygon, getPtr delta, getPtr joinType]
   var ret: encoded TypedArray[PackedVector2Array]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -198,7 +198,7 @@ proc offsetPolyline*(self: Geometry2D; polyline: PackedVector2Array; delta: Floa
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "offset_polyline"
-    methodbind = interface_ClassDB_getMethodBind(addr className Geometry2D, addr name, 328033063)
+    methodbind = interface_ClassDB_getMethodBind(addr className Geometry2D, addr name, 2328231778)
   var `?param` = [getPtr polyline, getPtr delta, getPtr joinType, getPtr endType]
   var ret: encoded TypedArray[PackedVector2Array]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

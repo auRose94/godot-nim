@@ -298,9 +298,9 @@ converter init_Dictionary*(`from`: Dictionary): Dictionary =
   Dictionary_constr[1](addr result, addr argArr[0])
 
 
-var Array_constr: array[12, PtrConstructor]
+var Array_constr: array[13, PtrConstructor]
 proc load_Array_constr* =
-  for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]:
+  for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]:
     Array_constr[i] = interface_Variant_getPtrConstructor(VariantType_Array, uint32 i)
 
 proc init_Array*(): Array =
@@ -338,6 +338,9 @@ converter init_Array*(`from`: PackedVector3Array): Array =
 converter init_Array*(`from`: PackedColorArray): Array =
   let argArr = [getPtr `from`]
   Array_constr[11](addr result, addr argArr[0])
+converter init_Array*(`from`: PackedVector4Array): Array =
+  let argArr = [getPtr `from`]
+  Array_constr[12](addr result, addr argArr[0])
 
 
 var PackedByteArray_constr: array[3, PtrConstructor]
@@ -473,4 +476,19 @@ converter init_PackedColorArray*(`from`: PackedColorArray): PackedColorArray =
 converter init_PackedColorArray*(`from`: Array): PackedColorArray =
   let argArr = [getPtr `from`]
   PackedColorArray_constr[2](addr result, addr argArr[0])
+
+
+var PackedVector4Array_constr: array[3, PtrConstructor]
+proc load_PackedVector4Array_constr* =
+  for i in [0, 1, 2]:
+    PackedVector4Array_constr[i] = interface_Variant_getPtrConstructor(VariantType_PackedVector4Array, uint32 i)
+
+proc init_PackedVector4Array*(): PackedVector4Array =
+  PackedVector4Array_constr[0](addr result, nil)
+converter init_PackedVector4Array*(`from`: PackedVector4Array): PackedVector4Array =
+  let argArr = [getPtr `from`]
+  PackedVector4Array_constr[1](addr result, addr argArr[0])
+converter init_PackedVector4Array*(`from`: Array): PackedVector4Array =
+  let argArr = [getPtr `from`]
+  PackedVector4Array_constr[2](addr result, addr argArr[0])
 

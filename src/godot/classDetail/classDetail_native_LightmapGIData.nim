@@ -5,18 +5,18 @@
 import ./../helper/engineClassDefiner
 import ./classDetail_native_Resource; export classDetail_native_Resource
 
-proc `lightTexture=`*(self: LightmapGIData; lightTexture: GD_ref[TextureLayered]) =
+proc `lightmapTextures=`*(self: LightmapGIData; lightTextures: GD_ref[TextureLayered]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_light_texture"
-    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGIData, addr name, 1278366092)
-  var `?param` = [getPtr lightTexture]
+    let name = api.newStringName "set_lightmap_textures"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGIData, addr name, 381264803)
+  var `?param` = [getPtr lightTextures]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc lightTexture*(self: LightmapGIData): GD_ref[TextureLayered] =
+proc lightmapTextures*(self: LightmapGIData): GD_ref[TextureLayered] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_light_texture"
-    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGIData, addr name, 3984243839)
+    let name = api.newStringName "get_lightmap_textures"
+    methodbind = interface_ClassDB_getMethodBind(addr className LightmapGIData, addr name, 3995934104)
   var ret: encoded GD_ref[TextureLayered]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(GD_ref[TextureLayered])

@@ -5,13 +5,6 @@
 import ./../helper/engineClassDefiner
 import ./classDetail_native_Node3D; export classDetail_native_Node3D
 
-proc resourceChanged*(self: CollisionShape3D; resource: GD_ref[Resource]) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "resource_changed"
-    methodbind = interface_ClassDB_getMethodBind(addr className CollisionShape3D, addr name, 968641751)
-  var `?param` = [getPtr resource]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc `shape=`*(self: CollisionShape3D; shape: GD_ref[Shape3D]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

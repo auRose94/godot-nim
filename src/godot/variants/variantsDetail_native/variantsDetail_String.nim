@@ -10,15 +10,17 @@ var String_casecmpTo: PtrBuiltinMethod
 var String_nocasecmpTo: PtrBuiltinMethod
 var String_naturalcasecmpTo: PtrBuiltinMethod
 var String_naturalnocasecmpTo: PtrBuiltinMethod
+var String_filecasecmpTo: PtrBuiltinMethod
+var String_filenocasecmpTo: PtrBuiltinMethod
 var String_length: PtrBuiltinMethod
 var String_substr: PtrBuiltinMethod
 var String_getSlice: PtrBuiltinMethod
 var String_getSlicec: PtrBuiltinMethod
 var String_getSliceCount: PtrBuiltinMethod
 var String_find: PtrBuiltinMethod
+var String_findn: PtrBuiltinMethod
 var String_count: PtrBuiltinMethod
 var String_countn: PtrBuiltinMethod
-var String_findn: PtrBuiltinMethod
 var String_rfind: PtrBuiltinMethod
 var String_rfindn: PtrBuiltinMethod
 var String_match: PtrBuiltinMethod
@@ -33,6 +35,7 @@ var String_format: PtrBuiltinMethod
 var String_replace: PtrBuiltinMethod
 var String_replacen: PtrBuiltinMethod
 var String_repeat: PtrBuiltinMethod
+var String_reverse: PtrBuiltinMethod
 var String_insert: PtrBuiltinMethod
 var String_erase: PtrBuiltinMethod
 var String_capitalize: PtrBuiltinMethod
@@ -66,6 +69,7 @@ var String_sha1Buffer: PtrBuiltinMethod
 var String_sha256Buffer: PtrBuiltinMethod
 var String_isEmpty: PtrBuiltinMethod
 var String_contains: PtrBuiltinMethod
+var String_containsn: PtrBuiltinMethod
 var String_isAbsolutePath: PtrBuiltinMethod
 var String_isRelativePath: PtrBuiltinMethod
 var String_simplifyPath: PtrBuiltinMethod
@@ -121,6 +125,12 @@ proc naturalcasecmpTo*(self: String; to: String): Int =
 proc naturalnocasecmpTo*(self: String; to: String): Int =
   let argArr = [getPtr to]
   String_naturalnocasecmpTo(addr self, addr argArr[0], addr result, 1)
+proc filecasecmpTo*(self: String; to: String): Int =
+  let argArr = [getPtr to]
+  String_filecasecmpTo(addr self, addr argArr[0], addr result, 1)
+proc filenocasecmpTo*(self: String; to: String): Int =
+  let argArr = [getPtr to]
+  String_filenocasecmpTo(addr self, addr argArr[0], addr result, 1)
 proc length*(self: String): Int = String_length(addr self, nil, addr result, 0)
 proc substr*(self: String; `from`: Int; len: Int = -1): String =
   let argArr = [getPtr `from`, getPtr len]
@@ -137,15 +147,15 @@ proc getSliceCount*(self: String; delimiter: String): Int =
 proc find*(self: String; what: String; `from`: Int = 0): Int =
   let argArr = [getPtr what, getPtr `from`]
   String_find(addr self, addr argArr[0], addr result, 2)
+proc findn*(self: String; what: String; `from`: Int = 0): Int =
+  let argArr = [getPtr what, getPtr `from`]
+  String_findn(addr self, addr argArr[0], addr result, 2)
 proc count*(self: String; what: String; `from`: Int = 0; to: Int = 0): Int =
   let argArr = [getPtr what, getPtr `from`, getPtr to]
   String_count(addr self, addr argArr[0], addr result, 3)
 proc countn*(self: String; what: String; `from`: Int = 0; to: Int = 0): Int =
   let argArr = [getPtr what, getPtr `from`, getPtr to]
   String_countn(addr self, addr argArr[0], addr result, 3)
-proc findn*(self: String; what: String; `from`: Int = 0): Int =
-  let argArr = [getPtr what, getPtr `from`]
-  String_findn(addr self, addr argArr[0], addr result, 2)
 proc rfind*(self: String; what: String; `from`: Int = -1): Int =
   let argArr = [getPtr what, getPtr `from`]
   String_rfind(addr self, addr argArr[0], addr result, 2)
@@ -186,6 +196,7 @@ proc replacen*(self: String; what: String; forwhat: String): String =
 proc repeat*(self: String; count: Int): String =
   let argArr = [getPtr count]
   String_repeat(addr self, addr argArr[0], addr result, 1)
+proc reverse*(self: String): String = String_reverse(addr self, nil, addr result, 0)
 proc insert*(self: String; position: Int; what: String): String =
   let argArr = [getPtr position, getPtr what]
   String_insert(addr self, addr argArr[0], addr result, 2)
@@ -249,6 +260,9 @@ proc isEmpty*(self: String): Bool = String_isEmpty(addr self, nil, addr result, 
 proc contains*(self: String; what: String): Bool =
   let argArr = [getPtr what]
   String_contains(addr self, addr argArr[0], addr result, 1)
+proc containsn*(self: String; what: String): Bool =
+  let argArr = [getPtr what]
+  String_containsn(addr self, addr argArr[0], addr result, 1)
 proc isAbsolutePath*(self: String): Bool = String_isAbsolutePath(addr self, nil, addr result, 0)
 proc isRelativePath*(self: String): Bool = String_isRelativePath(addr self, nil, addr result, 0)
 proc simplifyPath*(self: String): String = String_simplifyPath(addr self, nil, addr result, 0)
@@ -330,6 +344,10 @@ proc load_String_proc =
   String_naturalcasecmpTo = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 2920860731)
   proc_name = api.newStringName "naturalnocasecmp_to"
   String_naturalnocasecmpTo = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 2920860731)
+  proc_name = api.newStringName "filecasecmp_to"
+  String_filecasecmpTo = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 2920860731)
+  proc_name = api.newStringName "filenocasecmp_to"
+  String_filenocasecmpTo = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 2920860731)
   proc_name = api.newStringName "length"
   String_length = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 3173160232)
   proc_name = api.newStringName "substr"
@@ -342,12 +360,12 @@ proc load_String_proc =
   String_getSliceCount = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 2920860731)
   proc_name = api.newStringName "find"
   String_find = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 1760645412)
+  proc_name = api.newStringName "findn"
+  String_findn = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 1760645412)
   proc_name = api.newStringName "count"
   String_count = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 2343087891)
   proc_name = api.newStringName "countn"
   String_countn = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 2343087891)
-  proc_name = api.newStringName "findn"
-  String_findn = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 1760645412)
   proc_name = api.newStringName "rfind"
   String_rfind = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 1760645412)
   proc_name = api.newStringName "rfindn"
@@ -376,6 +394,8 @@ proc load_String_proc =
   String_replacen = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 1340436205)
   proc_name = api.newStringName "repeat"
   String_repeat = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 2162347432)
+  proc_name = api.newStringName "reverse"
+  String_reverse = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 3942272618)
   proc_name = api.newStringName "insert"
   String_insert = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 248737229)
   proc_name = api.newStringName "erase"
@@ -442,6 +462,8 @@ proc load_String_proc =
   String_isEmpty = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 3918633141)
   proc_name = api.newStringName "contains"
   String_contains = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 2566493496)
+  proc_name = api.newStringName "containsn"
+  String_containsn = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 2566493496)
   proc_name = api.newStringName "is_absolute_path"
   String_isAbsolutePath = interface_Variant_getPtrBuiltinMethod(variantType String, addr proc_name, 3918633141)
   proc_name = api.newStringName "is_relative_path"
@@ -584,6 +606,7 @@ var In_String_PackedStringArray: PtrOperatorEvaluator
 var Module_String_PackedVector2Array: PtrOperatorEvaluator
 var Module_String_PackedVector3Array: PtrOperatorEvaluator
 var Module_String_PackedColorArray: PtrOperatorEvaluator
+var Module_String_PackedVector4Array: PtrOperatorEvaluator
 proc `==`*(left: String; right: Variant): Bool = Equal_String_Variant(getPtr left, getPtr right, addr result)
 proc `!=`*(left: String; right: Variant): Bool = NotEqual_String_Variant(getPtr left, getPtr right, addr result)
 proc `%`*(left: String; right: Variant): String = Module_String_Variant(getPtr left, getPtr right, addr result)
@@ -640,6 +663,7 @@ proc contains*(left: PackedStringArray; right: String): Bool = In_String_PackedS
 proc `%`*(left: String; right: PackedVector2Array): String = Module_String_PackedVector2Array(getPtr left, getPtr right, addr result)
 proc `%`*(left: String; right: PackedVector3Array): String = Module_String_PackedVector3Array(getPtr left, getPtr right, addr result)
 proc `%`*(left: String; right: PackedColorArray): String = Module_String_PackedColorArray(getPtr left, getPtr right, addr result)
+proc `%`*(left: String; right: PackedVector4Array): String = Module_String_PackedVector4Array(getPtr left, getPtr right, addr result)
 proc load_String_op =
   Equal_String_Variant = interface_variantGetPtrOperatorEvaluator(VariantOP_Equal, VariantType_String, VariantType_Nil)
   NotEqual_String_Variant = interface_variantGetPtrOperatorEvaluator(VariantOP_NotEqual, VariantType_String, VariantType_Nil)
@@ -697,6 +721,7 @@ proc load_String_op =
   Module_String_PackedVector2Array = interface_variantGetPtrOperatorEvaluator(VariantOP_Module, VariantType_String, VariantType_PackedVector2Array)
   Module_String_PackedVector3Array = interface_variantGetPtrOperatorEvaluator(VariantOP_Module, VariantType_String, VariantType_PackedVector3Array)
   Module_String_PackedColorArray = interface_variantGetPtrOperatorEvaluator(VariantOP_Module, VariantType_String, VariantType_PackedColorArray)
+  Module_String_PackedVector4Array = interface_variantGetPtrOperatorEvaluator(VariantOP_Module, VariantType_String, VariantType_PackedVector4Array)
 proc load_String_allmethod* =
   load_String_op()
   load_String_proc()

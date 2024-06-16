@@ -65,3 +65,11 @@ proc excludeNodesFromCollision*(self: Joint3D): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc getRid*(self: Joint3D): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_rid"
+    methodbind = interface_ClassDB_getMethodBind(addr className Joint3D, addr name, 2944877500)
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(RID)

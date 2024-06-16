@@ -33,7 +33,7 @@ proc search*(self: RegEx; subject: String; offset: int32 = 0; `end`: int32 = -1)
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "search"
-    methodbind = interface_ClassDB_getMethodBind(addr className RegEx, addr name, 4087180739)
+    methodbind = interface_ClassDB_getMethodBind(addr className RegEx, addr name, 3365977994)
   var `?param` = [getPtr subject, getPtr offset, getPtr `end`]
   var ret: encoded GD_ref[RegExMatch]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -42,7 +42,7 @@ proc searchAll*(self: RegEx; subject: String; offset: int32 = 0; `end`: int32 = 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "search_all"
-    methodbind = interface_ClassDB_getMethodBind(addr className RegEx, addr name, 3354100289)
+    methodbind = interface_ClassDB_getMethodBind(addr className RegEx, addr name, 849021363)
   var `?param` = [getPtr subject, getPtr offset, getPtr `end`]
   var ret: encoded GD_ref[RegExMatch]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -51,7 +51,7 @@ proc sub*(self: RegEx; subject: String; replacement: String; all: Bool = false; 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "sub"
-    methodbind = interface_ClassDB_getMethodBind(addr className RegEx, addr name, 758293621)
+    methodbind = interface_ClassDB_getMethodBind(addr className RegEx, addr name, 54019702)
   var `?param` = [getPtr subject, getPtr replacement, getPtr all, getPtr offset, getPtr `end`]
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

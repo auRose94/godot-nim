@@ -22,367 +22,12 @@ proc getName*(self: DisplayServer): String =
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(String)
-proc globalMenuAddSubmenuItem*(self: DisplayServer; menuRoot: String; label: String; submenu: String; index: int32 = -1): int32 =
+proc helpSetSearchCallbacks*(self: DisplayServer; searchCallback: Callable; actionCallback: Callable) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_add_submenu_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3806306913)
-  var `?param` = [getPtr menuRoot, getPtr label, getPtr submenu, getPtr index]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuAddItem*(self: DisplayServer; menuRoot: String; label: String; callback: Callable = init_Callable(); keyCallback: Callable = init_Callable(); tag: Variant = default(Variant); accelerator: Key = keyNone; index: int32 = -1): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_add_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3415468211)
-  var `?param` = [getPtr menuRoot, getPtr label, getPtr callback, getPtr keyCallback, getPtr tag, getPtr accelerator, getPtr index]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuAddCheckItem*(self: DisplayServer; menuRoot: String; label: String; callback: Callable = init_Callable(); keyCallback: Callable = init_Callable(); tag: Variant = default(Variant); accelerator: Key = keyNone; index: int32 = -1): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_add_check_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3415468211)
-  var `?param` = [getPtr menuRoot, getPtr label, getPtr callback, getPtr keyCallback, getPtr tag, getPtr accelerator, getPtr index]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuAddIconItem*(self: DisplayServer; menuRoot: String; icon: GD_ref[Texture2D]; label: String; callback: Callable = init_Callable(); keyCallback: Callable = init_Callable(); tag: Variant = default(Variant); accelerator: Key = keyNone; index: int32 = -1): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_add_icon_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1700867534)
-  var `?param` = [getPtr menuRoot, getPtr icon, getPtr label, getPtr callback, getPtr keyCallback, getPtr tag, getPtr accelerator, getPtr index]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuAddIconCheckItem*(self: DisplayServer; menuRoot: String; icon: GD_ref[Texture2D]; label: String; callback: Callable = init_Callable(); keyCallback: Callable = init_Callable(); tag: Variant = default(Variant); accelerator: Key = keyNone; index: int32 = -1): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_add_icon_check_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1700867534)
-  var `?param` = [getPtr menuRoot, getPtr icon, getPtr label, getPtr callback, getPtr keyCallback, getPtr tag, getPtr accelerator, getPtr index]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuAddRadioCheckItem*(self: DisplayServer; menuRoot: String; label: String; callback: Callable = init_Callable(); keyCallback: Callable = init_Callable(); tag: Variant = default(Variant); accelerator: Key = keyNone; index: int32 = -1): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_add_radio_check_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3415468211)
-  var `?param` = [getPtr menuRoot, getPtr label, getPtr callback, getPtr keyCallback, getPtr tag, getPtr accelerator, getPtr index]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuAddIconRadioCheckItem*(self: DisplayServer; menuRoot: String; icon: GD_ref[Texture2D]; label: String; callback: Callable = init_Callable(); keyCallback: Callable = init_Callable(); tag: Variant = default(Variant); accelerator: Key = keyNone; index: int32 = -1): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_add_icon_radio_check_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1700867534)
-  var `?param` = [getPtr menuRoot, getPtr icon, getPtr label, getPtr callback, getPtr keyCallback, getPtr tag, getPtr accelerator, getPtr index]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuAddMultistateItem*(self: DisplayServer; menuRoot: String; label: String; maxStates: int32; defaultState: int32; callback: Callable = init_Callable(); keyCallback: Callable = init_Callable(); tag: Variant = default(Variant); accelerator: Key = keyNone; index: int32 = -1): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_add_multistate_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 635750054)
-  var `?param` = [getPtr menuRoot, getPtr label, getPtr maxStates, getPtr defaultState, getPtr callback, getPtr keyCallback, getPtr tag, getPtr accelerator, getPtr index]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuAddSeparator*(self: DisplayServer; menuRoot: String; index: int32 = -1): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_add_separator"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1041533178)
-  var `?param` = [getPtr menuRoot, getPtr index]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuGetItemIndexFromText*(self: DisplayServer; menuRoot: String; text: String): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_index_from_text"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2878152881)
-  var `?param` = [getPtr menuRoot, getPtr text]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuGetItemIndexFromTag*(self: DisplayServer; menuRoot: String; tag: Variant): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_index_from_tag"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2941063483)
-  var `?param` = [getPtr menuRoot, getPtr tag]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuIsItemChecked*(self: DisplayServer; menuRoot: String; idx: int32): Bool =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_is_item_checked"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3511468594)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded Bool
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(Bool)
-proc globalMenuIsItemCheckable*(self: DisplayServer; menuRoot: String; idx: int32): Bool =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_is_item_checkable"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3511468594)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded Bool
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(Bool)
-proc globalMenuIsItemRadioCheckable*(self: DisplayServer; menuRoot: String; idx: int32): Bool =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_is_item_radio_checkable"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3511468594)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded Bool
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(Bool)
-proc globalMenuGetItemCallback*(self: DisplayServer; menuRoot: String; idx: int32): Callable =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_callback"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 748666903)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded Callable
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(Callable)
-proc globalMenuGetItemKeyCallback*(self: DisplayServer; menuRoot: String; idx: int32): Callable =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_key_callback"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 748666903)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded Callable
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(Callable)
-proc globalMenuGetItemTag*(self: DisplayServer; menuRoot: String; idx: int32): Variant =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_tag"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 330672633)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded Variant
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(Variant)
-proc globalMenuGetItemText*(self: DisplayServer; menuRoot: String; idx: int32): String =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_text"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 591067909)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded String
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(String)
-proc globalMenuGetItemSubmenu*(self: DisplayServer; menuRoot: String; idx: int32): String =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_submenu"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 591067909)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded String
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(String)
-proc globalMenuGetItemAccelerator*(self: DisplayServer; menuRoot: String; idx: int32): Key =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_accelerator"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 936065394)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded Key
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(Key)
-proc globalMenuIsItemDisabled*(self: DisplayServer; menuRoot: String; idx: int32): Bool =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_is_item_disabled"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3511468594)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded Bool
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(Bool)
-proc globalMenuGetItemTooltip*(self: DisplayServer; menuRoot: String; idx: int32): String =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_tooltip"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 591067909)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded String
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(String)
-proc globalMenuGetItemState*(self: DisplayServer; menuRoot: String; idx: int32): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_state"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3422818498)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuGetItemMaxStates*(self: DisplayServer; menuRoot: String; idx: int32): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_max_states"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3422818498)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuGetItemIcon*(self: DisplayServer; menuRoot: String; idx: int32): GD_ref[Texture2D] =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_icon"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3591713183)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded GD_ref[Texture2D]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(GD_ref[Texture2D])
-proc globalMenuGetItemIndentationLevel*(self: DisplayServer; menuRoot: String; idx: int32): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_indentation_level"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3422818498)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuSetItemChecked*(self: DisplayServer; menuRoot: String; idx: int32; checked: Bool) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_checked"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 4108344793)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr checked]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemCheckable*(self: DisplayServer; menuRoot: String; idx: int32; checkable: Bool) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_checkable"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 4108344793)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr checkable]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemRadioCheckable*(self: DisplayServer; menuRoot: String; idx: int32; checkable: Bool) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_radio_checkable"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 4108344793)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr checkable]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemCallback*(self: DisplayServer; menuRoot: String; idx: int32; callback: Callable) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_callback"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3809915389)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr callback]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemKeyCallback*(self: DisplayServer; menuRoot: String; idx: int32; keyCallback: Callable) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_key_callback"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3809915389)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr keyCallback]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemTag*(self: DisplayServer; menuRoot: String; idx: int32; tag: Variant) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_tag"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 453659863)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr tag]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemText*(self: DisplayServer; menuRoot: String; idx: int32; text: String) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_text"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 965966136)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr text]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemSubmenu*(self: DisplayServer; menuRoot: String; idx: int32; submenu: String) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_submenu"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 965966136)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr submenu]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemAccelerator*(self: DisplayServer; menuRoot: String; idx: int32; keycode: Key) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_accelerator"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 566943293)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr keycode]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemDisabled*(self: DisplayServer; menuRoot: String; idx: int32; disabled: Bool) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_disabled"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 4108344793)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr disabled]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemTooltip*(self: DisplayServer; menuRoot: String; idx: int32; tooltip: String) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_tooltip"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 965966136)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr tooltip]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemState*(self: DisplayServer; menuRoot: String; idx: int32; state: int32) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_state"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3474840532)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr state]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemMaxStates*(self: DisplayServer; menuRoot: String; idx: int32; maxStates: int32) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_max_states"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3474840532)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr maxStates]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemIcon*(self: DisplayServer; menuRoot: String; idx: int32; icon: GD_ref[Texture2D]) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_icon"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3201338066)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr icon]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuSetItemIndentationLevel*(self: DisplayServer; menuRoot: String; idx: int32; level: int32) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_set_item_indentation_level"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3474840532)
-  var `?param` = [getPtr menuRoot, getPtr idx, getPtr level]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuGetItemCount*(self: DisplayServer; menuRoot: String): int32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_get_item_count"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1321353865)
-  var `?param` = [getPtr menuRoot]
-  var ret: encoded int32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(int32)
-proc globalMenuRemoveItem*(self: DisplayServer; menuRoot: String; idx: int32) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_remove_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2956805083)
-  var `?param` = [getPtr menuRoot, getPtr idx]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc globalMenuClear*(self: DisplayServer; menuRoot: String) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "global_menu_clear"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 83702148)
-  var `?param` = [getPtr menuRoot]
+    let name = api.newStringName "help_set_search_callbacks"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1687350599)
+  var `?param` = [getPtr searchCallback, getPtr actionCallback]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc ttsIsSpeaking*(self: DisplayServer): Bool =
   var methodbind {.global.}: MethodBindPtr
@@ -421,7 +66,7 @@ proc ttsSpeak*(self: DisplayServer; text: String; voice: String; volume: int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "tts_speak"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3741216677)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 903992738)
   var `?param` = [getPtr text, getPtr voice, getPtr volume, getPtr pitch, getPtr rate, getPtr utteranceId, getPtr interrupt]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc ttsPause*(self: DisplayServer) =
@@ -473,6 +118,21 @@ proc getAccentColor*(self: DisplayServer): Color =
   var ret: encoded Color
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Color)
+proc getBaseColor*(self: DisplayServer): Color =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_base_color"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3444240500)
+  var ret: encoded Color
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Color)
+proc setSystemThemeChangeCallback*(self: DisplayServer; callable: Callable) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_system_theme_change_callback"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1611583062)
+  var `?param` = [getPtr callable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc mouseSetMode*(self: DisplayServer; mouseMode: DisplayServer_MouseMode) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -526,10 +186,26 @@ proc clipboardGet*(self: DisplayServer): String =
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(String)
+proc clipboardGetImage*(self: DisplayServer): GD_ref[Image] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "clipboard_get_image"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 4190603485)
+  var ret: encoded GD_ref[Image]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(GD_ref[Image])
 proc clipboardHas*(self: DisplayServer): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "clipboard_has"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc clipboardHasImage*(self: DisplayServer): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "clipboard_has_image"
     methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
@@ -647,7 +323,7 @@ proc isTouchscreenAvailable*(self: DisplayServer): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_touchscreen_available"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 4162880507)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3323674545)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
@@ -690,7 +366,7 @@ proc screenSetOrientation*(self: DisplayServer; orientation: DisplayServer_Scree
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "screen_set_orientation"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2629526904)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2211511631)
   var `?param` = [getPtr orientation, getPtr screen]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc screenGetOrientation*(self: DisplayServer; screen: int32 = -1): DisplayServer_ScreenOrientation =
@@ -738,7 +414,7 @@ proc windowGetNativeHandle*(self: DisplayServer; handleType: DisplayServer_Handl
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_get_native_handle"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2709193271)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1096425680)
   var `?param` = [getPtr handleType, getPtr windowId]
   var ret: encoded int64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -771,14 +447,23 @@ proc windowSetTitle*(self: DisplayServer; title: String; windowId: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_title"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3043792800)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 441246282)
   var `?param` = [getPtr title, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc windowGetTitleSize*(self: DisplayServer; title: String; windowId: int32 = 0): Vector2i =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "window_get_title_size"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2925301799)
+  var `?param` = [getPtr title, getPtr windowId]
+  var ret: encoded Vector2i
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Vector2i)
 proc windowSetMousePassthrough*(self: DisplayServer; region: PackedVector2Array; windowId: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_mouse_passthrough"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3958815166)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1993637420)
   var `?param` = [getPtr region, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowGetCurrentScreen*(self: DisplayServer; windowId: int32 = 0): int32 =
@@ -794,7 +479,7 @@ proc windowSetCurrentScreen*(self: DisplayServer; screen: int32; windowId: int32
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_current_screen"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3023605688)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2230941749)
   var `?param` = [getPtr screen, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowGetPosition*(self: DisplayServer; windowId: int32 = 0): Vector2i =
@@ -819,7 +504,7 @@ proc windowSetPosition*(self: DisplayServer; position: Vector2i; windowId: int32
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_position"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3614040015)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2019273902)
   var `?param` = [getPtr position, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowGetSize*(self: DisplayServer; windowId: int32 = 0): Vector2i =
@@ -835,42 +520,42 @@ proc windowSetSize*(self: DisplayServer; size: Vector2i; windowId: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_size"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3614040015)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2019273902)
   var `?param` = [getPtr size, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowSetRectChangedCallback*(self: DisplayServer; callback: Callable; windowId: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_rect_changed_callback"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3653650673)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1091192925)
   var `?param` = [getPtr callback, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowSetWindowEventCallback*(self: DisplayServer; callback: Callable; windowId: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_window_event_callback"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3653650673)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1091192925)
   var `?param` = [getPtr callback, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowSetInputEventCallback*(self: DisplayServer; callback: Callable; windowId: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_input_event_callback"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3653650673)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1091192925)
   var `?param` = [getPtr callback, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowSetInputTextCallback*(self: DisplayServer; callback: Callable; windowId: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_input_text_callback"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3653650673)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1091192925)
   var `?param` = [getPtr callback, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowSetDropFilesCallback*(self: DisplayServer; callback: Callable; windowId: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_drop_files_callback"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3653650673)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1091192925)
   var `?param` = [getPtr callback, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowGetAttachedInstanceId*(self: DisplayServer; windowId: int32 = 0): uint64 =
@@ -895,7 +580,7 @@ proc windowSetMaxSize*(self: DisplayServer; maxSize: Vector2i; windowId: int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_max_size"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3614040015)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2019273902)
   var `?param` = [getPtr maxSize, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowGetMinSize*(self: DisplayServer; windowId: int32 = 0): Vector2i =
@@ -911,7 +596,7 @@ proc windowSetMinSize*(self: DisplayServer; minSize: Vector2i; windowId: int32 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_min_size"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3614040015)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2019273902)
   var `?param` = [getPtr minSize, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowGetSizeWithDecorations*(self: DisplayServer; windowId: int32 = 0): Vector2i =
@@ -936,21 +621,21 @@ proc windowSetMode*(self: DisplayServer; mode: DisplayServer_WindowMode; windowI
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_mode"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2942569511)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1319965401)
   var `?param` = [getPtr mode, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowSetFlag*(self: DisplayServer; flag: DisplayServer_WindowFlags; enabled: Bool; windowId: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_flag"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3971592565)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 254894155)
   var `?param` = [getPtr flag, getPtr enabled, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowGetFlag*(self: DisplayServer; flag: DisplayServer_WindowFlags; windowId: int32 = 0): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_get_flag"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2662949986)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 802816991)
   var `?param` = [getPtr flag, getPtr windowId]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -959,7 +644,7 @@ proc windowSetWindowButtonsOffset*(self: DisplayServer; offset: Vector2i; window
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_window_buttons_offset"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3614040015)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2019273902)
   var `?param` = [getPtr offset, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowGetSafeTitleMargins*(self: DisplayServer; windowId: int32 = 0): Vector3i =
@@ -1021,21 +706,21 @@ proc windowSetImeActive*(self: DisplayServer; active: Bool; windowId: int32 = 0)
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_ime_active"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 450484987)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1661950165)
   var `?param` = [getPtr active, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowSetImePosition*(self: DisplayServer; position: Vector2i; windowId: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_ime_position"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3614040015)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2019273902)
   var `?param` = [getPtr position, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowSetVsyncMode*(self: DisplayServer; vsyncMode: DisplayServer_VSyncMode; windowId: int32 = 0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "window_set_vsync_mode"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1708924624)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 2179333492)
   var `?param` = [getPtr vsyncMode, getPtr windowId]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc windowGetVsyncMode*(self: DisplayServer; windowId: int32 = 0): DisplayServer_VSyncMode =
@@ -1092,7 +777,7 @@ proc virtualKeyboardShow*(self: DisplayServer; existingText: String; position: R
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "virtual_keyboard_show"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 860410478)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3042891259)
   var `?param` = [getPtr existingText, getPtr position, getPtr `type`, getPtr maxLength, getPtr cursorStart, getPtr cursorEnd]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc virtualKeyboardHide*(self: DisplayServer) =
@@ -1128,7 +813,7 @@ proc cursorSetCustomImage*(self: DisplayServer; cursor: GD_ref[Resource]; shape:
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "cursor_set_custom_image"
-    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1358907026)
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1816663697)
   var `?param` = [getPtr cursor, getPtr shape, getPtr hotspot]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getSwapCancelOk*(self: DisplayServer): Bool =
@@ -1161,6 +846,24 @@ proc dialogInputText*(self: DisplayServer; title: String; description: String; e
     let name = api.newStringName "dialog_input_text"
     methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3088703427)
   var `?param` = [getPtr title, getPtr description, getPtr existingText, getPtr callback]
+  var ret: encoded Error
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Error)
+proc fileDialogShow*(self: DisplayServer; title: String; currentDirectory: String; filename: String; showHidden: Bool; mode: DisplayServer_FileDialogMode; filters: PackedStringArray; callback: Callable): Error =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "file_dialog_show"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1531299078)
+  var `?param` = [getPtr title, getPtr currentDirectory, getPtr filename, getPtr showHidden, getPtr mode, getPtr filters, getPtr callback]
+  var ret: encoded Error
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Error)
+proc fileDialogWithOptionsShow*(self: DisplayServer; title: String; currentDirectory: String; root: String; filename: String; showHidden: Bool; mode: DisplayServer_FileDialogMode; filters: PackedStringArray; options: TypedArray[Dictionary]; callback: Callable): Error =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "file_dialog_with_options_show"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1305318754)
+  var `?param` = [getPtr title, getPtr currentDirectory, getPtr root, getPtr filename, getPtr showHidden, getPtr mode, getPtr filters, getPtr options, getPtr callback]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Error)
@@ -1214,6 +917,15 @@ proc keyboardGetKeycodeFromPhysical*(self: DisplayServer; keycode: Key): Key =
   var ret: encoded Key
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Key)
+proc keyboardGetLabelFromPhysical*(self: DisplayServer; keycode: Key): Key =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "keyboard_get_label_from_physical"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3447613187)
+  var `?param` = [getPtr keycode]
+  var ret: encoded Key
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Key)
 proc processEvents*(self: DisplayServer) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -1239,6 +951,59 @@ proc setIcon*(self: DisplayServer; image: GD_ref[Image]) =
     let name = api.newStringName "set_icon"
     methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 532598488)
   var `?param` = [getPtr image]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc createStatusIndicator*(self: DisplayServer; icon: GD_ref[Texture2D]; tooltip: String; callback: Callable): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "create_status_indicator"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1904285171)
+  var `?param` = [getPtr icon, getPtr tooltip, getPtr callback]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
+proc statusIndicatorSetIcon*(self: DisplayServer; id: int32; icon: GD_ref[Texture2D]) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "status_indicator_set_icon"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 666127730)
+  var `?param` = [getPtr id, getPtr icon]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc statusIndicatorSetTooltip*(self: DisplayServer; id: int32; tooltip: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "status_indicator_set_tooltip"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 501894301)
+  var `?param` = [getPtr id, getPtr tooltip]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc statusIndicatorSetMenu*(self: DisplayServer; id: int32; menuRid: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "status_indicator_set_menu"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 4040184819)
+  var `?param` = [getPtr id, getPtr menuRid]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc statusIndicatorSetCallback*(self: DisplayServer; id: int32; callback: Callable) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "status_indicator_set_callback"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 957362965)
+  var `?param` = [getPtr id, getPtr callback]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc statusIndicatorGetRect*(self: DisplayServer; id: int32): Rect2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "status_indicator_get_rect"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 3327874267)
+  var `?param` = [getPtr id]
+  var ret: encoded Rect2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Rect2)
+proc deleteStatusIndicator*(self: DisplayServer; id: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "delete_status_indicator"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 1286410249)
+  var `?param` = [getPtr id]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc tabletGetDriverCount*(self: DisplayServer): int32 =
   var methodbind {.global.}: MethodBindPtr
@@ -1272,3 +1037,11 @@ proc tabletSetCurrentDriver*(self: DisplayServer; name: String) =
     methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 83702148)
   var `?param` = [getPtr name]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isWindowTransparencyAvailable*(self: DisplayServer): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_window_transparency_available"
+    methodbind = interface_ClassDB_getMethodBind(addr className DisplayServer, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)

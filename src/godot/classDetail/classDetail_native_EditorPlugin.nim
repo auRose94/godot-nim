@@ -12,21 +12,21 @@ proc addControlToContainer*(self: EditorPlugin; container: EditorPlugin_CustomCo
     methodbind = interface_ClassDB_getMethodBind(addr className EditorPlugin, addr name, 3092750152)
   var `?param` = [getPtr container, getPtr control]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc addControlToBottomPanel*(self: EditorPlugin; control: Control; title: String): Button =
+proc addControlToBottomPanel*(self: EditorPlugin; control: Control; title: String; shortcut: GD_ref[Shortcut] = default GD_ref[Shortcut]): Button =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_control_to_bottom_panel"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorPlugin, addr name, 3526039376)
-  var `?param` = [getPtr control, getPtr title]
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorPlugin, addr name, 111032269)
+  var `?param` = [getPtr control, getPtr title, getPtr shortcut]
   var ret: encoded Button
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Button)
-proc addControlToDock*(self: EditorPlugin; slot: EditorPlugin_DockSlot; control: Control) =
+proc addControlToDock*(self: EditorPlugin; slot: EditorPlugin_DockSlot; control: Control; shortcut: GD_ref[Shortcut] = default GD_ref[Shortcut]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_control_to_dock"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorPlugin, addr name, 3354871258)
-  var `?param` = [getPtr slot, getPtr control]
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorPlugin, addr name, 2994930786)
+  var `?param` = [getPtr slot, getPtr control, getPtr shortcut]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc removeControlFromDocks*(self: EditorPlugin; control: Control) =
   var methodbind {.global.}: MethodBindPtr
@@ -48,6 +48,13 @@ proc removeControlFromContainer*(self: EditorPlugin; container: EditorPlugin_Cus
     let name = api.newStringName "remove_control_from_container"
     methodbind = interface_ClassDB_getMethodBind(addr className EditorPlugin, addr name, 3092750152)
   var `?param` = [getPtr container, getPtr control]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc setDockTabIcon*(self: EditorPlugin; control: Control; icon: GD_ref[Texture2D]) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_dock_tab_icon"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorPlugin, addr name, 3450529724)
+  var `?param` = [getPtr control, getPtr icon]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc addToolMenuItem*(self: EditorPlugin; name: String; callable: Callable) =
   var methodbind {.global.}: MethodBindPtr
@@ -309,3 +316,11 @@ proc removeDebuggerPlugin*(self: EditorPlugin; script: GD_ref[EditorDebuggerPlug
     methodbind = interface_ClassDB_getMethodBind(addr className EditorPlugin, addr name, 3749880309)
   var `?param` = [getPtr script]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getPluginVersion*(self: EditorPlugin): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_plugin_version"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorPlugin, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)

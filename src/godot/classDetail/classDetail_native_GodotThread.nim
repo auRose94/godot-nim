@@ -9,7 +9,7 @@ proc start*(self: GodotThread; callable: Callable; priority: GodotThread_Priorit
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "start"
-    methodbind = interface_ClassDB_getMethodBind(addr className GodotThread, addr name, 2779832528)
+    methodbind = interface_ClassDB_getMethodBind(addr className GodotThread, addr name, 1327203254)
   var `?param` = [getPtr callable, getPtr priority]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

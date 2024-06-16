@@ -79,6 +79,29 @@ proc setupLocalToScene*(self: Resource) =
     let name = api.newStringName "setup_local_to_scene"
     methodbind = interface_ClassDB_getMethodBind(addr className Resource, addr name, 3218959716)
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc generateSceneUniqueId*(_: typedesc[Resource]): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "generate_scene_unique_id"
+    methodbind = interface_ClassDB_getMethodBind(addr className Resource, addr name, 2841200299)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, nil, nil, addr ret)
+  (addr ret).decode_result(String)
+proc `sceneUniqueId=`*(self: Resource; id: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_scene_unique_id"
+    methodbind = interface_ClassDB_getMethodBind(addr className Resource, addr name, 83702148)
+  var `?param` = [getPtr id]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc sceneUniqueId*(self: Resource): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_scene_unique_id"
+    methodbind = interface_ClassDB_getMethodBind(addr className Resource, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
 proc emitChanged*(self: Resource) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

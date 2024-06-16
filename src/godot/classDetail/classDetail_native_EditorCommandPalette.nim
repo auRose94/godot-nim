@@ -9,7 +9,7 @@ proc addCommand*(self: EditorCommandPalette; commandName: String; keyName: Strin
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_command"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorCommandPalette, addr name, 3664614892)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorCommandPalette, addr name, 864043298)
   var `?param` = [getPtr commandName, getPtr keyName, getPtr bindedCallable, getPtr shortcutText]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc removeCommand*(self: EditorCommandPalette; keyName: String) =

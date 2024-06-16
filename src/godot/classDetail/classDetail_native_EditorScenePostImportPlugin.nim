@@ -25,6 +25,6 @@ proc addImportOptionAdvanced*(self: EditorScenePostImportPlugin; `type`: Variant
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_import_option_advanced"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorScenePostImportPlugin, addr name, 3774155785)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorScenePostImportPlugin, addr name, 3674075649)
   var `?param` = [getPtr `type`, getPtr name, getPtr defaultValue, getPtr hint, getPtr hintString, getPtr usageFlags]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

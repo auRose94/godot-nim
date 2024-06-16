@@ -35,6 +35,21 @@ proc poseName*(self: XRNode3D): StringName =
   var ret: encoded StringName
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(StringName)
+proc `showWhenTracked=`*(self: XRNode3D; show: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_show_when_tracked"
+    methodbind = interface_ClassDB_getMethodBind(addr className XRNode3D, addr name, 2586408642)
+  var `?param` = [getPtr show]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc showWhenTracked*(self: XRNode3D): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_show_when_tracked"
+    methodbind = interface_ClassDB_getMethodBind(addr className XRNode3D, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc getIsActive*(self: XRNode3D): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

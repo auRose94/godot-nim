@@ -9,14 +9,14 @@ proc sendMessage*(self: EditorDebuggerSession; message: String; data: Array = in
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "send_message"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorDebuggerSession, addr name, 3780025912)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorDebuggerSession, addr name, 85656714)
   var `?param` = [getPtr message, getPtr data]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc toggleProfiler*(self: EditorDebuggerSession; profiler: String; enable: Bool; data: Array = init_Array()) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "toggle_profiler"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorDebuggerSession, addr name, 35674246)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorDebuggerSession, addr name, 1198443697)
   var `?param` = [getPtr profiler, getPtr enable, getPtr data]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc isBreaked*(self: EditorDebuggerSession): Bool =
@@ -56,4 +56,11 @@ proc removeSessionTab*(self: EditorDebuggerSession; control: Control) =
     let name = api.newStringName "remove_session_tab"
     methodbind = interface_ClassDB_getMethodBind(addr className EditorDebuggerSession, addr name, 1496901182)
   var `?param` = [getPtr control]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc setBreakpoint*(self: EditorDebuggerSession; path: String; line: int32; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_breakpoint"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorDebuggerSession, addr name, 4108344793)
+  var `?param` = [getPtr path, getPtr line, getPtr enabled]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

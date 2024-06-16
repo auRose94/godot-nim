@@ -9,7 +9,7 @@ proc setCell*(self: TileMapPattern; coords: Vector2i; sourceId: int32 = -1; atla
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_cell"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileMapPattern, addr name, 634000503)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileMapPattern, addr name, 2224802556)
   var `?param` = [getPtr coords, getPtr sourceId, getPtr atlasCoords, getPtr alternativeTile]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc hasCell*(self: TileMapPattern; coords: Vector2i): Bool =

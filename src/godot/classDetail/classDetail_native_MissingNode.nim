@@ -20,6 +20,21 @@ proc originalClass*(self: MissingNode): String =
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(String)
+proc `originalScene=`*(self: MissingNode; name: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_original_scene"
+    methodbind = interface_ClassDB_getMethodBind(addr className MissingNode, addr name, 83702148)
+  var `?param` = [getPtr name]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc originalScene*(self: MissingNode): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_original_scene"
+    methodbind = interface_ClassDB_getMethodBind(addr className MissingNode, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
 proc `recordingProperties=`*(self: MissingNode; enable: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

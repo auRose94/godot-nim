@@ -5,14 +5,14 @@
 import ./../helper/engineClassDefiner
 import ./classDetail_native_Resource; export classDetail_native_Resource
 
-proc setFallbacks*(self: Font; fallbacks: GD_ref[Font]) =
+proc `fallbacks=`*(self: Font; fallbacks: GD_ref[Font]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_fallbacks"
     methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 381264803)
   var `?param` = [getPtr fallbacks]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc getFallbacks*(self: Font): GD_ref[Font] =
+proc fallbacks*(self: Font): GD_ref[Font] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_fallbacks"
@@ -20,12 +20,12 @@ proc getFallbacks*(self: Font): GD_ref[Font] =
   var ret: encoded GD_ref[Font]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(GD_ref[Font])
-proc findVariation*(self: Font; variationCoordinates: Dictionary; faceIndex: int32 = 0; strength: Float = 0.0; transform: Transform2D = init_Transform2D()): RID =
+proc findVariation*(self: Font; variationCoordinates: Dictionary; faceIndex: int32 = 0; strength: Float = 0.0; transform: Transform2D = init_Transform2D(); spacingTop: int32 = 0; spacingBottom: int32 = 0; spacingSpace: int32 = 0; spacingGlyph: int32 = 0; baselineOffset: Float = 0.0): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "find_variation"
-    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 1149405976)
-  var `?param` = [getPtr variationCoordinates, getPtr faceIndex, getPtr strength, getPtr transform]
+    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 2553855095)
+  var `?param` = [getPtr variationCoordinates, getPtr faceIndex, getPtr strength, getPtr transform, getPtr spacingTop, getPtr spacingBottom, getPtr spacingSpace, getPtr spacingGlyph, getPtr baselineOffset]
   var ret: encoded RID
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(RID)
@@ -158,7 +158,7 @@ proc getStringSize*(self: Font; text: String; alignment: HorizontalAlignment = h
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_string_size"
-    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 3678918099)
+    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 1868866121)
   var `?param` = [getPtr text, getPtr alignment, getPtr width, getPtr fontSize, getPtr justificationFlags, getPtr direction, getPtr orientation]
   var ret: encoded Vector2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -167,7 +167,7 @@ proc getMultilineStringSize*(self: Font; text: String; alignment: HorizontalAlig
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_multiline_string_size"
-    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 2427690650)
+    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 519636710)
   var `?param` = [getPtr text, getPtr alignment, getPtr width, getPtr fontSize, getPtr maxLines, getPtr brkFlags, getPtr justificationFlags, getPtr direction, getPtr orientation]
   var ret: encoded Vector2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -176,28 +176,28 @@ proc drawString*(self: Font; canvasItem: RID; pos: Vector2; text: String; alignm
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_string"
-    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 2565402639)
+    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 1983721962)
   var `?param` = [getPtr canvasItem, getPtr pos, getPtr text, getPtr alignment, getPtr width, getPtr fontSize, getPtr modulate, getPtr justificationFlags, getPtr direction, getPtr orientation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawMultilineString*(self: Font; canvasItem: RID; pos: Vector2; text: String; alignment: HorizontalAlignment = horizontalAlignmentLeft; width: Float = -1; fontSize: int32 = 16; maxLines: int32 = -1; modulate: Color = init_Color(1, 1, 1, 1); brkFlags: set[TextServer_LineBreakFlag] = {}; justificationFlags: set[TextServer_JustificationFlag] = {}; direction: TextServer_Direction = directionAuto; orientation: TextServer_Orientation = orientationHorizontal) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_multiline_string"
-    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 348869189)
+    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 1171506176)
   var `?param` = [getPtr canvasItem, getPtr pos, getPtr text, getPtr alignment, getPtr width, getPtr fontSize, getPtr maxLines, getPtr modulate, getPtr brkFlags, getPtr justificationFlags, getPtr direction, getPtr orientation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawStringOutline*(self: Font; canvasItem: RID; pos: Vector2; text: String; alignment: HorizontalAlignment = horizontalAlignmentLeft; width: Float = -1; fontSize: int32 = 16; size: int32 = 1; modulate: Color = init_Color(1, 1, 1, 1); justificationFlags: set[TextServer_JustificationFlag] = {}; direction: TextServer_Direction = directionAuto; orientation: TextServer_Orientation = orientationHorizontal) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_string_outline"
-    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 657875837)
+    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 623754045)
   var `?param` = [getPtr canvasItem, getPtr pos, getPtr text, getPtr alignment, getPtr width, getPtr fontSize, getPtr size, getPtr modulate, getPtr justificationFlags, getPtr direction, getPtr orientation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawMultilineStringOutline*(self: Font; canvasItem: RID; pos: Vector2; text: String; alignment: HorizontalAlignment = horizontalAlignmentLeft; width: Float = -1; fontSize: int32 = 16; maxLines: int32 = -1; size: int32 = 1; modulate: Color = init_Color(1, 1, 1, 1); brkFlags: set[TextServer_LineBreakFlag] = {}; justificationFlags: set[TextServer_JustificationFlag] = {}; direction: TextServer_Direction = directionAuto; orientation: TextServer_Orientation = orientationHorizontal) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_multiline_string_outline"
-    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 1649790182)
+    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 3206388178)
   var `?param` = [getPtr canvasItem, getPtr pos, getPtr text, getPtr alignment, getPtr width, getPtr fontSize, getPtr maxLines, getPtr size, getPtr modulate, getPtr brkFlags, getPtr justificationFlags, getPtr direction, getPtr orientation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getCharSize*(self: Font; char: Int; fontSize: int32): Vector2 =
@@ -213,7 +213,7 @@ proc drawChar*(self: Font; canvasItem: RID; pos: Vector2; char: Int; fontSize: i
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_char"
-    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 1462476057)
+    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 3815617597)
   var `?param` = [getPtr canvasItem, getPtr pos, getPtr char, getPtr fontSize, getPtr modulate]
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -222,7 +222,7 @@ proc drawCharOutline*(self: Font; canvasItem: RID; pos: Vector2; char: Int; font
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_char_outline"
-    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 4161008124)
+    methodbind = interface_ClassDB_getMethodBind(addr className Font, addr name, 209525354)
   var `?param` = [getPtr canvasItem, getPtr pos, getPtr char, getPtr fontSize, getPtr size, getPtr modulate]
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

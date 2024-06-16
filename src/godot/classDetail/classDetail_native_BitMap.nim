@@ -16,7 +16,7 @@ proc createFromImageAlpha*(self: BitMap; image: GD_ref[Image]; threshold: Float 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_from_image_alpha"
-    methodbind = interface_ClassDB_getMethodBind(addr className BitMap, addr name, 505265891)
+    methodbind = interface_ClassDB_getMethodBind(addr className BitMap, addr name, 106271684)
   var `?param` = [getPtr image, getPtr threshold]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc setBitv*(self: BitMap; position: Vector2i; bit: Bool) =
@@ -100,7 +100,7 @@ proc opaqueToPolygons*(self: BitMap; rect: Rect2i; epsilon: Float = 2.0): TypedA
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "opaque_to_polygons"
-    methodbind = interface_ClassDB_getMethodBind(addr className BitMap, addr name, 876132484)
+    methodbind = interface_ClassDB_getMethodBind(addr className BitMap, addr name, 48478126)
   var `?param` = [getPtr rect, getPtr epsilon]
   var ret: encoded TypedArray[PackedVector2Array]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

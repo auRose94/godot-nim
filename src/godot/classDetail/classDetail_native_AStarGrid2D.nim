@@ -65,6 +65,21 @@ proc cellSize*(self: AStarGrid2D): Vector2 =
   var ret: encoded Vector2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Vector2)
+proc `cellShape=`*(self: AStarGrid2D; cellShape: AStarGrid2D_CellShape) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_cell_shape"
+    methodbind = interface_ClassDB_getMethodBind(addr className AStarGrid2D, addr name, 4130591146)
+  var `?param` = [getPtr cellShape]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc cellShape*(self: AStarGrid2D): AStarGrid2D_CellShape =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_cell_shape"
+    methodbind = interface_ClassDB_getMethodBind(addr className AStarGrid2D, addr name, 3293463634)
+  var ret: encoded AStarGrid2D_CellShape
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(AStarGrid2D_CellShape)
 proc isInBounds*(self: AStarGrid2D; x: int32; y: int32): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -161,7 +176,7 @@ proc setPointSolid*(self: AStarGrid2D; id: Vector2i; solid: Bool = true) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "set_point_solid"
-    methodbind = interface_ClassDB_getMethodBind(addr className AStarGrid2D, addr name, 2825551965)
+    methodbind = interface_ClassDB_getMethodBind(addr className AStarGrid2D, addr name, 1765703753)
   var `?param` = [getPtr id, getPtr solid]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc isPointSolid*(self: AStarGrid2D; id: Vector2i): Bool =
@@ -189,6 +204,20 @@ proc getPointWeightScale*(self: AStarGrid2D; id: Vector2i): Float =
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Float)
+proc fillSolidRegion*(self: AStarGrid2D; region: Rect2i; solid: Bool = true) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "fill_solid_region"
+    methodbind = interface_ClassDB_getMethodBind(addr className AStarGrid2D, addr name, 2261970063)
+  var `?param` = [getPtr region, getPtr solid]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc fillWeightScaleRegion*(self: AStarGrid2D; region: Rect2i; weightScale: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "fill_weight_scale_region"
+    methodbind = interface_ClassDB_getMethodBind(addr className AStarGrid2D, addr name, 2793244083)
+  var `?param` = [getPtr region, getPtr weightScale]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc clear*(self: AStarGrid2D) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -204,21 +233,21 @@ proc getPointPosition*(self: AStarGrid2D; id: Vector2i): Vector2 =
   var ret: encoded Vector2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Vector2)
-proc getPointPath*(self: AStarGrid2D; fromId: Vector2i; toId: Vector2i): PackedVector2Array =
+proc getPointPath*(self: AStarGrid2D; fromId: Vector2i; toId: Vector2i; allowPartialPath: Bool = false): PackedVector2Array =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_point_path"
-    methodbind = interface_ClassDB_getMethodBind(addr className AStarGrid2D, addr name, 690373547)
-  var `?param` = [getPtr fromId, getPtr toId]
+    methodbind = interface_ClassDB_getMethodBind(addr className AStarGrid2D, addr name, 1641925693)
+  var `?param` = [getPtr fromId, getPtr toId, getPtr allowPartialPath]
   var ret: encoded PackedVector2Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(PackedVector2Array)
-proc getIdPath*(self: AStarGrid2D; fromId: Vector2i; toId: Vector2i): TypedArray[Vector2i] =
+proc getIdPath*(self: AStarGrid2D; fromId: Vector2i; toId: Vector2i; allowPartialPath: Bool = false): TypedArray[Vector2i] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_id_path"
-    methodbind = interface_ClassDB_getMethodBind(addr className AStarGrid2D, addr name, 1989391000)
-  var `?param` = [getPtr fromId, getPtr toId]
+    methodbind = interface_ClassDB_getMethodBind(addr className AStarGrid2D, addr name, 1918132273)
+  var `?param` = [getPtr fromId, getPtr toId, getPtr allowPartialPath]
   var ret: encoded TypedArray[Vector2i]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(TypedArray[Vector2i])

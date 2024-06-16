@@ -116,6 +116,14 @@ proc getCameraTransform*(self: Camera3D): Transform3D =
   var ret: encoded Transform3D
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Transform3D)
+proc getCameraProjection*(self: Camera3D): Projection =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_camera_projection"
+    methodbind = interface_ClassDB_getMethodBind(addr className Camera3D, addr name, 2910717950)
+  var ret: encoded Projection
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Projection)
 proc fov*(self: Camera3D): Float =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -281,6 +289,21 @@ proc attributes*(self: Camera3D): GD_ref[CameraAttributes] =
   var ret: encoded GD_ref[CameraAttributes]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(GD_ref[CameraAttributes])
+proc `compositor=`*(self: Camera3D; compositor: GD_ref[Compositor]) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_compositor"
+    methodbind = interface_ClassDB_getMethodBind(addr className Camera3D, addr name, 1586754307)
+  var `?param` = [getPtr compositor]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc compositor*(self: Camera3D): GD_ref[Compositor] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_compositor"
+    methodbind = interface_ClassDB_getMethodBind(addr className Camera3D, addr name, 3647707413)
+  var ret: encoded GD_ref[Compositor]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(GD_ref[Compositor])
 proc `keepAspectMode=`*(self: Camera3D; mode: Camera3D_KeepAspect) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

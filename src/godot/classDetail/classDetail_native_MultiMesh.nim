@@ -159,6 +159,21 @@ proc getInstanceCustomData*(self: MultiMesh; instance: int32): Color =
   var ret: encoded Color
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Color)
+proc `customAabb=`*(self: MultiMesh; aabb: AABB) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_custom_aabb"
+    methodbind = interface_ClassDB_getMethodBind(addr className MultiMesh, addr name, 259215842)
+  var `?param` = [getPtr aabb]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc customAabb*(self: MultiMesh): AABB =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_custom_aabb"
+    methodbind = interface_ClassDB_getMethodBind(addr className MultiMesh, addr name, 1068685055)
+  var ret: encoded AABB
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(AABB)
 proc getAabb*(self: MultiMesh): AABB =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

@@ -9,7 +9,7 @@ proc start*(self: AESContext; mode: AESContext_Mode; key: PackedByteArray; iv: P
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "start"
-    methodbind = interface_ClassDB_getMethodBind(addr className AESContext, addr name, 3167574919)
+    methodbind = interface_ClassDB_getMethodBind(addr className AESContext, addr name, 3122411423)
   var `?param` = [getPtr mode, getPtr key, getPtr iv]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

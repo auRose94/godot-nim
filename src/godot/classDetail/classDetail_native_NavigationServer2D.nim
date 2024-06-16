@@ -105,7 +105,7 @@ proc mapGetPath*(self: NavigationServer2D; map: RID; origin: Vector2; destinatio
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "map_get_path"
-    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 56240621)
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3146466012)
   var `?param` = [getPtr map, getPtr origin, getPtr destination, getPtr optimize, getPtr navigationLayers]
   var ret: encoded PackedVector2Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -171,6 +171,24 @@ proc mapForceUpdate*(self: NavigationServer2D; map: RID) =
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2722037293)
   var `?param` = [getPtr map]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc mapGetIterationId*(self: NavigationServer2D; map: RID): uint32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "map_get_iteration_id"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2198884583)
+  var `?param` = [getPtr map]
+  var ret: encoded uint32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(uint32)
+proc mapGetRandomPoint*(self: NavigationServer2D; map: RID; navigationLayers: uint32; uniformly: Bool): Vector2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "map_get_random_point"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3271000763)
+  var `?param` = [getPtr map, getPtr navigationLayers, getPtr uniformly]
+  var ret: encoded Vector2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Vector2)
 proc queryPath*(self: NavigationServer2D; parameters: GD_ref[NavigationPathQueryParameters2D]; retval: GD_ref[NavigationPathQueryResult2D]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -186,6 +204,22 @@ proc regionCreate*(self: NavigationServer2D): RID =
   var ret: encoded RID
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(RID)
+proc regionSetEnabled*(self: NavigationServer2D; region: RID; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "region_set_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 1265174801)
+  var `?param` = [getPtr region, getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc regionGetEnabled*(self: NavigationServer2D; region: RID): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "region_get_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 4155700596)
+  var `?param` = [getPtr region]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc regionSetUseEdgeConnections*(self: NavigationServer2D; region: RID; enabled: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -298,6 +332,15 @@ proc regionSetTransform*(self: NavigationServer2D; region: RID; transform: Trans
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 1246044741)
   var `?param` = [getPtr region, getPtr transform]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc regionGetTransform*(self: NavigationServer2D; region: RID): Transform2D =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "region_get_transform"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 213527486)
+  var `?param` = [getPtr region]
+  var ret: encoded Transform2D
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Transform2D)
 proc regionSetNavigationPolygon*(self: NavigationServer2D; region: RID; navigationPolygon: GD_ref[NavigationPolygon]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -332,6 +375,15 @@ proc regionGetConnectionPathwayEnd*(self: NavigationServer2D; region: RID; conne
   var ret: encoded Vector2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Vector2)
+proc regionGetRandomPoint*(self: NavigationServer2D; region: RID; navigationLayers: uint32; uniformly: Bool): Vector2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "region_get_random_point"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3271000763)
+  var `?param` = [getPtr region, getPtr navigationLayers, getPtr uniformly]
+  var ret: encoded Vector2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Vector2)
 proc linkCreate*(self: NavigationServer2D): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -356,6 +408,22 @@ proc linkGetMap*(self: NavigationServer2D; link: RID): RID =
   var ret: encoded RID
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(RID)
+proc linkSetEnabled*(self: NavigationServer2D; link: RID; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "link_set_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 1265174801)
+  var `?param` = [getPtr link, getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc linkGetEnabled*(self: NavigationServer2D; link: RID): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "link_get_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 4155700596)
+  var `?param` = [getPtr link]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc linkSetBidirectional*(self: NavigationServer2D; link: RID; bidirectional: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -531,6 +599,15 @@ proc agentSetNeighborDistance*(self: NavigationServer2D; agent: RID; distance: F
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 1794382983)
   var `?param` = [getPtr agent, getPtr distance]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentGetNeighborDistance*(self: NavigationServer2D; agent: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_get_neighbor_distance"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 866169185)
+  var `?param` = [getPtr agent]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
 proc agentSetMaxNeighbors*(self: NavigationServer2D; agent: RID; count: int32) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -538,6 +615,15 @@ proc agentSetMaxNeighbors*(self: NavigationServer2D; agent: RID; count: int32) =
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3411492887)
   var `?param` = [getPtr agent, getPtr count]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentGetMaxNeighbors*(self: NavigationServer2D; agent: RID): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_get_max_neighbors"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2198884583)
+  var `?param` = [getPtr agent]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
 proc agentSetTimeHorizonAgents*(self: NavigationServer2D; agent: RID; timeHorizon: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -545,6 +631,15 @@ proc agentSetTimeHorizonAgents*(self: NavigationServer2D; agent: RID; timeHorizo
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 1794382983)
   var `?param` = [getPtr agent, getPtr timeHorizon]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentGetTimeHorizonAgents*(self: NavigationServer2D; agent: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_get_time_horizon_agents"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 866169185)
+  var `?param` = [getPtr agent]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
 proc agentSetTimeHorizonObstacles*(self: NavigationServer2D; agent: RID; timeHorizon: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -552,6 +647,15 @@ proc agentSetTimeHorizonObstacles*(self: NavigationServer2D; agent: RID; timeHor
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 1794382983)
   var `?param` = [getPtr agent, getPtr timeHorizon]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentGetTimeHorizonObstacles*(self: NavigationServer2D; agent: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_get_time_horizon_obstacles"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 866169185)
+  var `?param` = [getPtr agent]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
 proc agentSetRadius*(self: NavigationServer2D; agent: RID; radius: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -559,6 +663,15 @@ proc agentSetRadius*(self: NavigationServer2D; agent: RID; radius: Float) =
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 1794382983)
   var `?param` = [getPtr agent, getPtr radius]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentGetRadius*(self: NavigationServer2D; agent: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_get_radius"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 866169185)
+  var `?param` = [getPtr agent]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
 proc agentSetMaxSpeed*(self: NavigationServer2D; agent: RID; maxSpeed: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -566,6 +679,15 @@ proc agentSetMaxSpeed*(self: NavigationServer2D; agent: RID; maxSpeed: Float) =
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 1794382983)
   var `?param` = [getPtr agent, getPtr maxSpeed]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentGetMaxSpeed*(self: NavigationServer2D; agent: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_get_max_speed"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 866169185)
+  var `?param` = [getPtr agent]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
 proc agentSetVelocityForced*(self: NavigationServer2D; agent: RID; velocity: Vector2) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -580,6 +702,15 @@ proc agentSetVelocity*(self: NavigationServer2D; agent: RID; velocity: Vector2) 
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3201125042)
   var `?param` = [getPtr agent, getPtr velocity]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentGetVelocity*(self: NavigationServer2D; agent: RID): Vector2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_get_velocity"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2440833711)
+  var `?param` = [getPtr agent]
+  var ret: encoded Vector2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Vector2)
 proc agentSetPosition*(self: NavigationServer2D; agent: RID; position: Vector2) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -587,6 +718,15 @@ proc agentSetPosition*(self: NavigationServer2D; agent: RID; position: Vector2) 
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3201125042)
   var `?param` = [getPtr agent, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentGetPosition*(self: NavigationServer2D; agent: RID): Vector2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_get_position"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2440833711)
+  var `?param` = [getPtr agent]
+  var ret: encoded Vector2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Vector2)
 proc agentIsMapChanged*(self: NavigationServer2D; agent: RID): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -603,6 +743,15 @@ proc agentSetAvoidanceCallback*(self: NavigationServer2D; agent: RID; callback: 
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3379118538)
   var `?param` = [getPtr agent, getPtr callback]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentHasAvoidanceCallback*(self: NavigationServer2D; agent: RID): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_has_avoidance_callback"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 4155700596)
+  var `?param` = [getPtr agent]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc agentSetAvoidanceLayers*(self: NavigationServer2D; agent: RID; layers: uint32) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -610,6 +759,15 @@ proc agentSetAvoidanceLayers*(self: NavigationServer2D; agent: RID; layers: uint
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3411492887)
   var `?param` = [getPtr agent, getPtr layers]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentGetAvoidanceLayers*(self: NavigationServer2D; agent: RID): uint32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_get_avoidance_layers"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2198884583)
+  var `?param` = [getPtr agent]
+  var ret: encoded uint32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(uint32)
 proc agentSetAvoidanceMask*(self: NavigationServer2D; agent: RID; mask: uint32) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -617,6 +775,15 @@ proc agentSetAvoidanceMask*(self: NavigationServer2D; agent: RID; mask: uint32) 
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3411492887)
   var `?param` = [getPtr agent, getPtr mask]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentGetAvoidanceMask*(self: NavigationServer2D; agent: RID): uint32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_get_avoidance_mask"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2198884583)
+  var `?param` = [getPtr agent]
+  var ret: encoded uint32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(uint32)
 proc agentSetAvoidancePriority*(self: NavigationServer2D; agent: RID; priority: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -624,6 +791,15 @@ proc agentSetAvoidancePriority*(self: NavigationServer2D; agent: RID; priority: 
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 1794382983)
   var `?param` = [getPtr agent, getPtr priority]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc agentGetAvoidancePriority*(self: NavigationServer2D; agent: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "agent_get_avoidance_priority"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 866169185)
+  var `?param` = [getPtr agent]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
 proc obstacleCreate*(self: NavigationServer2D): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -687,6 +863,15 @@ proc obstacleSetRadius*(self: NavigationServer2D; obstacle: RID; radius: Float) 
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 1794382983)
   var `?param` = [getPtr obstacle, getPtr radius]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc obstacleGetRadius*(self: NavigationServer2D; obstacle: RID): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "obstacle_get_radius"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 866169185)
+  var `?param` = [getPtr obstacle]
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Float)
 proc obstacleSetVelocity*(self: NavigationServer2D; obstacle: RID; velocity: Vector2) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -694,6 +879,15 @@ proc obstacleSetVelocity*(self: NavigationServer2D; obstacle: RID; velocity: Vec
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3201125042)
   var `?param` = [getPtr obstacle, getPtr velocity]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc obstacleGetVelocity*(self: NavigationServer2D; obstacle: RID): Vector2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "obstacle_get_velocity"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2440833711)
+  var `?param` = [getPtr obstacle]
+  var ret: encoded Vector2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Vector2)
 proc obstacleSetPosition*(self: NavigationServer2D; obstacle: RID; position: Vector2) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -701,6 +895,15 @@ proc obstacleSetPosition*(self: NavigationServer2D; obstacle: RID; position: Vec
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3201125042)
   var `?param` = [getPtr obstacle, getPtr position]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc obstacleGetPosition*(self: NavigationServer2D; obstacle: RID): Vector2 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "obstacle_get_position"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2440833711)
+  var `?param` = [getPtr obstacle]
+  var ret: encoded Vector2
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Vector2)
 proc obstacleSetVertices*(self: NavigationServer2D; obstacle: RID; vertices: PackedVector2Array) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -708,6 +911,15 @@ proc obstacleSetVertices*(self: NavigationServer2D; obstacle: RID; vertices: Pac
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 29476483)
   var `?param` = [getPtr obstacle, getPtr vertices]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc obstacleGetVertices*(self: NavigationServer2D; obstacle: RID): PackedVector2Array =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "obstacle_get_vertices"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2222557395)
+  var `?param` = [getPtr obstacle]
+  var ret: encoded PackedVector2Array
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(PackedVector2Array)
 proc obstacleSetAvoidanceLayers*(self: NavigationServer2D; obstacle: RID; layers: uint32) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -715,6 +927,69 @@ proc obstacleSetAvoidanceLayers*(self: NavigationServer2D; obstacle: RID; layers
     methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3411492887)
   var `?param` = [getPtr obstacle, getPtr layers]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc obstacleGetAvoidanceLayers*(self: NavigationServer2D; obstacle: RID): uint32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "obstacle_get_avoidance_layers"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2198884583)
+  var `?param` = [getPtr obstacle]
+  var ret: encoded uint32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(uint32)
+proc parseSourceGeometryData*(self: NavigationServer2D; navigationPolygon: GD_ref[NavigationPolygon]; sourceGeometryData: GD_ref[NavigationMeshSourceGeometryData2D]; rootNode: Node; callback: Callable = init_Callable()) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "parse_source_geometry_data"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 1176164995)
+  var `?param` = [getPtr navigationPolygon, getPtr sourceGeometryData, getPtr rootNode, getPtr callback]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc bakeFromSourceGeometryData*(self: NavigationServer2D; navigationPolygon: GD_ref[NavigationPolygon]; sourceGeometryData: GD_ref[NavigationMeshSourceGeometryData2D]; callback: Callable = init_Callable()) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "bake_from_source_geometry_data"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2909414286)
+  var `?param` = [getPtr navigationPolygon, getPtr sourceGeometryData, getPtr callback]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc bakeFromSourceGeometryDataAsync*(self: NavigationServer2D; navigationPolygon: GD_ref[NavigationPolygon]; sourceGeometryData: GD_ref[NavigationMeshSourceGeometryData2D]; callback: Callable = init_Callable()) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "bake_from_source_geometry_data_async"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2909414286)
+  var `?param` = [getPtr navigationPolygon, getPtr sourceGeometryData, getPtr callback]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isBakingNavigationPolygon*(self: NavigationServer2D; navigationPolygon: GD_ref[NavigationPolygon]): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_baking_navigation_polygon"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3729405808)
+  var `?param` = [getPtr navigationPolygon]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
+proc sourceGeometryParserCreate*(self: NavigationServer2D): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "source_geometry_parser_create"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 529393457)
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(RID)
+proc sourceGeometryParserSetCallback*(self: NavigationServer2D; parser: RID; callback: Callable) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "source_geometry_parser_set_callback"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 3379118538)
+  var `?param` = [getPtr parser, getPtr callback]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc simplifyPath*(self: NavigationServer2D; path: PackedVector2Array; epsilon: Float): PackedVector2Array =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "simplify_path"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationServer2D, addr name, 2457191505)
+  var `?param` = [getPtr path, getPtr epsilon]
+  var ret: encoded PackedVector2Array
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(PackedVector2Array)
 proc freeRid*(self: NavigationServer2D; rid: RID) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

@@ -5,6 +5,15 @@
 import ./../helper/engineClassDefiner
 import ./classDetail_native_Resource; export classDetail_native_Resource
 
+proc getDefaultInputPort*(self: VisualShaderNode; `type`: VisualShaderNode_PortType): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_default_input_port"
+    methodbind = interface_ClassDB_getMethodBind(addr className VisualShaderNode, addr name, 1894493699)
+  var `?param` = [getPtr `type`]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
 proc `outputPortForPreview=`*(self: VisualShaderNode; port: int32) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -64,3 +73,18 @@ proc defaultInputValues*(self: VisualShaderNode): Array =
   var ret: encoded Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Array)
+proc `frame=`*(self: VisualShaderNode; frame: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_frame"
+    methodbind = interface_ClassDB_getMethodBind(addr className VisualShaderNode, addr name, 1286410249)
+  var `?param` = [getPtr frame]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc frame*(self: VisualShaderNode): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_frame"
+    methodbind = interface_ClassDB_getMethodBind(addr className VisualShaderNode, addr name, 3905245786)
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(int32)

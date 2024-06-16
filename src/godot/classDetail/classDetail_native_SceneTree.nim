@@ -131,7 +131,7 @@ proc createTimer*(self: SceneTree; timeSec: float64; processAlways: Bool = true;
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_timer"
-    methodbind = interface_ClassDB_getMethodBind(addr className SceneTree, addr name, 1780978058)
+    methodbind = interface_ClassDB_getMethodBind(addr className SceneTree, addr name, 2709170273)
   var `?param` = [getPtr timeSec, getPtr processAlways, getPtr processInPhysics, getPtr ignoreTimeScale]
   var ret: encoded GD_ref[SceneTreeTimer]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -175,6 +175,21 @@ proc quit*(self: SceneTree; exitCode: int32 = 0) =
     methodbind = interface_ClassDB_getMethodBind(addr className SceneTree, addr name, 1995695955)
   var `?param` = [getPtr exitCode]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc `physicsInterpolationEnabled=`*(self: SceneTree; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_physics_interpolation_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className SceneTree, addr name, 2586408642)
+  var `?param` = [getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isPhysicsInterpolationEnabled*(self: SceneTree): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_physics_interpolation_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className SceneTree, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc queueDelete*(self: SceneTree; obj: Object) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -252,6 +267,15 @@ proc getFirstNodeInGroup*(self: SceneTree; group: StringName): Node =
   var ret: encoded Node
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Node)
+proc getNodeCountInGroup*(self: SceneTree; group: StringName): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_node_count_in_group"
+    methodbind = interface_ClassDB_getMethodBind(addr className SceneTree, addr name, 2458036349)
+  var `?param` = [getPtr group]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
 proc `currentScene=`*(self: SceneTree; childNode: Node) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

@@ -41,21 +41,21 @@ proc draw*(self: Texture2D; canvasItem: RID; position: Vector2; modulate: Color 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw"
-    methodbind = interface_ClassDB_getMethodBind(addr className Texture2D, addr name, 1115460088)
+    methodbind = interface_ClassDB_getMethodBind(addr className Texture2D, addr name, 2729649137)
   var `?param` = [getPtr canvasItem, getPtr position, getPtr modulate, getPtr transpose]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawRect*(self: Texture2D; canvasItem: RID; rect: Rect2; tile: Bool; modulate: Color = init_Color(1, 1, 1, 1); transpose: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_rect"
-    methodbind = interface_ClassDB_getMethodBind(addr className Texture2D, addr name, 575156982)
+    methodbind = interface_ClassDB_getMethodBind(addr className Texture2D, addr name, 3499451691)
   var `?param` = [getPtr canvasItem, getPtr rect, getPtr tile, getPtr modulate, getPtr transpose]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawRectRegion*(self: Texture2D; canvasItem: RID; rect: Rect2; srcRect: Rect2; modulate: Color = init_Color(1, 1, 1, 1); transpose: Bool = false; clipUv: Bool = true) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_rect_region"
-    methodbind = interface_ClassDB_getMethodBind(addr className Texture2D, addr name, 1066564656)
+    methodbind = interface_ClassDB_getMethodBind(addr className Texture2D, addr name, 2963678660)
   var `?param` = [getPtr canvasItem, getPtr rect, getPtr srcRect, getPtr modulate, getPtr transpose, getPtr clipUv]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getImage*(self: Texture2D): GD_ref[Image] =

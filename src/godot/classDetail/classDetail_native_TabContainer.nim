@@ -36,6 +36,22 @@ proc getPreviousTab*(self: TabContainer): int32 =
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
+proc selectPreviousAvailable*(self: TabContainer): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "select_previous_available"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 2240911060)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc selectNextAvailable*(self: TabContainer): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "select_next_available"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 2240911060)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc getCurrentTabControl*(self: TabContainer): Control =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -44,6 +60,14 @@ proc getCurrentTabControl*(self: TabContainer): Control =
   var ret: encoded Control
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Control)
+proc getTabBar*(self: TabContainer): TabBar =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_tab_bar"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 1865451809)
+  var ret: encoded TabBar
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(TabBar)
 proc getTabControl*(self: TabContainer; tabIdx: int32): Control =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -68,6 +92,21 @@ proc tabAlignment*(self: TabContainer): TabBar_AlignmentMode =
   var ret: encoded TabBar_AlignmentMode
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(TabBar_AlignmentMode)
+proc `tabsPosition=`*(self: TabContainer; tabsPosition: TabContainer_TabPosition) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_tabs_position"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 256673370)
+  var `?param` = [getPtr tabsPosition]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc tabsPosition*(self: TabContainer): TabContainer_TabPosition =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_tabs_position"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 919937023)
+  var ret: encoded TabContainer_TabPosition
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(TabContainer_TabPosition)
 proc `clipTabs=`*(self: TabContainer; clipTabs: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -129,6 +168,22 @@ proc getTabTitle*(self: TabContainer; tabIdx: int32): String =
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(String)
+proc setTabTooltip*(self: TabContainer; tabIdx: int32; tooltip: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_tab_tooltip"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 501894301)
+  var `?param` = [getPtr tabIdx, getPtr tooltip]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getTabTooltip*(self: TabContainer; tabIdx: int32): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_tab_tooltip"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 844755477)
+  var `?param` = [getPtr tabIdx]
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(String)
 proc setTabIcon*(self: TabContainer; tabIdx: int32; icon: GD_ref[Texture2D]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -145,6 +200,22 @@ proc getTabIcon*(self: TabContainer; tabIdx: int32): GD_ref[Texture2D] =
   var ret: encoded GD_ref[Texture2D]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(GD_ref[Texture2D])
+proc setTabIconMaxWidth*(self: TabContainer; tabIdx: int32; width: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_tab_icon_max_width"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 3937882851)
+  var `?param` = [getPtr tabIdx, getPtr width]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getTabIconMaxWidth*(self: TabContainer; tabIdx: int32): int32 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_tab_icon_max_width"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 923996154)
+  var `?param` = [getPtr tabIdx]
+  var ret: encoded int32
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int32)
 proc setTabDisabled*(self: TabContainer; tabIdx: int32; disabled: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -283,6 +354,36 @@ proc useHiddenTabsForMinSize*(self: TabContainer): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_use_hidden_tabs_for_min_size"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `tabFocusMode=`*(self: TabContainer; focusMode: Control_FocusMode) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_tab_focus_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 3232914922)
+  var `?param` = [getPtr focusMode]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc tabFocusMode*(self: TabContainer): Control_FocusMode =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_tab_focus_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 2132829277)
+  var ret: encoded Control_FocusMode
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Control_FocusMode)
+proc `deselectEnabled=`*(self: TabContainer; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_deselect_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 2586408642)
+  var `?param` = [getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc deselectEnabled*(self: TabContainer): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_deselect_enabled"
     methodbind = interface_ClassDB_getMethodBind(addr className TabContainer, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

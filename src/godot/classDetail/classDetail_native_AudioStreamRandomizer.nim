@@ -9,7 +9,7 @@ proc addStream*(self: AudioStreamRandomizer; index: int32; stream: GD_ref[AudioS
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_stream"
-    methodbind = interface_ClassDB_getMethodBind(addr className AudioStreamRandomizer, addr name, 3197802065)
+    methodbind = interface_ClassDB_getMethodBind(addr className AudioStreamRandomizer, addr name, 1892018854)
   var `?param` = [getPtr index, getPtr stream, getPtr weight]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc moveStream*(self: AudioStreamRandomizer; indexFrom: int32; indexTo: int32) =

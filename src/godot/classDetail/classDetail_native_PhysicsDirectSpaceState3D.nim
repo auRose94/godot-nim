@@ -9,7 +9,7 @@ proc intersectPoint*(self: PhysicsDirectSpaceState3D; parameters: GD_ref[Physics
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "intersect_point"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsDirectSpaceState3D, addr name, 45993382)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsDirectSpaceState3D, addr name, 975173756)
   var `?param` = [getPtr parameters, getPtr maxRetvals]
   var ret: encoded TypedArray[Dictionary]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -27,7 +27,7 @@ proc intersectShape*(self: PhysicsDirectSpaceState3D; parameters: GD_ref[Physics
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "intersect_shape"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsDirectSpaceState3D, addr name, 550215980)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsDirectSpaceState3D, addr name, 3762137681)
   var `?param` = [getPtr parameters, getPtr maxRetvals]
   var ret: encoded TypedArray[Dictionary]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -45,7 +45,7 @@ proc collideShape*(self: PhysicsDirectSpaceState3D; parameters: GD_ref[PhysicsSh
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "collide_shape"
-    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsDirectSpaceState3D, addr name, 550215980)
+    methodbind = interface_ClassDB_getMethodBind(addr className PhysicsDirectSpaceState3D, addr name, 3762137681)
   var `?param` = [getPtr parameters, getPtr maxRetvals]
   var ret: encoded TypedArray[Vector3]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

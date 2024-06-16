@@ -85,6 +85,14 @@ proc isPluginEnabled*(self: EditorInterface; plugin: String): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
+proc getEditorTheme*(self: EditorInterface): GD_ref[Theme] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_editor_theme"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 3846893731)
+  var ret: encoded GD_ref[Theme]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(GD_ref[Theme])
 proc getBaseControl*(self: EditorInterface): Control =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -109,6 +117,23 @@ proc getScriptEditor*(self: EditorInterface): ScriptEditor =
   var ret: encoded ScriptEditor
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(ScriptEditor)
+proc getEditorViewport2d*(self: EditorInterface): SubViewport =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_editor_viewport_2d"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 3750751911)
+  var ret: encoded SubViewport
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(SubViewport)
+proc getEditorViewport3d*(self: EditorInterface; idx: int32 = 0): SubViewport =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_editor_viewport_3d"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 1970834490)
+  var `?param` = [getPtr idx]
+  var ret: encoded SubViewport
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(SubViewport)
 proc setMainScreenEditor*(self: EditorInterface; name: String) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -131,6 +156,14 @@ proc isDistractionFreeModeEnabled*(self: EditorInterface): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc isMultiWindowEnabled*(self: EditorInterface): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_multi_window_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc getEditorScale*(self: EditorInterface): Float =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -143,29 +176,58 @@ proc popupDialog*(self: EditorInterface; dialog: Window; rect: Rect2i = init_Rec
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "popup_dialog"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 2478844058)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 2015770942)
   var `?param` = [getPtr dialog, getPtr rect]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc popupDialogCentered*(self: EditorInterface; dialog: Window; minsize: Vector2i = gdveci(0, 0)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "popup_dialog_centered"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 1723337679)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 346557367)
   var `?param` = [getPtr dialog, getPtr minsize]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc popupDialogCenteredRatio*(self: EditorInterface; dialog: Window; ratio: Float = 0.8) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "popup_dialog_centered_ratio"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 1310934579)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 2093669136)
   var `?param` = [getPtr dialog, getPtr ratio]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc popupDialogCenteredClamped*(self: EditorInterface; dialog: Window; minsize: Vector2i = gdveci(0, 0); fallbackRatio: Float = 0.75) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "popup_dialog_centered_clamped"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 3433759678)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 3763385571)
   var `?param` = [getPtr dialog, getPtr minsize, getPtr fallbackRatio]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getCurrentFeatureProfile*(self: EditorInterface): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_current_feature_profile"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
+proc setCurrentFeatureProfile*(self: EditorInterface; profileName: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_current_feature_profile"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 83702148)
+  var `?param` = [getPtr profileName]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc popupNodeSelector*(self: EditorInterface; callback: Callable; validTypes: TypedArray[StringName] = init_TypedArray[StringName]()) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "popup_node_selector"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 2271411043)
+  var `?param` = [getPtr callback, getPtr validTypes]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc popupPropertySelector*(self: EditorInterface; `object`: Object; callback: Callable; typeFilter: PackedInt32Array = PackedInt32Array()) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "popup_property_selector"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 261221679)
+  var `?param` = [getPtr `object`, getPtr callback, getPtr typeFilter]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getFileSystemDock*(self: EditorInterface): FileSystemDock =
   var methodbind {.global.}: MethodBindPtr
@@ -218,7 +280,7 @@ proc inspectObject*(self: EditorInterface; `object`: Object; forProperty: String
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "inspect_object"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 2564140749)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 127962172)
   var `?param` = [getPtr `object`, getPtr forProperty, getPtr inspectorOnly]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc editResource*(self: EditorInterface; resource: GD_ref[Resource]) =
@@ -239,7 +301,7 @@ proc editScript*(self: EditorInterface; script: GD_ref[Script]; line: int32 = -1
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "edit_script"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 3664508569)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 219829402)
   var `?param` = [getPtr script, getPtr line, getPtr column, getPtr grabFocus]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc openSceneFromPath*(self: EditorInterface; sceneFilepath: String) =
@@ -284,9 +346,15 @@ proc saveSceneAs*(self: EditorInterface; path: String; withPreview: Bool = true)
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "save_scene_as"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 1168363258)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 3647332257)
   var `?param` = [getPtr path, getPtr withPreview]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc saveAllScenes*(self: EditorInterface) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "save_all_scenes"
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorInterface, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
 proc markSceneAsUnsaved*(self: EditorInterface) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

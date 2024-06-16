@@ -141,6 +141,20 @@ proc graphOffset*(self: VisualShader): Vector2 =
   var ret: encoded Vector2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Vector2)
+proc attachNodeToFrame*(self: VisualShader; `type`: VisualShader_Type; id: int32; frame: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "attach_node_to_frame"
+    methodbind = interface_ClassDB_getMethodBind(addr className VisualShader, addr name, 2479945279)
+  var `?param` = [getPtr `type`, getPtr id, getPtr frame]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc detachNodeFromFrame*(self: VisualShader; `type`: VisualShader_Type; id: int32) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "detach_node_from_frame"
+    methodbind = interface_ClassDB_getMethodBind(addr className VisualShader, addr name, 844050912)
+  var `?param` = [getPtr `type`, getPtr id]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc addVarying*(self: VisualShader; name: String; mode: VisualShader_VaryingMode; `type`: VisualShader_VaryingType) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

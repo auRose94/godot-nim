@@ -30,6 +30,7 @@ proc load_Variants* =
   load_PackedVector2Array_constr()
   load_PackedVector3Array_constr()
   load_PackedColorArray_constr()
+  load_PackedVector4Array_constr()
   load_Bool_allmethod()
   load_Int_allmethod()
   load_Float_allmethod()
@@ -66,3 +67,4 @@ proc load_Variants* =
   load_PackedVector2Array_allmethod()
   load_PackedVector3Array_allmethod()
   load_PackedColorArray_allmethod()
+  load_PackedVector4Array_allmethod()

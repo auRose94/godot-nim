@@ -24,7 +24,7 @@ proc addPoint*(self: Curve; position: Vector2; leftTangent: Float = 0; rightTang
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_point"
-    methodbind = interface_ClassDB_getMethodBind(addr className Curve, addr name, 2766148617)
+    methodbind = interface_ClassDB_getMethodBind(addr className Curve, addr name, 434072736)
   var `?param` = [getPtr position, getPtr leftTangent, getPtr rightTangent, getPtr leftMode, getPtr rightMode]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

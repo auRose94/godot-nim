@@ -9,7 +9,7 @@ proc createAction*(self: EditorUndoRedoManager; name: String; mergeMode: UndoRed
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_action"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorUndoRedoManager, addr name, 3577985681)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorUndoRedoManager, addr name, 2107025470)
   var `?param` = [getPtr name, getPtr mergeMode, getPtr customContext, getPtr backwardUndoOps]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc commitAction*(self: EditorUndoRedoManager; execute: Bool = true) =

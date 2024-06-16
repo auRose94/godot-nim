@@ -70,6 +70,14 @@ proc getInstanceBaseType*(self: Script): StringName =
   var ret: encoded StringName
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(StringName)
+proc getGlobalName*(self: Script): StringName =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_global_name"
+    methodbind = interface_ClassDB_getMethodBind(addr className Script, addr name, 2002593661)
+  var ret: encoded StringName
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(StringName)
 proc hasScriptSignal*(self: Script; signalName: StringName): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -124,6 +132,14 @@ proc isTool*(self: Script): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "is_tool"
+    methodbind = interface_ClassDB_getMethodBind(addr className Script, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc isAbstract*(self: Script): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_abstract"
     methodbind = interface_ClassDB_getMethodBind(addr className Script, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

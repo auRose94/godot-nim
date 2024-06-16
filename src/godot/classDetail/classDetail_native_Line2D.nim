@@ -48,7 +48,7 @@ proc addPoint*(self: Line2D; position: Vector2; index: int32 = -1) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_point"
-    methodbind = interface_ClassDB_getMethodBind(addr className Line2D, addr name, 468506575)
+    methodbind = interface_ClassDB_getMethodBind(addr className Line2D, addr name, 2654014372)
   var `?param` = [getPtr position, getPtr index]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc removePoint*(self: Line2D; index: int32) =
@@ -64,6 +64,21 @@ proc clearPoints*(self: Line2D) =
     let name = api.newStringName "clear_points"
     methodbind = interface_ClassDB_getMethodBind(addr className Line2D, addr name, 3218959716)
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
+proc `closed=`*(self: Line2D; closed: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_closed"
+    methodbind = interface_ClassDB_getMethodBind(addr className Line2D, addr name, 2586408642)
+  var `?param` = [getPtr closed]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isClosed*(self: Line2D): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_closed"
+    methodbind = interface_ClassDB_getMethodBind(addr className Line2D, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc `width=`*(self: Line2D; width: Float) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

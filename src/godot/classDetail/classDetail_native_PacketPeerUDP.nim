@@ -9,7 +9,7 @@ proc `bind`*(self: PacketPeerUDP; port: int32; bindAddress: String = "*"; recvBu
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "bind"
-    methodbind = interface_ClassDB_getMethodBind(addr className PacketPeerUDP, addr name, 4290438434)
+    methodbind = interface_ClassDB_getMethodBind(addr className PacketPeerUDP, addr name, 4051239242)
   var `?param` = [getPtr port, getPtr bindAddress, getPtr recvBufSize]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

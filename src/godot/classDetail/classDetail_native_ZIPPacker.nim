@@ -9,7 +9,7 @@ proc open*(self: ZIPPacker; path: String; append: ZIPPacker_ZipAppend = appendCr
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "open"
-    methodbind = interface_ClassDB_getMethodBind(addr className ZIPPacker, addr name, 3715508516)
+    methodbind = interface_ClassDB_getMethodBind(addr className ZIPPacker, addr name, 1936816515)
   var `?param` = [getPtr path, getPtr append]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

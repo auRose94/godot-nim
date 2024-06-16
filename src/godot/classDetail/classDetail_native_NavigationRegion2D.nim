@@ -5,6 +5,14 @@
 import ./../helper/engineClassDefiner
 import ./classDetail_native_Node2D; export classDetail_native_Node2D
 
+proc getRid*(self: NavigationRegion2D): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_rid"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion2D, addr name, 2944877500)
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(RID)
 proc `navigationPolygon=`*(self: NavigationRegion2D; navigationPolygon: GD_ref[NavigationPolygon]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -35,6 +43,21 @@ proc isEnabled*(self: NavigationRegion2D): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc setNavigationMap*(self: NavigationRegion2D; navigationMap: RID) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_navigation_map"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion2D, addr name, 2722037293)
+  var `?param` = [getPtr navigationMap]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getNavigationMap*(self: NavigationRegion2D): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_navigation_map"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion2D, addr name, 2944877500)
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(RID)
 proc `useEdgeConnections=`*(self: NavigationRegion2D; enabled: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -81,52 +104,6 @@ proc getNavigationLayerValue*(self: NavigationRegion2D; layerNumber: int32): Boo
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
-proc `constrainAvoidance=`*(self: NavigationRegion2D; enabled: Bool) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_constrain_avoidance"
-    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion2D, addr name, 2586408642)
-  var `?param` = [getPtr enabled]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc constrainAvoidance*(self: NavigationRegion2D): Bool =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_constrain_avoidance"
-    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion2D, addr name, 36873697)
-  var ret: encoded Bool
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
-  (addr ret).decode_result(Bool)
-proc `avoidanceLayers=`*(self: NavigationRegion2D; layers: uint32) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_avoidance_layers"
-    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion2D, addr name, 1286410249)
-  var `?param` = [getPtr layers]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc avoidanceLayers*(self: NavigationRegion2D): uint32 =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_avoidance_layers"
-    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion2D, addr name, 3905245786)
-  var ret: encoded uint32
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
-  (addr ret).decode_result(uint32)
-proc setAvoidanceLayerValue*(self: NavigationRegion2D; layerNumber: int32; value: Bool) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_avoidance_layer_value"
-    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion2D, addr name, 300928843)
-  var `?param` = [getPtr layerNumber, getPtr value]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc getAvoidanceLayerValue*(self: NavigationRegion2D; layerNumber: int32): Bool =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_avoidance_layer_value"
-    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion2D, addr name, 1116898809)
-  var `?param` = [getPtr layerNumber]
-  var ret: encoded Bool
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(Bool)
 proc getRegionRid*(self: NavigationRegion2D): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -165,3 +142,18 @@ proc travelCost*(self: NavigationRegion2D): Float =
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Float)
+proc bakeNavigationPolygon*(self: NavigationRegion2D; onThread: Bool = true) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "bake_navigation_polygon"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion2D, addr name, 3216645846)
+  var `?param` = [getPtr onThread]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isBaking*(self: NavigationRegion2D): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_baking"
+    methodbind = interface_ClassDB_getMethodBind(addr className NavigationRegion2D, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)

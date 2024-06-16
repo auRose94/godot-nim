@@ -84,7 +84,7 @@ proc createTile*(self: TileSetAtlasSource; atlasCoords: Vector2i; size: Vector2i
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_tile"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 1583819816)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 190528769)
   var `?param` = [getPtr atlasCoords, getPtr size]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc removeTile*(self: TileSetAtlasSource; atlasCoords: Vector2i) =
@@ -98,7 +98,7 @@ proc moveTileInAtlas*(self: TileSetAtlasSource; atlasCoords: Vector2i; newAtlasC
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "move_tile_in_atlas"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 1375626516)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 3870111920)
   var `?param` = [getPtr atlasCoords, getPtr newAtlasCoords, getPtr newSize]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc getTileSizeInAtlas*(self: TileSetAtlasSource; atlasCoords: Vector2i): Vector2i =
@@ -114,7 +114,7 @@ proc hasRoomForTile*(self: TileSetAtlasSource; atlasCoords: Vector2i; size: Vect
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "has_room_for_tile"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 4182444377)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 3018597268)
   var `?param` = [getPtr atlasCoords, getPtr size, getPtr animationColumns, getPtr animationSeparation, getPtr framesCount, getPtr ignoredTile]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -137,6 +137,20 @@ proc getTileAtCoords*(self: TileSetAtlasSource; atlasCoords: Vector2i): Vector2i
   var ret: encoded Vector2i
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Vector2i)
+proc hasTilesOutsideTexture*(self: TileSetAtlasSource): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "has_tiles_outside_texture"
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc clearTilesOutsideTexture*(self: TileSetAtlasSource) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "clear_tiles_outside_texture"
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 3218959716)
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, nil)
 proc setTileAnimationColumns*(self: TileSetAtlasSource; atlasCoords: Vector2i; frameColumns: int32) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -185,6 +199,22 @@ proc getTileAnimationSpeed*(self: TileSetAtlasSource; atlasCoords: Vector2i): Fl
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Float)
+proc setTileAnimationMode*(self: TileSetAtlasSource; atlasCoords: Vector2i; mode: TileSetAtlasSource_TileAnimationMode) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_tile_animation_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 3192753483)
+  var `?param` = [getPtr atlasCoords, getPtr mode]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getTileAnimationMode*(self: TileSetAtlasSource; atlasCoords: Vector2i): TileSetAtlasSource_TileAnimationMode =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_tile_animation_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 4025349959)
+  var `?param` = [getPtr atlasCoords]
+  var ret: encoded TileSetAtlasSource_TileAnimationMode
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(TileSetAtlasSource_TileAnimationMode)
 proc setTileAnimationFramesCount*(self: TileSetAtlasSource; atlasCoords: Vector2i; framesCount: int32) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -230,7 +260,7 @@ proc createAlternativeTile*(self: TileSetAtlasSource; atlasCoords: Vector2i; alt
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_alternative_tile"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 3531100812)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 2226298068)
   var `?param` = [getPtr atlasCoords, getPtr alternativeIdOverride]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -279,7 +309,7 @@ proc getTileTextureRegion*(self: TileSetAtlasSource; atlasCoords: Vector2i; fram
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_tile_texture_region"
-    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 1321423751)
+    methodbind = interface_ClassDB_getMethodBind(addr className TileSetAtlasSource, addr name, 241857547)
   var `?param` = [getPtr atlasCoords, getPtr frame]
   var ret: encoded Rect2i
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

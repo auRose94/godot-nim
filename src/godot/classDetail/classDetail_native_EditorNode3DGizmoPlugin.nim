@@ -16,7 +16,7 @@ proc createIconMaterial*(self: EditorNode3DGizmoPlugin; name: String; texture: G
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "create_icon_material"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorNode3DGizmoPlugin, addr name, 2976007329)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorNode3DGizmoPlugin, addr name, 3804976916)
   var `?param` = [getPtr name, getPtr texture, getPtr onTop, getPtr color]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc createHandleMaterial*(self: EditorNode3DGizmoPlugin; name: String; billboard: Bool = false; texture: GD_ref[Texture2D] = default GD_ref[Texture2D]) =
@@ -37,7 +37,7 @@ proc getMaterial*(self: EditorNode3DGizmoPlugin; name: String; gizmo: GD_ref[Edi
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_material"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorNode3DGizmoPlugin, addr name, 3501703615)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorNode3DGizmoPlugin, addr name, 974464017)
   var `?param` = [getPtr name, getPtr gizmo]
   var ret: encoded GD_ref[StandardMaterial3D]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

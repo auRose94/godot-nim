@@ -97,6 +97,21 @@ proc hasTransparentBackground*(self: Viewport): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc `useHdr2d=`*(self: Viewport; enable: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_use_hdr_2d"
+    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 2586408642)
+  var `?param` = [getPtr enable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isUsingHdr2d*(self: Viewport): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_using_hdr_2d"
+    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc `msaa2d=`*(self: Viewport; msaa: Viewport_MSAA) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -249,6 +264,21 @@ proc physicsObjectPickingSort*(self: Viewport): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc `physicsObjectPickingFirstOnly=`*(self: Viewport; enable: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_physics_object_picking_first_only"
+    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 2586408642)
+  var `?param` = [getPtr enable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc physicsObjectPickingFirstOnly*(self: Viewport): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_physics_object_picking_first_only"
+    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 2240911060)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc getViewportRid*(self: Viewport): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -271,36 +301,6 @@ proc pushInput*(self: Viewport; event: GD_ref[InputEvent]; inLocalCoords: Bool =
     methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 3644664830)
   var `?param` = [getPtr event, getPtr inLocalCoords]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc pushUnhandledInput*(self: Viewport; event: GD_ref[InputEvent]; inLocalCoords: Bool = false) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "push_unhandled_input"
-    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 3644664830)
-  var `?param` = [getPtr event, getPtr inLocalCoords]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc getCamera2d*(self: Viewport): Camera2D =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "get_camera_2d"
-    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 3551466917)
-  var ret: encoded Camera2D
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
-  (addr ret).decode_result(Camera2D)
-proc `asAudioListener2d=`*(self: Viewport; enable: Bool) =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "set_as_audio_listener_2d"
-    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 2586408642)
-  var `?param` = [getPtr enable]
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc isAudioListener2d*(self: Viewport): Bool =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "is_audio_listener_2d"
-    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 36873697)
-  var ret: encoded Bool
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
-  (addr ret).decode_result(Bool)
 proc getMousePosition*(self: Viewport): Vector2 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -356,6 +356,14 @@ proc guiGetFocusOwner*(self: Viewport): Control =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "gui_get_focus_owner"
+    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 2783021301)
+  var ret: encoded Control
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Control)
+proc guiGetHoveredControl*(self: Viewport): Control =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "gui_get_hovered_control"
     methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 2783021301)
   var ret: encoded Control
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
@@ -525,6 +533,14 @@ proc isEmbeddingSubwindows*(self: Viewport): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc getEmbeddedSubwindows*(self: Viewport): TypedArray[Window] =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_embedded_subwindows"
+    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 3995934104)
+  var ret: encoded TypedArray[Window]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(TypedArray[Window])
 proc `canvasCullMask=`*(self: Viewport; mask: uint32) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -616,6 +632,29 @@ proc meshLodThreshold*(self: Viewport): Float =
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Float)
+proc `asAudioListener2d=`*(self: Viewport; enable: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_as_audio_listener_2d"
+    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 2586408642)
+  var `?param` = [getPtr enable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isAudioListener2d*(self: Viewport): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_audio_listener_2d"
+    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc getCamera2d*(self: Viewport): Camera2D =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_camera_2d"
+    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 3551466917)
+  var ret: encoded Camera2D
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Camera2D)
 proc `world3d=`*(self: Viewport; world3d: GD_ref[World3D]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -782,6 +821,21 @@ proc vrsMode*(self: Viewport): Viewport_VRSMode =
   var ret: encoded Viewport_VRSMode
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Viewport_VRSMode)
+proc `vrsUpdateMode=`*(self: Viewport; mode: Viewport_VRSUpdateMode) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_vrs_update_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 3182412319)
+  var `?param` = [getPtr mode]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc vrsUpdateMode*(self: Viewport): Viewport_VRSUpdateMode =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_vrs_update_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className Viewport, addr name, 2255951583)
+  var ret: encoded Viewport_VRSUpdateMode
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Viewport_VRSUpdateMode)
 proc `vrsTexture=`*(self: Viewport; texture: GD_ref[Texture2D]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

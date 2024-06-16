@@ -115,6 +115,15 @@ proc createFont*(self: TextServer): RID =
   var ret: encoded RID
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(RID)
+proc createFontLinkedVariation*(self: TextServer; fontRid: RID): RID =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "create_font_linked_variation"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 41030802)
+  var `?param` = [getPtr fontRid]
+  var ret: encoded RID
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(RID)
 proc fontSetData*(self: TextServer; fontRid: RID; data: PackedByteArray) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -252,6 +261,22 @@ proc fontGetAntialiasing*(self: TextServer; fontRid: RID): TextServer_FontAntial
   var ret: encoded TextServer_FontAntialiasing
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(TextServer_FontAntialiasing)
+proc fontSetDisableEmbeddedBitmaps*(self: TextServer; fontRid: RID; disableEmbeddedBitmaps: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "font_set_disable_embedded_bitmaps"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1265174801)
+  var `?param` = [getPtr fontRid, getPtr disableEmbeddedBitmaps]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc fontGetDisableEmbeddedBitmaps*(self: TextServer; fontRid: RID): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "font_get_disable_embedded_bitmaps"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 4155700596)
+  var `?param` = [getPtr fontRid]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc fontSetGenerateMipmaps*(self: TextServer; fontRid: RID; generateMipmaps: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -332,6 +357,22 @@ proc fontGetFixedSize*(self: TextServer; fontRid: RID): int64 =
   var ret: encoded int64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(int64)
+proc fontSetFixedSizeScaleMode*(self: TextServer; fontRid: RID; fixedSizeScaleMode: TextServer_FixedSizeScaleMode) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "font_set_fixed_size_scale_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1029390307)
+  var `?param` = [getPtr fontRid, getPtr fixedSizeScaleMode]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc fontGetFixedSizeScaleMode*(self: TextServer; fontRid: RID): TextServer_FixedSizeScaleMode =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "font_get_fixed_size_scale_mode"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 4113120379)
+  var `?param` = [getPtr fontRid]
+  var ret: encoded TextServer_FixedSizeScaleMode
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(TextServer_FixedSizeScaleMode)
 proc fontSetAllowSystemFallback*(self: TextServer; fontRid: RID; allowSystemFallback: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -407,6 +448,38 @@ proc fontGetEmbolden*(self: TextServer; fontRid: RID): float64 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "font_get_embolden"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 866169185)
+  var `?param` = [getPtr fontRid]
+  var ret: encoded float64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(float64)
+proc fontSetSpacing*(self: TextServer; fontRid: RID; spacing: TextServer_SpacingType; value: int64) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "font_set_spacing"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1307259930)
+  var `?param` = [getPtr fontRid, getPtr spacing, getPtr value]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc fontGetSpacing*(self: TextServer; fontRid: RID; spacing: TextServer_SpacingType): int64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "font_get_spacing"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1213653558)
+  var `?param` = [getPtr fontRid, getPtr spacing]
+  var ret: encoded int64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int64)
+proc fontSetBaselineOffset*(self: TextServer; fontRid: RID; baselineOffset: float64) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "font_set_baseline_offset"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1794382983)
+  var `?param` = [getPtr fontRid, getPtr baselineOffset]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc fontGetBaselineOffset*(self: TextServer; fontRid: RID): float64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "font_get_baseline_offset"
     methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 866169185)
   var `?param` = [getPtr fontRid]
   var ret: encoded float64
@@ -841,14 +914,14 @@ proc fontDrawGlyph*(self: TextServer; fontRid: RID; canvas: RID; size: int64; po
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "font_draw_glyph"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1821196351)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1339057948)
   var `?param` = [getPtr fontRid, getPtr canvas, getPtr size, getPtr pos, getPtr index, getPtr color]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc fontDrawGlyphOutline*(self: TextServer; fontRid: RID; canvas: RID; size: int64; outlineSize: int64; pos: Vector2; index: int64; color: Color = init_Color(1, 1, 1, 1)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "font_draw_glyph_outline"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1124898203)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2626165733)
   var `?param` = [getPtr fontRid, getPtr canvas, getPtr size, getPtr outlineSize, getPtr pos, getPtr index, getPtr color]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc fontIsLanguageSupported*(self: TextServer; fontRid: RID; language: String): Bool =
@@ -1018,7 +1091,7 @@ proc shapedTextSetDirection*(self: TextServer; shaped: RID; direction: TextServe
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_set_direction"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2616949700)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1551430183)
   var `?param` = [getPtr shaped, getPtr direction]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc shapedTextGetDirection*(self: TextServer; shaped: RID): TextServer_Direction =
@@ -1062,11 +1135,27 @@ proc shapedTextGetCustomPunctuation*(self: TextServer; shaped: RID): String =
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(String)
+proc shapedTextSetCustomEllipsis*(self: TextServer; shaped: RID; char: int64) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "shaped_text_set_custom_ellipsis"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 3411492887)
+  var `?param` = [getPtr shaped, getPtr char]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc shapedTextGetCustomEllipsis*(self: TextServer; shaped: RID): int64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "shaped_text_get_custom_ellipsis"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2198884583)
+  var `?param` = [getPtr shaped]
+  var ret: encoded int64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int64)
 proc shapedTextSetOrientation*(self: TextServer; shaped: RID; orientation: TextServer_Orientation = orientationHorizontal) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_set_orientation"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 104095128)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 3019609126)
   var `?param` = [getPtr shaped, getPtr orientation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc shapedTextGetOrientation*(self: TextServer; shaped: RID): TextServer_Orientation =
@@ -1130,7 +1219,7 @@ proc shapedTextAddString*(self: TextServer; shaped: RID; text: String; fonts: Ty
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_add_string"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2621279422)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 623473029)
   var `?param` = [getPtr shaped, getPtr text, getPtr fonts, getPtr size, getPtr opentypeFeatures, getPtr language, getPtr meta]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -1139,7 +1228,7 @@ proc shapedTextAddObject*(self: TextServer; shaped: RID; key: Variant; size: Vec
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_add_object"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2838446185)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 3664424789)
   var `?param` = [getPtr shaped, getPtr key, getPtr size, getPtr inlineAlign, getPtr length, getPtr baseline]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -1148,7 +1237,7 @@ proc shapedTextResizeObject*(self: TextServer; shaped: RID; key: Variant; size: 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_resize_object"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2353789835)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 790361552)
   var `?param` = [getPtr shaped, getPtr key, getPtr size, getPtr inlineAlign, getPtr baseline]
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -1175,7 +1264,7 @@ proc shapedSetSpanUpdateFont*(self: TextServer; shaped: RID; index: int64; fonts
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_set_span_update_font"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1578983057)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2022725822)
   var `?param` = [getPtr shaped, getPtr index, getPtr fonts, getPtr size, getPtr opentypeFeatures]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc shapedTextSubstr*(self: TextServer; shaped: RID; start: int64; length: int64): RID =
@@ -1200,7 +1289,7 @@ proc shapedTextFitToWidth*(self: TextServer; shaped: RID; width: float64; justif
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_fit_to_width"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 603718830)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 530670926)
   var `?param` = [getPtr shaped, getPtr width, getPtr justificationFlags]
   var ret: encoded float64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -1281,7 +1370,7 @@ proc shapedTextGetLineBreaksAdv*(self: TextServer; shaped: RID; width: PackedFlo
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_get_line_breaks_adv"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 4206849830)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2376991424)
   var `?param` = [getPtr shaped, getPtr width, getPtr start, getPtr once, getPtr breakFlags]
   var ret: encoded PackedInt32Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -1290,17 +1379,17 @@ proc shapedTextGetLineBreaks*(self: TextServer; shaped: RID; width: float64; sta
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_get_line_breaks"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 303410369)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2651359741)
   var `?param` = [getPtr shaped, getPtr width, getPtr start, getPtr breakFlags]
   var ret: encoded PackedInt32Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(PackedInt32Array)
-proc shapedTextGetWordBreaks*(self: TextServer; shaped: RID; graphemeFlags: set[TextServer_GraphemeFlag] = {}): PackedInt32Array =
+proc shapedTextGetWordBreaks*(self: TextServer; shaped: RID; graphemeFlags: set[TextServer_GraphemeFlag] = {}; skipGraphemeFlags: set[TextServer_GraphemeFlag] = {graphemeIsVirtual}): PackedInt32Array =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_get_word_breaks"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 3299477123)
-  var `?param` = [getPtr shaped, getPtr graphemeFlags]
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 4099476853)
+  var `?param` = [getPtr shaped, getPtr graphemeFlags, getPtr skipGraphemeFlags]
   var ret: encoded PackedInt32Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(PackedInt32Array)
@@ -1344,7 +1433,7 @@ proc shapedTextOverrunTrimToWidth*(self: TextServer; shaped: RID; width: float64
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_overrun_trim_to_width"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1572579718)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2723146520)
   var `?param` = [getPtr shaped, getPtr width, getPtr overrunTrimFlags]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc shapedTextGetObjects*(self: TextServer; shaped: RID): Array =
@@ -1365,6 +1454,24 @@ proc shapedTextGetObjectRect*(self: TextServer; shaped: RID; key: Variant): Rect
   var ret: encoded Rect2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Rect2)
+proc shapedTextGetObjectRange*(self: TextServer; shaped: RID; key: Variant): Vector2i =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "shaped_text_get_object_range"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2524675647)
+  var `?param` = [getPtr shaped, getPtr key]
+  var ret: encoded Vector2i
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Vector2i)
+proc shapedTextGetObjectGlyph*(self: TextServer; shaped: RID; key: Variant): int64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "shaped_text_get_object_glyph"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1260085030)
+  var `?param` = [getPtr shaped, getPtr key]
+  var ret: encoded int64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int64)
 proc shapedTextGetSize*(self: TextServer; shaped: RID): Vector2 =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -1482,18 +1589,54 @@ proc shapedTextPrevGraphemePos*(self: TextServer; shaped: RID; pos: int64): int6
   var ret: encoded int64
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(int64)
+proc shapedTextGetCharacterBreaks*(self: TextServer; shaped: RID): PackedInt32Array =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "shaped_text_get_character_breaks"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 788230395)
+  var `?param` = [getPtr shaped]
+  var ret: encoded PackedInt32Array
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(PackedInt32Array)
+proc shapedTextNextCharacterPos*(self: TextServer; shaped: RID; pos: int64): int64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "shaped_text_next_character_pos"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1120910005)
+  var `?param` = [getPtr shaped, getPtr pos]
+  var ret: encoded int64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int64)
+proc shapedTextPrevCharacterPos*(self: TextServer; shaped: RID; pos: int64): int64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "shaped_text_prev_character_pos"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1120910005)
+  var `?param` = [getPtr shaped, getPtr pos]
+  var ret: encoded int64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int64)
+proc shapedTextClosestCharacterPos*(self: TextServer; shaped: RID; pos: int64): int64 =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "shaped_text_closest_character_pos"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1120910005)
+  var `?param` = [getPtr shaped, getPtr pos]
+  var ret: encoded int64
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(int64)
 proc shapedTextDraw*(self: TextServer; shaped: RID; canvas: RID; pos: Vector2; clipL: float64 = -1; clipR: float64 = -1; color: Color = init_Color(1, 1, 1, 1)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_draw"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 70679950)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 880389142)
   var `?param` = [getPtr shaped, getPtr canvas, getPtr pos, getPtr clipL, getPtr clipR, getPtr color]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc shapedTextDrawOutline*(self: TextServer; shaped: RID; canvas: RID; pos: Vector2; clipL: float64 = -1; clipR: float64 = -1; outlineSize: int64 = 1; color: Color = init_Color(1, 1, 1, 1)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "shaped_text_draw_outline"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2673671346)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2559184194)
   var `?param` = [getPtr shaped, getPtr canvas, getPtr pos, getPtr clipL, getPtr clipR, getPtr outlineSize, getPtr color]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc shapedTextGetDominantDirectionInRange*(self: TextServer; shaped: RID; start: int64; `end`: int64): TextServer_Direction =
@@ -1509,7 +1652,7 @@ proc formatNumber*(self: TextServer; number: String; language: String = ""): Str
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "format_number"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2305636099)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2664628024)
   var `?param` = [getPtr number, getPtr language]
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -1518,7 +1661,7 @@ proc parseNumber*(self: TextServer; number: String; language: String = ""): Stri
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "parse_number"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2305636099)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2664628024)
   var `?param` = [getPtr number, getPtr language]
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -1536,8 +1679,17 @@ proc stringGetWordBreaks*(self: TextServer; string: String; language: String = "
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "string_get_word_breaks"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1398910359)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 581857818)
   var `?param` = [getPtr string, getPtr language, getPtr charsPerLine]
+  var ret: encoded PackedInt32Array
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(PackedInt32Array)
+proc stringGetCharacterBreaks*(self: TextServer; string: String; language: String = ""): PackedInt32Array =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "string_get_character_breaks"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2333794773)
+  var `?param` = [getPtr string, getPtr language]
   var ret: encoded PackedInt32Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(PackedInt32Array)
@@ -1577,11 +1729,20 @@ proc isValidIdentifier*(self: TextServer; string: String): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(Bool)
+proc isValidLetter*(self: TextServer; unicode: uint64): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_valid_letter"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 1116898809)
+  var `?param` = [getPtr unicode]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)
 proc stringToUpper*(self: TextServer; string: String; language: String = ""): String =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "string_to_upper"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2305636099)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2664628024)
   var `?param` = [getPtr string, getPtr language]
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -1590,7 +1751,16 @@ proc stringToLower*(self: TextServer; string: String; language: String = ""): St
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "string_to_lower"
-    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2305636099)
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2664628024)
+  var `?param` = [getPtr string, getPtr language]
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(String)
+proc stringToTitle*(self: TextServer; string: String; language: String = ""): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "string_to_title"
+    methodbind = interface_ClassDB_getMethodBind(addr className TextServer, addr name, 2664628024)
   var `?param` = [getPtr string, getPtr language]
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

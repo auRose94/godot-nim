@@ -9,7 +9,7 @@ proc resolveHostname*(self: IP; host: String; ipType: IP_Type = typeAny): String
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "resolve_hostname"
-    methodbind = interface_ClassDB_getMethodBind(addr className IP, addr name, 396864159)
+    methodbind = interface_ClassDB_getMethodBind(addr className IP, addr name, 4283295457)
   var `?param` = [getPtr host, getPtr ipType]
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -18,7 +18,7 @@ proc resolveHostnameAddresses*(self: IP; host: String; ipType: IP_Type = typeAny
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "resolve_hostname_addresses"
-    methodbind = interface_ClassDB_getMethodBind(addr className IP, addr name, 3462780090)
+    methodbind = interface_ClassDB_getMethodBind(addr className IP, addr name, 773767525)
   var `?param` = [getPtr host, getPtr ipType]
   var ret: encoded PackedStringArray
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -27,7 +27,7 @@ proc resolveHostnameQueueItem*(self: IP; host: String; ipType: IP_Type = typeAny
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "resolve_hostname_queue_item"
-    methodbind = interface_ClassDB_getMethodBind(addr className IP, addr name, 3936392508)
+    methodbind = interface_ClassDB_getMethodBind(addr className IP, addr name, 1749894742)
   var `?param` = [getPtr host, getPtr ipType]
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

@@ -9,7 +9,7 @@ proc request*(self: HTTPRequest; url: String; customHeaders: PackedStringArray =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "request"
-    methodbind = interface_ClassDB_getMethodBind(addr className HTTPRequest, addr name, 2720304520)
+    methodbind = interface_ClassDB_getMethodBind(addr className HTTPRequest, addr name, 3215244323)
   var `?param` = [getPtr url, getPtr customHeaders, getPtr `method`, getPtr requestData]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
@@ -18,7 +18,7 @@ proc requestRaw*(self: HTTPRequest; url: String; customHeaders: PackedStringArra
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "request_raw"
-    methodbind = interface_ClassDB_getMethodBind(addr className HTTPRequest, addr name, 4282724657)
+    methodbind = interface_ClassDB_getMethodBind(addr className HTTPRequest, addr name, 2714829993)
   var `?param` = [getPtr url, getPtr customHeaders, getPtr `method`, getPtr requestDataRaw]
   var ret: encoded Error
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

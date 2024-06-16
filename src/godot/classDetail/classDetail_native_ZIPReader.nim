@@ -34,8 +34,17 @@ proc readFile*(self: ZIPReader; path: String; caseSensitive: Bool = true): Packe
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "read_file"
-    methodbind = interface_ClassDB_getMethodBind(addr className ZIPReader, addr name, 156385007)
+    methodbind = interface_ClassDB_getMethodBind(addr className ZIPReader, addr name, 740857591)
   var `?param` = [getPtr path, getPtr caseSensitive]
   var ret: encoded PackedByteArray
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(PackedByteArray)
+proc fileExists*(self: ZIPReader; path: String; caseSensitive: Bool = true): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "file_exists"
+    methodbind = interface_ClassDB_getMethodBind(addr className ZIPReader, addr name, 35364943)
+  var `?param` = [getPtr path, getPtr caseSensitive]
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(Bool)

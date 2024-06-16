@@ -184,98 +184,98 @@ proc drawLine*(self: CanvasItem; `from`: Vector2; to: Vector2; color: Color; wid
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_line"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2516941890)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 1562330099)
   var `?param` = [getPtr `from`, getPtr to, getPtr color, getPtr width, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc drawDashedLine*(self: CanvasItem; `from`: Vector2; to: Vector2; color: Color; width: Float = -1.0; dash: Float = 2.0; aligned: Bool = true) =
+proc drawDashedLine*(self: CanvasItem; `from`: Vector2; to: Vector2; color: Color; width: Float = -1.0; dash: Float = 2.0; aligned: Bool = true; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_dashed_line"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2175215884)
-  var `?param` = [getPtr `from`, getPtr to, getPtr color, getPtr width, getPtr dash, getPtr aligned]
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3653831622)
+  var `?param` = [getPtr `from`, getPtr to, getPtr color, getPtr width, getPtr dash, getPtr aligned, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawPolyline*(self: CanvasItem; points: PackedVector2Array; color: Color; width: Float = -1.0; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_polyline"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 4175878946)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3797364428)
   var `?param` = [getPtr points, getPtr color, getPtr width, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawPolylineColors*(self: CanvasItem; points: PackedVector2Array; colors: PackedColorArray; width: Float = -1.0; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_polyline_colors"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2239164197)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2311979562)
   var `?param` = [getPtr points, getPtr colors, getPtr width, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawArc*(self: CanvasItem; center: Vector2; radius: Float; startAngle: Float; endAngle: Float; pointCount: int32; color: Color; width: Float = -1.0; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_arc"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3486841771)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 4140652635)
   var `?param` = [getPtr center, getPtr radius, getPtr startAngle, getPtr endAngle, getPtr pointCount, getPtr color, getPtr width, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc drawMultiline*(self: CanvasItem; points: PackedVector2Array; color: Color; width: Float = -1.0) =
+proc drawMultiline*(self: CanvasItem; points: PackedVector2Array; color: Color; width: Float = -1.0; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_multiline"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 4230657331)
-  var `?param` = [getPtr points, getPtr color, getPtr width]
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3797364428)
+  var `?param` = [getPtr points, getPtr color, getPtr width, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc drawMultilineColors*(self: CanvasItem; points: PackedVector2Array; colors: PackedColorArray; width: Float = -1.0) =
+proc drawMultilineColors*(self: CanvasItem; points: PackedVector2Array; colors: PackedColorArray; width: Float = -1.0; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_multiline_colors"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 235933050)
-  var `?param` = [getPtr points, getPtr colors, getPtr width]
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2311979562)
+  var `?param` = [getPtr points, getPtr colors, getPtr width, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc drawRect*(self: CanvasItem; rect: Rect2; color: Color; filled: Bool = true; width: Float = -1.0) =
+proc drawRect*(self: CanvasItem; rect: Rect2; color: Color; filled: Bool = true; width: Float = -1.0; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_rect"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 84391229)
-  var `?param` = [getPtr rect, getPtr color, getPtr filled, getPtr width]
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2773573813)
+  var `?param` = [getPtr rect, getPtr color, getPtr filled, getPtr width, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
-proc drawCircle*(self: CanvasItem; position: Vector2; radius: Float; color: Color) =
+proc drawCircle*(self: CanvasItem; position: Vector2; radius: Float; color: Color; filled: Bool = true; width: Float = -1.0; antialiased: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_circle"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3063020269)
-  var `?param` = [getPtr position, getPtr radius, getPtr color]
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3153026596)
+  var `?param` = [getPtr position, getPtr radius, getPtr color, getPtr filled, getPtr width, getPtr antialiased]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawTexture*(self: CanvasItem; texture: GD_ref[Texture2D]; position: Vector2; modulate: Color = init_Color(1, 1, 1, 1)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_texture"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 1695860435)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 520200117)
   var `?param` = [getPtr texture, getPtr position, getPtr modulate]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawTextureRect*(self: CanvasItem; texture: GD_ref[Texture2D]; rect: Rect2; tile: Bool; modulate: Color = init_Color(1, 1, 1, 1); transpose: Bool = false) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_texture_rect"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3204081724)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3832805018)
   var `?param` = [getPtr texture, getPtr rect, getPtr tile, getPtr modulate, getPtr transpose]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawTextureRectRegion*(self: CanvasItem; texture: GD_ref[Texture2D]; rect: Rect2; srcRect: Rect2; modulate: Color = init_Color(1, 1, 1, 1); transpose: Bool = false; clipUv: Bool = true) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_texture_rect_region"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3196597532)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3883821411)
   var `?param` = [getPtr texture, getPtr rect, getPtr srcRect, getPtr modulate, getPtr transpose, getPtr clipUv]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawMsdfTextureRectRegion*(self: CanvasItem; texture: GD_ref[Texture2D]; rect: Rect2; srcRect: Rect2; modulate: Color = init_Color(1, 1, 1, 1); outline: float64 = 0.0; pixelRange: float64 = 4.0; scale: float64 = 1.0) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_msdf_texture_rect_region"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2672026175)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 4219163252)
   var `?param` = [getPtr texture, getPtr rect, getPtr srcRect, getPtr modulate, getPtr outline, getPtr pixelRange, getPtr scale]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawLcdTextureRectRegion*(self: CanvasItem; texture: GD_ref[Texture2D]; rect: Rect2; srcRect: Rect2; modulate: Color = init_Color(1, 1, 1, 1)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_lcd_texture_rect_region"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 169610548)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3212350954)
   var `?param` = [getPtr texture, getPtr rect, getPtr srcRect, getPtr modulate]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawStyleBox*(self: CanvasItem; styleBox: GD_ref[StyleBox]; rect: Rect2) =
@@ -289,70 +289,70 @@ proc drawPrimitive*(self: CanvasItem; points: PackedVector2Array; colors: Packed
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_primitive"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2248678295)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3288481815)
   var `?param` = [getPtr points, getPtr colors, getPtr uvs, getPtr texture]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawPolygon*(self: CanvasItem; points: PackedVector2Array; colors: PackedColorArray; uvs: PackedVector2Array = PackedVector2Array(); texture: GD_ref[Texture2D] = default GD_ref[Texture2D]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_polygon"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2683625537)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 974537912)
   var `?param` = [getPtr points, getPtr colors, getPtr uvs, getPtr texture]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawColoredPolygon*(self: CanvasItem; points: PackedVector2Array; color: Color; uvs: PackedVector2Array = PackedVector2Array(); texture: GD_ref[Texture2D] = default GD_ref[Texture2D]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_colored_polygon"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 1659099617)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 15245644)
   var `?param` = [getPtr points, getPtr color, getPtr uvs, getPtr texture]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawString*(self: CanvasItem; font: GD_ref[Font]; pos: Vector2; text: String; alignment: HorizontalAlignment = horizontalAlignmentLeft; width: Float = -1; fontSize: int32 = 16; modulate: Color = init_Color(1, 1, 1, 1); justificationFlags: set[TextServer_JustificationFlag] = {}; direction: TextServer_Direction = directionAuto; orientation: TextServer_Orientation = orientationHorizontal) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_string"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2552080639)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 728290553)
   var `?param` = [getPtr font, getPtr pos, getPtr text, getPtr alignment, getPtr width, getPtr fontSize, getPtr modulate, getPtr justificationFlags, getPtr direction, getPtr orientation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawMultilineString*(self: CanvasItem; font: GD_ref[Font]; pos: Vector2; text: String; alignment: HorizontalAlignment = horizontalAlignmentLeft; width: Float = -1; fontSize: int32 = 16; maxLines: int32 = -1; modulate: Color = init_Color(1, 1, 1, 1); brkFlags: set[TextServer_LineBreakFlag] = {}; justificationFlags: set[TextServer_JustificationFlag] = {}; direction: TextServer_Direction = directionAuto; orientation: TextServer_Orientation = orientationHorizontal) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_multiline_string"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 4002645436)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 1927038192)
   var `?param` = [getPtr font, getPtr pos, getPtr text, getPtr alignment, getPtr width, getPtr fontSize, getPtr maxLines, getPtr modulate, getPtr brkFlags, getPtr justificationFlags, getPtr direction, getPtr orientation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawStringOutline*(self: CanvasItem; font: GD_ref[Font]; pos: Vector2; text: String; alignment: HorizontalAlignment = horizontalAlignmentLeft; width: Float = -1; fontSize: int32 = 16; size: int32 = 1; modulate: Color = init_Color(1, 1, 1, 1); justificationFlags: set[TextServer_JustificationFlag] = {}; direction: TextServer_Direction = directionAuto; orientation: TextServer_Orientation = orientationHorizontal) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_string_outline"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 850005221)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 340562381)
   var `?param` = [getPtr font, getPtr pos, getPtr text, getPtr alignment, getPtr width, getPtr fontSize, getPtr size, getPtr modulate, getPtr justificationFlags, getPtr direction, getPtr orientation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawMultilineStringOutline*(self: CanvasItem; font: GD_ref[Font]; pos: Vector2; text: String; alignment: HorizontalAlignment = horizontalAlignmentLeft; width: Float = -1; fontSize: int32 = 16; maxLines: int32 = -1; size: int32 = 1; modulate: Color = init_Color(1, 1, 1, 1); brkFlags: set[TextServer_LineBreakFlag] = {}; justificationFlags: set[TextServer_JustificationFlag] = {}; direction: TextServer_Direction = directionAuto; orientation: TextServer_Orientation = orientationHorizontal) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_multiline_string_outline"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3717870722)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 1912318525)
   var `?param` = [getPtr font, getPtr pos, getPtr text, getPtr alignment, getPtr width, getPtr fontSize, getPtr maxLines, getPtr size, getPtr modulate, getPtr brkFlags, getPtr justificationFlags, getPtr direction, getPtr orientation]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawChar*(self: CanvasItem; font: GD_ref[Font]; pos: Vector2; char: String; fontSize: int32 = 16; modulate: Color = init_Color(1, 1, 1, 1)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_char"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2329089032)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3339793283)
   var `?param` = [getPtr font, getPtr pos, getPtr char, getPtr fontSize, getPtr modulate]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawCharOutline*(self: CanvasItem; font: GD_ref[Font]; pos: Vector2; char: String; fontSize: int32 = 16; size: int32 = -1; modulate: Color = init_Color(1, 1, 1, 1)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_char_outline"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 419453826)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3302344391)
   var `?param` = [getPtr font, getPtr pos, getPtr char, getPtr fontSize, getPtr size, getPtr modulate]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawMesh*(self: CanvasItem; mesh: GD_ref[Mesh]; texture: GD_ref[Texture2D]; transform: Transform2D = init_Transform2D(); modulate: Color = init_Color(1, 1, 1, 1)) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_mesh"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 1634855856)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 153818295)
   var `?param` = [getPtr mesh, getPtr texture, getPtr transform, getPtr modulate]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawMultimesh*(self: CanvasItem; multimesh: GD_ref[MultiMesh]; texture: GD_ref[Texture2D]) =
@@ -366,7 +366,7 @@ proc drawSetTransform*(self: CanvasItem; position: Vector2; rotation: Float = 0.
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_set_transform"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3283884939)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 288975085)
   var `?param` = [getPtr position, getPtr rotation, getPtr scale]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawSetTransformMatrix*(self: CanvasItem; xform: Transform2D) =
@@ -380,7 +380,7 @@ proc drawAnimationSlice*(self: CanvasItem; animationLength: float64; sliceBegin:
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "draw_animation_slice"
-    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2295343543)
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 3112831842)
   var `?param` = [getPtr animationLength, getPtr sliceBegin, getPtr sliceEnd, getPtr offset]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc drawEndAnimation*(self: CanvasItem) =
@@ -469,6 +469,14 @@ proc getCanvas*(self: CanvasItem): RID =
   var ret: encoded RID
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(RID)
+proc getCanvasLayerNode*(self: CanvasItem): CanvasLayer =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_canvas_layer_node"
+    methodbind = interface_ClassDB_getMethodBind(addr className CanvasItem, addr name, 2602762519)
+  var ret: encoded CanvasLayer
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(CanvasLayer)
 proc getWorld2d*(self: CanvasItem): GD_ref[World2D] =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

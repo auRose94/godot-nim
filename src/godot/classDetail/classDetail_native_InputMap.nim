@@ -26,7 +26,7 @@ proc addAction*(self: InputMap; action: StringName; deadzone: Float = 0.5) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_action"
-    methodbind = interface_ClassDB_getMethodBind(addr className InputMap, addr name, 573731101)
+    methodbind = interface_ClassDB_getMethodBind(addr className InputMap, addr name, 4100757082)
   var `?param` = [getPtr action, getPtr deadzone]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc eraseAction*(self: InputMap; action: StringName) =

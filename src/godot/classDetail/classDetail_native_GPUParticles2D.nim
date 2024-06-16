@@ -110,6 +110,13 @@ proc `collisionBaseSize=`*(self: GPUParticles2D; size: Float) =
     methodbind = interface_ClassDB_getMethodBind(addr className GPUParticles2D, addr name, 373806689)
   var `?param` = [getPtr size]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc `interpToEnd=`*(self: GPUParticles2D; interp: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_interp_to_end"
+    methodbind = interface_ClassDB_getMethodBind(addr className GPUParticles2D, addr name, 373806689)
+  var `?param` = [getPtr interp]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc isEmitting*(self: GPUParticles2D): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -226,6 +233,14 @@ proc collisionBaseSize*(self: GPUParticles2D): Float =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_collision_base_size"
+    methodbind = interface_ClassDB_getMethodBind(addr className GPUParticles2D, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
+proc interpToEnd*(self: GPUParticles2D): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_interp_to_end"
     methodbind = interface_ClassDB_getMethodBind(addr className GPUParticles2D, addr name, 1740695150)
   var ret: encoded Float
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
@@ -356,3 +371,25 @@ proc trailSectionSubdivisions*(self: GPUParticles2D): int32 =
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
+proc convertFromParticles*(self: GPUParticles2D; particles: Node) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "convert_from_particles"
+    methodbind = interface_ClassDB_getMethodBind(addr className GPUParticles2D, addr name, 1078189570)
+  var `?param` = [getPtr particles]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc `amountRatio=`*(self: GPUParticles2D; ratio: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_amount_ratio"
+    methodbind = interface_ClassDB_getMethodBind(addr className GPUParticles2D, addr name, 373806689)
+  var `?param` = [getPtr ratio]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc amountRatio*(self: GPUParticles2D): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_amount_ratio"
+    methodbind = interface_ClassDB_getMethodBind(addr className GPUParticles2D, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)

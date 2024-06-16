@@ -72,6 +72,21 @@ proc unicode*(self: InputEventKey): Int =
   var ret: encoded Int
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Int)
+proc `location=`*(self: InputEventKey; location: KeyLocation) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_location"
+    methodbind = interface_ClassDB_getMethodBind(addr className InputEventKey, addr name, 634453155)
+  var `?param` = [getPtr location]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc location*(self: InputEventKey): KeyLocation =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_location"
+    methodbind = interface_ClassDB_getMethodBind(addr className InputEventKey, addr name, 211810873)
+  var ret: encoded KeyLocation
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(KeyLocation)
 proc `echo=`*(self: InputEventKey; echo: Bool) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -123,6 +138,14 @@ proc asTextKeyLabel*(self: InputEventKey): String =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "as_text_key_label"
+    methodbind = interface_ClassDB_getMethodBind(addr className InputEventKey, addr name, 201670096)
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(String)
+proc asTextLocation*(self: InputEventKey): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "as_text_location"
     methodbind = interface_ClassDB_getMethodBind(addr className InputEventKey, addr name, 201670096)
   var ret: encoded String
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

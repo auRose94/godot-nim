@@ -9,7 +9,7 @@ proc getMagnitudeForFrequencyRange*(self: AudioEffectSpectrumAnalyzerInstance; f
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_magnitude_for_frequency_range"
-    methodbind = interface_ClassDB_getMethodBind(addr className AudioEffectSpectrumAnalyzerInstance, addr name, 2693213071)
+    methodbind = interface_ClassDB_getMethodBind(addr className AudioEffectSpectrumAnalyzerInstance, addr name, 797993915)
   var `?param` = [getPtr fromHz, getPtr toHz, getPtr mode]
   var ret: encoded Vector2
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)

@@ -43,6 +43,22 @@ proc getPreviousTab*(self: TabBar): int32 =
   var ret: encoded int32
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(int32)
+proc selectPreviousAvailable*(self: TabBar): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "select_previous_available"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabBar, addr name, 2240911060)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc selectNextAvailable*(self: TabBar): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "select_next_available"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabBar, addr name, 2240911060)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc setTabTitle*(self: TabBar; tabIdx: int32; title: String) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
@@ -54,6 +70,22 @@ proc getTabTitle*(self: TabBar; tabIdx: int32): String =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_tab_title"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabBar, addr name, 844755477)
+  var `?param` = [getPtr tabIdx]
+  var ret: encoded String
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
+  (addr ret).decode_result(String)
+proc setTabTooltip*(self: TabBar; tabIdx: int32; tooltip: String) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_tab_tooltip"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabBar, addr name, 501894301)
+  var `?param` = [getPtr tabIdx, getPtr tooltip]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc getTabTooltip*(self: TabBar; tabIdx: int32): String =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_tab_tooltip"
     methodbind = interface_ClassDB_getMethodBind(addr className TabBar, addr name, 844755477)
   var `?param` = [getPtr tabIdx]
   var ret: encoded String
@@ -380,6 +412,21 @@ proc selectWithRmb*(self: TabBar): Bool =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "get_select_with_rmb"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabBar, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
+proc `deselectEnabled=`*(self: TabBar; enabled: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_deselect_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className TabBar, addr name, 2586408642)
+  var `?param` = [getPtr enabled]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc deselectEnabled*(self: TabBar): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_deselect_enabled"
     methodbind = interface_ClassDB_getMethodBind(addr className TabBar, addr name, 36873697)
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)

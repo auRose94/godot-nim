@@ -50,3 +50,26 @@ proc mapData*(self: HeightMapShape3D): PackedFloat32Array =
   var ret: encoded PackedFloat32Array
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(PackedFloat32Array)
+proc getMinHeight*(self: HeightMapShape3D): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_min_height"
+    methodbind = interface_ClassDB_getMethodBind(addr className HeightMapShape3D, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
+proc getMaxHeight*(self: HeightMapShape3D): Float =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "get_max_height"
+    methodbind = interface_ClassDB_getMethodBind(addr className HeightMapShape3D, addr name, 1740695150)
+  var ret: encoded Float
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Float)
+proc updateMapDataFromImage*(self: HeightMapShape3D; image: GD_ref[Image]; heightMin: Float; heightMax: Float) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "update_map_data_from_image"
+    methodbind = interface_ClassDB_getMethodBind(addr className HeightMapShape3D, addr name, 2636652979)
+  var `?param` = [getPtr image, getPtr heightMin, getPtr heightMax]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)

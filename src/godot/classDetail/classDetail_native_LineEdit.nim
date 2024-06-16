@@ -503,6 +503,21 @@ proc isDeselectOnFocusLossEnabled*(self: LineEdit): Bool =
   var ret: encoded Bool
   interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
   (addr ret).decode_result(Bool)
+proc `dragAndDropSelectionEnabled=`*(self: LineEdit; enable: Bool) =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "set_drag_and_drop_selection_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className LineEdit, addr name, 2586408642)
+  var `?param` = [getPtr enable]
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
+proc isDragAndDropSelectionEnabled*(self: LineEdit): Bool =
+  var methodbind {.global.}: MethodBindPtr
+  if unlikely(methodbind.isNil):
+    let name = api.newStringName "is_drag_and_drop_selection_enabled"
+    methodbind = interface_ClassDB_getMethodBind(addr className LineEdit, addr name, 36873697)
+  var ret: encoded Bool
+  interface_Object_methodBindPtrCall(methodbind, getOwner self, nil, addr ret)
+  (addr ret).decode_result(Bool)
 proc `rightIcon=`*(self: LineEdit; icon: GD_ref[Texture2D]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

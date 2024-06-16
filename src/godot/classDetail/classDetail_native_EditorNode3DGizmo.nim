@@ -9,14 +9,14 @@ proc addLines*(self: EditorNode3DGizmo; lines: PackedVector3Array; material: GD_
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_lines"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorNode3DGizmo, addr name, 302451090)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorNode3DGizmo, addr name, 2910971437)
   var `?param` = [getPtr lines, getPtr material, getPtr billboard, getPtr modulate]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc addMesh*(self: EditorNode3DGizmo; mesh: GD_ref[Mesh]; material: GD_ref[Material] = default GD_ref[Material]; transform: Transform3D = init_Transform3D(); skeleton: GD_ref[SkinReference] = default GD_ref[SkinReference]) =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_mesh"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorNode3DGizmo, addr name, 1868867708)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorNode3DGizmo, addr name, 1579955111)
   var `?param` = [getPtr mesh, getPtr material, getPtr transform, getPtr skeleton]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc addCollisionSegments*(self: EditorNode3DGizmo; segments: PackedVector3Array) =
@@ -37,7 +37,7 @@ proc addUnscaledBillboard*(self: EditorNode3DGizmo; material: GD_ref[Material]; 
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):
     let name = api.newStringName "add_unscaled_billboard"
-    methodbind = interface_ClassDB_getMethodBind(addr className EditorNode3DGizmo, addr name, 3719733075)
+    methodbind = interface_ClassDB_getMethodBind(addr className EditorNode3DGizmo, addr name, 520007164)
   var `?param` = [getPtr material, getPtr defaultScale, getPtr modulate]
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], nil)
 proc addHandles*(self: EditorNode3DGizmo; handles: PackedVector3Array; material: GD_ref[Material]; ids: PackedInt32Array; billboard: Bool = false; secondary: Bool = false) =

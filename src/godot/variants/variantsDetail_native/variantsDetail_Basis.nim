@@ -20,6 +20,7 @@ var Basis_tdotx: PtrBuiltinMethod
 var Basis_tdoty: PtrBuiltinMethod
 var Basis_tdotz: PtrBuiltinMethod
 var Basis_slerp: PtrBuiltinMethod
+var Basis_isConformal: PtrBuiltinMethod
 var Basis_isEqualApprox: PtrBuiltinMethod
 var Basis_isFinite: PtrBuiltinMethod
 var Basis_getRotationQuaternion: PtrBuiltinMethod
@@ -52,6 +53,7 @@ proc tdotz*(self: Basis; with: Vector3): Float =
 proc slerp*(self: Basis; to: Basis; weight: Float): Basis =
   let argArr = [getPtr to, getPtr weight]
   Basis_slerp(addr self, addr argArr[0], addr result, 2)
+proc isConformal*(self: Basis): Bool = Basis_isConformal(addr self, nil, addr result, 0)
 proc isEqualApprox*(self: Basis; b: Basis): Bool =
   let argArr = [getPtr b]
   Basis_isEqualApprox(addr self, addr argArr[0], addr result, 1)
@@ -92,6 +94,8 @@ proc load_Basis_proc =
   Basis_tdotz = interface_Variant_getPtrBuiltinMethod(variantType Basis, addr proc_name, 1047977935)
   proc_name = api.newStringName "slerp"
   Basis_slerp = interface_Variant_getPtrBuiltinMethod(variantType Basis, addr proc_name, 3118673011)
+  proc_name = api.newStringName "is_conformal"
+  Basis_isConformal = interface_Variant_getPtrBuiltinMethod(variantType Basis, addr proc_name, 3918633141)
   proc_name = api.newStringName "is_equal_approx"
   Basis_isEqualApprox = interface_Variant_getPtrBuiltinMethod(variantType Basis, addr proc_name, 3165333982)
   proc_name = api.newStringName "is_finite"
@@ -108,7 +112,9 @@ var Equal_Basis_Variant: PtrOperatorEvaluator
 var NotEqual_Basis_Variant: PtrOperatorEvaluator
 var Not_Basis: PtrOperatorEvaluator
 var Multiply_Basis_Int: PtrOperatorEvaluator
+var Divide_Basis_Int: PtrOperatorEvaluator
 var Multiply_Basis_Float: PtrOperatorEvaluator
+var Divide_Basis_Float: PtrOperatorEvaluator
 var Multiply_Basis_Vector3: PtrOperatorEvaluator
 var Equal_Basis_Basis: PtrOperatorEvaluator
 var NotEqual_Basis_Basis: PtrOperatorEvaluator
@@ -119,7 +125,9 @@ proc `==`*(left: Basis; right: Variant): Bool = Equal_Basis_Variant(getPtr left,
 proc `!=`*(left: Basis; right: Variant): Bool = NotEqual_Basis_Variant(getPtr left, getPtr right, addr result)
 proc `not`*(left: Basis): Bool = Not_Basis(getPtr left, nil, addr result)
 proc `*`*(left: Basis; right: Int): Basis = Multiply_Basis_Int(getPtr left, getPtr right, addr result)
+proc `/`*(left: Basis; right: Int): Basis = Divide_Basis_Int(getPtr left, getPtr right, addr result)
 proc `*`*(left: Basis; right: Float): Basis = Multiply_Basis_Float(getPtr left, getPtr right, addr result)
+proc `/`*(left: Basis; right: Float): Basis = Divide_Basis_Float(getPtr left, getPtr right, addr result)
 proc `*`*(left: Basis; right: Vector3): Vector3 = Multiply_Basis_Vector3(getPtr left, getPtr right, addr result)
 proc `==`*(left: Basis; right: Basis): Bool = Equal_Basis_Basis(getPtr left, getPtr right, addr result)
 proc `!=`*(left: Basis; right: Basis): Bool = NotEqual_Basis_Basis(getPtr left, getPtr right, addr result)
@@ -131,7 +139,9 @@ proc load_Basis_op =
   NotEqual_Basis_Variant = interface_variantGetPtrOperatorEvaluator(VariantOP_NotEqual, VariantType_Basis, VariantType_Nil)
   Not_Basis = interface_variantGetPtrOperatorEvaluator(VariantOP_Not, VariantType_Basis, VariantType_Nil)
   Multiply_Basis_Int = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Basis, VariantType_Int)
+  Divide_Basis_Int = interface_variantGetPtrOperatorEvaluator(VariantOP_Divide, VariantType_Basis, VariantType_Int)
   Multiply_Basis_Float = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Basis, VariantType_Float)
+  Divide_Basis_Float = interface_variantGetPtrOperatorEvaluator(VariantOP_Divide, VariantType_Basis, VariantType_Float)
   Multiply_Basis_Vector3 = interface_variantGetPtrOperatorEvaluator(VariantOP_Multiply, VariantType_Basis, VariantType_Vector3)
   Equal_Basis_Basis = interface_variantGetPtrOperatorEvaluator(VariantOP_Equal, VariantType_Basis, VariantType_Basis)
   NotEqual_Basis_Basis = interface_variantGetPtrOperatorEvaluator(VariantOP_NotEqual, VariantType_Basis, VariantType_Basis)
