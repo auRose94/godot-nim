@@ -83,6 +83,7 @@ method set*(self: ObjectBase; p_name: ConstStringNamePtr; p_value: ConstVariantP
 method get*(self: ObjectBase; p_name: ConstStringNamePtr; r_ret: VariantPtr): Bool {.base.} = discard
 method property_canRevert*(self: ObjectBase; p_name: ConstStringNamePtr): Bool {.base.} = discard
 method property_getRevert*(self: ObjectBase; p_name: ConstStringNamePtr; r_ret: VariantPtr): Bool {.base.} = discard
+method validate_property*(self: ObjectBase; prop_info: ptr PropertyInfo): Bool {.base.} = discard
 method toString*(self: ObjectBase; r_is_valid: ptr Bool; p_out: StringPtr) {.base.} = discard
 method get_propertyList*(self: ObjectBase; r_count: ptr uint32): ptr PropertyInfo {.base.} = r_count[] = 0
 method free_propertyList*(self: ObjectBase; p_list: ptr PropertyInfo) {.base.} = discard

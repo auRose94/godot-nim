@@ -37,25 +37,41 @@ proc create_bind(T: typedesc[SomeUserClass]): ObjectPtr {.gdcall.} =
   GD_sync_create class
   return GD_getObjectPtr class
 
+proc recreate_bind[T: SomeUserClass](class: T, obj: ObjectPtr) =
+  let class = instantiate T
+  GD_sync_create class
+  return GD_getObjectPtr class
+
 proc free_bind[T: SomeUserClass](class: T) =
   GD_sync_free class
 
-proc creationInfo(T: typedesc[SomeUserClass]; is_virtual, is_abstract: bool): ClassCreationInfo =
+
+proc creationInfo(T: typedesc[SomeUserClass]; is_virtual, is_abstract, is_exposed, is_runtime: bool): ClassCreationInfo3 =
   let userdata = get_runtimeData(T)
-  ClassCreationInfo(
+  ClassCreationInfo3(
     is_virtual: is_virtual,
     is_abstract: is_abstract,
+    is_exposed: is_exposed,
+    is_runtime: is_runtime,
     set_func: set_bind,
     get_func: get_bind,
-    get_property_list_func: get_property_list_bind,
-    free_property_list_func: free_property_list_bind,
+    get_property_list_func: when defined(T.get_propertyList_bind): T.get_propertyList_bind else: nil,
+    free_property_list_func: free_propertyList_bind,
     property_can_revert_func: property_can_revert_bind,
     property_get_revert_func: property_get_revert_bind,
+    validate_property_func: validate_property_bind,
     notification_func: notification_bind,
-    to_string_func: to_string_bind,
+    to_string_func: toString_bind,
+    reference_func: nil,
+    unreference_func: nil,
     create_instance_func: proc(p_userdata: pointer): ObjectPtr {.gdcall.} = T.create_bind(),
     free_instance_func: (proc(p_userdata: pointer; p_instance: pointer) {.gdcall.} = cast[T](p_instance).free_bind()),
+    recreate_instance_func: nil,
+
     get_virtual_func: get_virtual_bind,
+    get_virtual_call_data_func: nil,
+    call_virtual_with_data_func: nil,
+    get_rid_func: nil,
     class_userdata: cast[pointer](userdata),
   )
 
@@ -68,7 +84,7 @@ template register_class*(T: typedesc[SomeUserClass]) =
   let dataunit = get_registrationData(T)
   if dataunit.initTarget != initManager.currentLevel: return
   (log_register T)
-  let info = T.creationInfo(false, false)
+  let info = T.creationInfo(false, false, true, false)
   interfaceClassdbRegisterExtensionClass3(library, addr className(T), addr className(T.Super), addr info)
   T.EngineClass.bind_virtuals(T)
   start dataunit

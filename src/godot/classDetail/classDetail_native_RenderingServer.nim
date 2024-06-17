@@ -2511,15 +2511,6 @@ proc instanceCreate2*(self: RenderingServer; base: RID; scenario: RID): RID =
   var ret: encoded RID
   interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
   (addr ret).decode_result(RID)
-proc instanceCreate3*(self: RenderingServer; base: RID; scenario: RID): RID =
-  var methodbind {.global.}: MethodBindPtr
-  if unlikely(methodbind.isNil):
-    let name = api.newStringName "instance_create2"
-    methodbind = interface_ClassDB_getMethodBind(addr className RenderingServer, addr name, 746547085)
-  var `?param` = [getPtr base, getPtr scenario]
-  var ret: encoded RID
-  interface_Object_methodBindPtrCall(methodbind, getOwner self, addr `?param`[0], addr ret)
-  (addr ret).decode_result(RID)
 proc instanceCreate*(self: RenderingServer): RID =
   var methodbind {.global.}: MethodBindPtr
   if unlikely(methodbind.isNil):

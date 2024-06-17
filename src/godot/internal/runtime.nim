@@ -66,6 +66,8 @@ proc property_canRevert_bind*(p_instance: ClassInstancePtr; p_name: ConstStringN
   cast[ObjectBase](p_instance).property_canRevert(p_name)
 proc property_getRevert_bind*(p_instance: ClassInstancePtr; p_name: ConstStringNamePtr; r_ret: VariantPtr): Bool {.gdcall.} =
   cast[ObjectBase](p_instance).property_getRevert(p_name, r_ret)
+proc validate_property_bind*( p_instance: ClassInstancePtr; p_property: ptr PropertyInfo): Bool {.gdcall.} =
+  cast[ObjectBase](p_instance).validate_property(p_property)
 proc toString_bind*(p_instance: ClassInstancePtr; r_is_valid: ptr Bool; p_out: StringPtr) {.gdcall.} =
   cast[ObjectBase](p_instance).toString(r_is_valid, p_out)
 proc get_propertyList_bind*(p_instance: ClassInstancePtr; r_count: ptr uint32): ptr PropertyInfo {.gdcall.} =

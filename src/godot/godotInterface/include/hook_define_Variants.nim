@@ -18,7 +18,9 @@ var hook_destroy_String: PtrDestructor
 proc hook_destroy(value: String) =
   hook_destroy_String(addr value)
 proc `=destroy`(val: String) =
-  hook_destroy(val)
+  try:
+    hook_destroy(val)
+  except: discard
 var hook_copy_StringName: PtrConstructor
 proc hook_copy(copy_from: StringName): StringName =
   let argPtr = cast[pointer](addr copy_from)
@@ -34,7 +36,9 @@ var hook_destroy_StringName: PtrDestructor
 proc hook_destroy(value: StringName) =
   hook_destroy_StringName(addr value)
 proc `=destroy`(val: StringName) =
-  hook_destroy(val)
+  try:
+    hook_destroy(val)
+  except: discard
 var hook_copy_NodePath: PtrConstructor
 proc hook_copy(copy_from: NodePath): NodePath =
   let argPtr = cast[pointer](addr copy_from)
@@ -251,7 +255,6 @@ var hook_destroy_PackedStringArray: PtrDestructor
 proc hook_destroy(value: PackedStringArray) =
   hook_destroy_PackedStringArray(addr value)
 proc `=destroy`(val: PackedStringArray) =
-  if val == PackedStringArray(): return
   try:
     hook_destroy(val)
   except: discard
